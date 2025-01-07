@@ -1,10 +1,10 @@
 import "./App.css";
-import Footer from "./components/footer";
+import Contact from "./components/contact";
 
 function App() {
   return (
     <div className="App">
-      <Footer />
+      <Contact />
     </div>
   );
 }
