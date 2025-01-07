@@ -13,7 +13,8 @@ import App from "./App";
 
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
-import Legal from "./pages/legalPage"
+import Legal from "./pages/legalPage";
+
 
 /* ************************************************************************* */
 
