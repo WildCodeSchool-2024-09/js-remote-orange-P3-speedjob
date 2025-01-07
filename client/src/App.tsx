@@ -1,10 +1,10 @@
 import "./App.css";
-import Contact from "./components/contact";
+import Legal from "./components/legal";
 
 function App() {
   return (
     <div className="App">
-      <Contact />
+      <Legal />
     </div>
   );
 }
