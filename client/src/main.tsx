@@ -13,8 +13,8 @@ import App from "./App";
 
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
-import Legal from "./pages/legalPage";
 
+import LoginPage from "./components/loginPage";
 
 /* ************************************************************************* */
 
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
     element: <App />, // Renders the App component for the home page
   },
   {
-    path: "/legalPage",
-    element: <Legal />,
+    path: "/loginPage",
+    element: <LoginPage />,
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
