@@ -1,10 +1,12 @@
-import SignUpModule from "../components/signUpModule";
+import SignUpModule from "../components/SignUpModule";
+import SignInModule from "../components/signInModule";
 
 function Login() {
   return (
     <div>
       <h1>Login Page</h1>
-      <SignUpModule />
+      {/* <SignUpModule /> */}
+      <SignInModule />
     </div>
   );
 }
