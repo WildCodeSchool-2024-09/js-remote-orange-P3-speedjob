@@ -13,7 +13,8 @@ import App from "./App";
 
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
-import Contact from "./pages/contactPage";
+import Contact from "./components/contact";
+import Legal from "./components/legal";
 
 /* ************************************************************************* */
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/contactPage",
     element: <Contact />,
+  },
+  {
+    path: "/legalPage",
+    element: <Legal />,
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
