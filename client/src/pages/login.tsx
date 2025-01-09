@@ -1,4 +1,4 @@
-import SignUpModule from "../components/signUpModule";
+import SignUpModule from "../components/signUpMobile";
 
 function Login() {
   return (
