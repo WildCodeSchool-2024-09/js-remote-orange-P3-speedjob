@@ -559,141 +559,140 @@ video {
   display: none;
 }
 
-<<<<<<<< HEAD:client/output.css
 .-mx-5 {
   margin-left: -1.25rem;
   margin-right: -1.25rem;
-========
-.flex {
-  display: flex;
-}
 
-.flex-row {
-  flex-direction: row;
-}
-
-.content-around {
-  align-content: space-around;
-}
-
-.bg-indigo-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(99 102 241 / var(--tw-bg-opacity, 1));
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
->>>>>>>> 6f20de1 (adding tailwind folder):client/src/assets/style/output.css
-}
-
-.-my-2 {
-  margin-top: -0.5rem;
-  margin-bottom: -0.5rem;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.flex {
-  display: flex;
-}
-
-.max-w-screen-xl {
-  max-width: 1280px;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.space-y-8 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
-}
-
-.overflow-hidden {
-  overflow: hidden;
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.leading-6 {
-  line-height: 1.5rem;
-}
-
-.text-gray-400 {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-500 {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-gray-900:hover {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
-}
-
-@media (min-width: 640px) {
-  .sm\:px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .flex {
+    display: flex;
   }
-}
 
-@media (min-width: 1024px) {
-  .lg\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
+  .flex-row {
+    flex-direction: row;
+  }
+
+  .content-around {
+    align-content: space-around;
+  }
+
+  .bg-indigo-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(99 102 241 / var(--tw-bg-opacity, 1));
+  }
+
+  .text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .-my-2 {
+    margin-top: -0.5rem;
+    margin-bottom: -0.5rem;
+  }
+
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mt-8 {
+    margin-top: 2rem;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .max-w-screen-xl {
+    max-width: 1280px;
+  }
+
+  .flex-row {
+    flex-direction: row;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+  }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  .bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  }
+
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .leading-6 {
+    line-height: 1.5rem;
+  }
+
+  .text-gray-400 {
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  }
+
+  .text-gray-500 {
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+  }
+
+  .hover\:text-gray-900:hover {
+    --tw-text-opacity: 1;
+    color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+  }
+
+  @media (min-width: 640px) {
+    .sm\:px-6 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lg\:px-8 {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 }
