@@ -61,7 +61,7 @@ const Contact = () => {
             <div className="space-y-6">
               <div>
                 <label
-                  htmlFor="name"
+                  htmlFor="fName"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Votre prénom:
