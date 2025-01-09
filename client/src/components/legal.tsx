@@ -89,4 +89,3 @@ function Legal() {
 }
 
 export default Legal;
-
