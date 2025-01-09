@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Legal from "./pages/legal";
 import Login from "./pages/login";
 import NotFound from "./pages/notFound";
+import SignIn from "./pages/signIn";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signIn" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
