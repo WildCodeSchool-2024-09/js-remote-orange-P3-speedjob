@@ -1,5 +1,3 @@
-import { SearchIcon } from "@heroicons/react/outline";
-
 function Searchbar() {
   return (
     <div className="relative text-gray-600">
@@ -10,6 +8,7 @@ function Searchbar() {
         className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
         aria-label="Search"
       />
+
       <button
         type="submit"
         className="absolute right-0 top-0 mt-3 mr-4"
