@@ -2,6 +2,7 @@ import "../src/assets/style/App.css";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import Footer from "./components/footer";
+import SignInModule from "./components/signInModule";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
 import Legal from "./pages/legal";
@@ -16,6 +17,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/SignIn" element={<SignInModule />} />
         </Routes>
         <Footer />
       </div>

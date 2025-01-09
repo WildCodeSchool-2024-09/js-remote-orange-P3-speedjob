@@ -1,9 +1,10 @@
 function Legal() {
   return (
     <section id="legal" className="bg-white">
-      <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
-        <h1 className="flex flex-wrap justify-center -mx-5 -my-2">Mentions</h1>
-        Mentions Légales
+      <div className="max-w-screen px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+        <h1 className="flex flex-wrap justify-center -mx-5 -my-2">
+          Mentions Légales
+        </h1>
         <h2 className="flex flex-wrap justify-center -mx-5 -my-2">
           1. Informations Générales
         </h2>
