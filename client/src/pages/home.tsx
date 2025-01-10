@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
+import RandomArticle from "../components/randomArticle";
 
 function Home() {
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       <h1>Home</h1>
-      <h2>Links to:</h2>
-      <Link to="/contact">Contact</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/legal">Legal</Link>
+      <h2>Random Job</h2>
+      <RandomArticle />
+      <h2>About Us</h2>
     </div>
   );
 }
