@@ -1,11 +1,11 @@
 import About from "../components/about";
 
 const aboutPage = () => {
-	return (
-		<>
-			<About />
-		</>
-	);
+  return (
+    <>
+      <About />
+    </>
+  );
 };
 
 export default aboutPage;
