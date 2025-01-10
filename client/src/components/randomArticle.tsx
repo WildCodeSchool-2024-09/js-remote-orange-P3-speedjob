@@ -111,8 +111,8 @@ function RandomArticle() {
   const article = getRandomArticle();
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center border-solid">
+      <div className="flex flex-col items-center justify-center border-solid">
         <h2>Nos articles</h2>
         <p className="font-bold">{article.titre}</p>
         <p className="font-italic">{article.date}</p>
