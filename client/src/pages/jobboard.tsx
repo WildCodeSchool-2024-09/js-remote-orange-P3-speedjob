@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Jobboard() {
   const jobs = [
     {
@@ -139,25 +141,28 @@ function Jobboard() {
     <section id="projects" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900">Projets</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Notre Jobboard</h2>
           <p className="mt-4 text-xl text-gray-600">
-            Découvrez mes dernièrs articles
+            Découvrez nos dernières offres d'emploi
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
+        <div className="flex flex-col gap-8 align-center">
           {jobs.map((job) => (
             <div
               key={job.id}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
             >
-              <p>{job.titre}</p>
-              <p>{job.date}</p>
+              <p className="bold">{job.titre}</p>
+              <p>Date de parution: {job.date}</p>
               <p>{job.light_description}</p>
-              <p>{job.company_id}</p>
+              <p>Nom de l'entreprise: {job.company_id}</p>
               <p>{job.remuneration}</p>
-              <p>{job.experience}</p>
-              <p>{job.work}</p>
-              <p>{job.field}</p>
+              <p>{job.experience} d'expérience minium dans le secteur</p>
+              <p>#{job.work}</p>
+              <p>#{job.field}</p>
+              <div className="font-bold border solid-black border-4 p-8 bg-black">
+                <Link to="/login">Postuler immédiatement</Link>
+              </div>
             </div>
           ))}
         </div>

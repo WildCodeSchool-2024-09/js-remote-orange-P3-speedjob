@@ -10,7 +10,7 @@ function RandomJob() {
       complete_description:
         "Nous recherchons un développeur frontend spécialisé en React pour concevoir et maintenir des interfaces utilisateur performantes et ergonomiques.",
       company_id: "123",
-      remuneration: "45000-55000€/an",
+      remuneration: "45 000-55 000€/an",
       experience: "2-3 ans",
       work: "Temps plein",
       field: "Informatique et technologie",
@@ -24,7 +24,7 @@ function RandomJob() {
       complete_description:
         "Le consultant aura pour mission d'identifier les opportunités de croissance, d'optimiser les processus existants et de proposer des solutions innovantes.",
       company_id: "124",
-      remuneration: "60000-80000€/an",
+      remuneration: "60 000-80 000€/an",
       experience: "5 ans",
       work: "Temps plein",
       field: "Conseil",
@@ -144,18 +144,20 @@ function RandomJob() {
   const job = getRandomJob();
 
   return (
-    <div className="flex flex-col items-center justify-center border-solid">
-      <div className="flex flex-col items-center justify-center border-solid">
-        <h2>Nos articles</h2>
-        <p className="font-bold">{job.titre}</p>
-        <p className="font-italic">{job.date}</p>
+    <div className="flex flex-col items-center justify-center border-4 p-8">
+      <div className="flex flex-col items-center justify-center border-4 p-8">
+        <div className="font-bold">Une offre qui pourrait vous interesser:</div>
+        <p className="font-bold p-8">{job.titre}</p>
+        <p className="font-italic">Date de la parution: {job.date}</p>
         <p>{job.light_description}</p>
-        <p>{job.company_id}</p>
+        <p>Nom de l'entreprise: {job.company_id}</p>
         <p>{job.remuneration}</p>
-        <p>{job.experience}</p>
-        <p>{job.work}</p>
-        <p>{job.field}</p>
-        <Link to="/jobboard">Voir toutes les offres</Link>
+        <p>{job.experience} minimum requis dans le même secteur</p>
+        <p>#{job.work}</p>
+        <p>#{job.field}</p>
+        <div className="font-bold border solid-black border-4 p-8 bg-black">
+          <Link to="/jobboard">Voir toutes les offres</Link>
+        </div>
       </div>
     </div>
   );
