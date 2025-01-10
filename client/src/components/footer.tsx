@@ -1,22 +1,33 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <section className="bg-white">
       <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
         <nav className="flex flex-row flex-wrap justify-center -mx-5 -my-2">
           <div className="px-5 py-2">
-            <p className="text-base leading-6 text-gray-500 hover:text-gray-900">
+            <Link
+              to="/"
+              className="text-base leading-6 text-gray-500 hover:text-gray-900"
+            >
               Retour en haut de la page
-            </p>
+            </Link>
           </div>
           <div className="px-5 py-2">
-            <p className="text-base leading-6 text-gray-500 hover:text-gray-900">
+            <Link
+              to="/contact"
+              className="text-base leading-6 text-gray-500 hover:text-gray-900"
+            >
               Nous contacter
-            </p>
+            </Link>
           </div>
           <div className="px-5 py-2">
-            <p className="text-base leading-6 text-gray-500 hover:text-gray-900">
+            <Link
+              to="/legal"
+              className="text-base leading-6 text-gray-500 hover:text-gray-900"
+            >
               Mentions Légales
-            </p>
+            </Link>
           </div>
         </nav>
 
