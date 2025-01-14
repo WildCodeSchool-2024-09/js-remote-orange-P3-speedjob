@@ -1,4 +1,4 @@
-import Legal from "../components/legal";
+import Legal from "../components/legal/legal";
 
 const legalPage = () => {
   return (

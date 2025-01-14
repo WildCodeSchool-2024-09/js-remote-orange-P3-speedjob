@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logoblackwhite from "../assets/images/logoblackwhite.png";
+import logoblackwhite from "../../assets/images/logoblackwhite.png";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");

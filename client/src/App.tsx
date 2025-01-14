@@ -1,14 +1,14 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import AboutHome from "./components/aboutHome";
-import Footer from "./components/footer";
-import Header from "./components/header";
+import Footer from "./components/header_footer/footer";
+import Header from "./components/header_footer/header";
+import AboutHome from "./components/home/aboutHome";
+import Legal from "./components/legal/legal";
 import AboutPage from "./pages/aboutPage";
 import Blog from "./pages/blog";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
 import Jobboard from "./pages/jobboard";
-import Legal from "./pages/legal";
 import Login from "./pages/login";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
@@ -20,7 +20,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/aboutHome" element={<aboutHome />} />
+          <Route path="/aboutHome" element={<AboutHome />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blog" element={<Blog />} />
@@ -36,7 +36,6 @@ function App() {
       </div>
     </Router>
   );
-
 }
 
 export default App;

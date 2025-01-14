@@ -1,4 +1,4 @@
-import About from "../components/about";
+import About from "../components/about/about";
 
 const AboutPage = () => {
   return (
@@ -9,4 +9,3 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
-

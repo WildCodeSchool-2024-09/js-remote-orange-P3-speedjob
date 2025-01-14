@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoblackwhite from "../assets/images/logoblackwhite.png";
+import logoblackwhite from "../../assets/images/logoblackwhite.png";
 
 const AboutHome = () => {
   return (
@@ -29,4 +29,3 @@ const AboutHome = () => {
 };
 
 export default AboutHome;
-
