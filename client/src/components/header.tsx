@@ -1,16 +1,86 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import logocolor from "../assets/images/logocolor.png";
+import logoblackwhite from "../assets/images/logoblackwhite.png";
+
 function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
-    <div className="flex flex-row items-between justify-center">
-      <div className="w-40 h-40 scale-50">
-        <img src={logocolor} alt="logo" />
+    <section className="flex flex-col items-between justify-center border-4 p-8">
+      <div className="flex items-center justify-center size-16">
+        <div className="w-16 h-16 scale-20">
+          <img src={logoblackwhite} alt="logo" />
+        </div>
+        <div>
+          <div className="flex flex-row items-center justify-center">
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/">Page d'Acceuil</Link>
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/login">Se connecter</Link>
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/signin">S'inscrire</Link>
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/jobboard">Accéder aux offres</Link>
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/blog">Accéder aux articles</Link>
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/contact">Contactez-nous</Link>
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+            >
+              <Link to="/legal">Mentions légales</Link>
+            </button>
+          </div>
+        </div>
       </div>
-      <Link to="/contact">Contact</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/legal">Legal</Link>
-      <Link to="/signin">Sign In</Link>
-    </div>
+      <div className="flex flex-row items-center justify-center">
+        <input
+          type="text"
+          placeholder="Rechercher par métier, entreprise, secteur d'activité,..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
+          className="mt-1 block w-full rounded-md border-gray-100 shadow-sm focus:border-gray-900 focus:ring-gray-900 sm:text-sm"
+        />
+        <Link
+          to="/result"
+          className="border-solid-black rounded-lg border-4 p-8"
+        >
+          Rechercher
+        </Link>
+      </div>
+    </section>
   );
 }
 
