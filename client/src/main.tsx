@@ -14,29 +14,24 @@ import App from "./App";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
 
-
-
 /* ************************************************************************* */
 
 // Create router configuration with routes
 // You can add more routes as you build out your app!
-
 
 /* ************************************************************************* */
 
 // Find the root element in the HTML document
 const rootElement = document.getElementById("root");
 if (rootElement == null) {
-	throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
+  throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
 }
 
 // Render the app inside the root element
 createRoot(rootElement).render(
-
   <StrictMode>
     <App />
   </StrictMode>,
-
 );
 
 /**

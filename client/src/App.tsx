@@ -18,7 +18,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/aboutHome" element={<aboutHome />} />
+          <Route path="/aboutHome" element={<AboutHome />} />
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
@@ -31,7 +31,6 @@ function App() {
       </div>
     </Router>
   );
-
 }
 
 export default App;
