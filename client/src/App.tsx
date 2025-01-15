@@ -6,8 +6,7 @@ import Header from "./components/header";
 
 import CheckConnexionProvider from "./context/checkConnexion";
 
-impot AboutPage from "./pages/aboutPage";
-
+import AboutPage from "./pages/aboutPage";
 import Blog from "./pages/blog";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
