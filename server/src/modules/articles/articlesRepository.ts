@@ -18,7 +18,7 @@ class ArticlesRepository {
   async create(item: Omit<Item, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "insert into item (title, user_id) values (?, ?)",
+      "insert into item (title, date, light_description, compl_descritpion, admin_id, picture) values (?, ?, ?, ?, ?, ?)",
       [
         item.title,
         item.date,

@@ -15,27 +15,27 @@ router.post("/api/items", itemActions.add);
 
 import userActions from "./modules/user/userActions";
 
-router.get("/api/users", userActions.browse);
-router.get("/api/users/:id", userActions.read);
-router.post("/api/users", userActions.add);
+router.get("/api/user", userActions.browse);
+router.get("/api/user/:id", userActions.read);
+router.post("/api/user", userActions.add);
 
 import companyActions from "./modules/company/companyActions";
 
-router.get("/api/companies", companyActions.browse);
-router.get("/api/companies/:id", companyActions.read);
-router.post("/api/companies", companyActions.add);
+router.get("/api/company", companyActions.browse);
+router.get("/api/company/:id", companyActions.read);
+router.post("/api/company", companyActions.add);
 
 import roleActions from "./modules/role/roleActions";
 
-router.get("/api/roles", roleActions.browse);
-router.get("/api/roles/:id", roleActions.read);
-router.post("/api/roles", roleActions.add);
+router.get("/api/role", roleActions.browse);
+router.get("/api/role/:id", roleActions.read);
+router.post("/api/role", roleActions.add);
 
 import adminActions from "./modules/admin/adminActions";
 
-router.get("/api/admins", adminActions.browse);
-router.get("/api/admins/:id", adminActions.read);
-router.post("/api/admins", adminActions.add);
+router.get("/api/admin", adminActions.browse);
+router.get("/api/admin/:id", adminActions.read);
+router.post("/api/admin", adminActions.add);
 
 import annoncesActions from "./modules/annonces/annoncesActions";
 

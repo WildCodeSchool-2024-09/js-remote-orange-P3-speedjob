@@ -23,7 +23,7 @@ class CompanyRepository {
   async create(item: Omit<Item, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "insert into item (title, user_id) values (?, ?)",
+      "insert into item (light_descritption, complete_description, siret_number, phone_number, street_number, postcode, city, cedex_number, user_id, raison_social) values (?, ?, ? ,? ,? ,? ,? ,? ,? ,?)",
       [
         item.light_description,
         item.complete_description,
