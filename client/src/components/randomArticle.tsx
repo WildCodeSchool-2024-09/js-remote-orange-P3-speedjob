@@ -111,9 +111,9 @@ function RandomArticle() {
   const article = getRandomArticle();
 
   return (
-    <div className="flex flex-col items-center justify-center border-solid">
-      <div className="flex flex-col items-center justify-center border-solid">
-        <h2>Nos articles</h2>
+    <div className="flex flex-col items-center justify-center border-4 p-8">
+      <div className="flex flex-col items-center justify-center border-4 p-8">
+        <h2>Les tips pour vous démarquer:</h2>
         <p className="font-bold">{article.titre}</p>
         <p className="font-italic">{article.date}</p>
         <img
@@ -124,7 +124,9 @@ function RandomArticle() {
           object-cover
         />
         <p>{article.petiteDescription}</p>
-        <Link to="/blog">Lire l'article complet</Link>
+        <div className="font-bold border solid-black border-4 p-8 bg-black">
+          <Link to="/blog">Voir tous nos articles</Link>
+        </div>
       </div>
     </div>
   );

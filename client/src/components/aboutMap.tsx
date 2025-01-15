@@ -40,4 +40,5 @@ const aboutMap: React.FC = () => {
   );
 };
 
+
 export default aboutMap;
