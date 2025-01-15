@@ -17,16 +17,17 @@ import Login from "./pages/login";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
 import SignIn from "./pages/signIn";
+import SignUpEntreprise from "./pages/signUpEntreprise";
 
 function App() {
   return (
     <Router>
       <div className="App">
-
         <CheckConnexionProvider>
-          <Header />
-          <Routes>
-          <Route path="/aboutHome" element={<aboutHome />} />
+        <Header />
+        <Routes>
+          <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
+          <Route path="/aboutHome" element={<AboutHome />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blog" element={<Blog />} />
