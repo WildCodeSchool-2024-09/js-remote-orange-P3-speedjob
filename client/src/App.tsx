@@ -13,6 +13,7 @@ import Login from "./pages/login";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
 import SignIn from "./pages/signIn";
+import SignUpEntreprise from "./pages/signUpEntreprise";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/aboutHome" element={<aboutHome />} />
+          <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
+          <Route path="/aboutHome" element={<AboutHome />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blog" element={<Blog />} />
@@ -36,7 +38,6 @@ function App() {
       </div>
     </Router>
   );
-
 }
 
 export default App;
