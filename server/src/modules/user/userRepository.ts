@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-type Item = {
+type User = {
   id: number;
   firstname: string;
   lastname: string;
@@ -19,21 +19,21 @@ type Item = {
 class UserRepository {
   // The C of CRUD - Create operation
 
-  async create(item: Omit<Item, "id">) {
+  async create(user: Omit<User, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "insert into item (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin, role_id, admin_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin, role_id, admin_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        item.firstname,
-        item.lastname,
-        item.login,
-        item.password,
-        item.email,
-        item.creation_date,
-        item.modification_date,
-        item.isAdmin,
-        item.role_id,
-        item.admin_id,
+        user.firstname,
+        user.lastname,
+        user.login,
+        user.password,
+        user.email,
+        user.creation_date,
+        user.modification_date,
+        user.isAdmin,
+        user.role_id,
+        user.admin_id,
       ],
     );
 
@@ -46,35 +46,57 @@ class UserRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "select * from item where id = ?",
+      "SELECT * FROM user WHERE id = ?",
       [id],
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as Item;
+    return rows[0] as User;
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await databaseClient.query<Rows>("select * from item");
+    const [rows] = await databaseClient.query<Rows>("SELECT * FROM user");
 
     // Return the array of items
-    return rows as Item[];
+    return rows as User[];
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing item
+  async update(user: User) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ? WHERE id = ?",
+      [
+        user.firstname,
+        user.lastname,
+        user.login,
+        user.password,
+        user.email,
+        user.creation_date,
+        user.modification_date,
+        user.isAdmin,
+        user.role_id,
+        user.admin_id,
+        user.id,
+      ],
+    );
 
-  // async update(item: Item) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an item by its ID
+  async delete(id: number) {
+    // Execute the SQL DELETE query to delete an existing category from the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "DELETE FROM user WHERE id = ?",
+      [id],
+    );
 
-  // async delete(id: number) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 }
 
 export default new UserRepository();

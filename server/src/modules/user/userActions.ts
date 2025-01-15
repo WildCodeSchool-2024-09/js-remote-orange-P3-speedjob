@@ -7,10 +7,10 @@ import userRepository from "./userRepository";
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const items = await userRepository.readAll();
+    const user = await userRepository.readAll();
 
     // Respond with the items in JSON format
-    res.json(items);
+    res.json(user);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -21,15 +21,15 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
-    const itemId = Number(req.params.id);
-    const item = await userRepository.read(itemId);
+    const userId = Number(req.params.id);
+    const user = await userRepository.read(userId);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
-    if (item == null) {
+    if (user == null) {
       res.sendStatus(404);
     } else {
-      res.json(item);
+      res.json(user);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -41,7 +41,7 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const newItem = {
+    const newUser = {
       title: req.body.title,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -56,7 +56,7 @@ const add: RequestHandler = async (req, res, next) => {
     };
 
     // Create the item
-    const insertId = await userRepository.create(newItem);
+    const insertId = await userRepository.create(newUser);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
@@ -66,4 +66,53 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add };
+// The E of BREAD - Edit (Update) operation
+
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    // Update a specific category based on the provided ID
+    const user = {
+      id: Number(req.body.id),
+      firstname: String(req.body.firstname),
+      lastname: String(req.body.firstname),
+      login: String(req.body.login),
+      password: String(req.body.password),
+      email: String(req.body.email),
+      creation_date: String(req.body.creation_date),
+      modification_date: String(req.body.modification_date),
+      isAdmin: Boolean(req.body.isAdmin),
+      role_id: Number(req.body.role_id),
+      admin_id: Number(req.body.admin_id),
+    };
+
+    const affectedRows = await userRepository.update(user);
+
+    // If the category is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the category in JSON format
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    // Delete a specific category based on the provided ID
+    const userId = Number(req.params.id);
+
+    await userRepository.delete(userId);
+
+    // Respond with HTTP 204 (No Content) anyway
+    res.sendStatus(204);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { browse, read, add, edit, destroy };

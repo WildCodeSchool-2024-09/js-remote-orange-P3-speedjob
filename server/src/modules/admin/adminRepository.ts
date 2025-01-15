@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-type Item = {
+type Admin = {
   id: number;
   alias: string;
   function: string;
@@ -11,11 +11,11 @@ type Item = {
 class AdminRepository {
   // The C of CRUD - Create operation
 
-  async create(item: Omit<Item, "id">) {
+  async create(admin: Omit<Admin, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "insert into item (alias, function) values (?, ?)",
-      [item.alias, item.function],
+      "INSERT INTO admin (alias, function) VALUES (?, ?)",
+      [admin.alias, admin.function],
     );
 
     // Return the ID of the newly inserted item
@@ -27,35 +27,45 @@ class AdminRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "select * from item where id = ?",
+      "SELECT * FROM admin WHERE id = ?",
       [id],
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as Item;
+    return rows[0] as Admin;
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await databaseClient.query<Rows>("select * from item");
+    const [rows] = await databaseClient.query<Rows>("SELECT * FROM admin");
 
     // Return the array of items
-    return rows as Item[];
+    return rows as Admin[];
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing item
+  async update(admin: Admin) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE admin SET alias = ?, function = ? WHERE id = ?",
+      [admin.alias, admin.function],
+    );
 
-  // async update(item: Item) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an item by its ID
+  async delete(id: number) {
+    // Execute the SQL DELETE query to delete an existing category from the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "DELETE FROM admin WHERE id = ?",
+      [id],
+    );
 
-  // async delete(id: number) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 }
 
 export default new AdminRepository();

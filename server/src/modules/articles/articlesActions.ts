@@ -7,10 +7,10 @@ import articlesRepository from "./articlesRepository";
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const items = await articlesRepository.readAll();
+    const articles = await articlesRepository.readAll();
 
     // Respond with the items in JSON format
-    res.json(items);
+    res.json(articles);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -21,15 +21,15 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
-    const itemId = Number(req.params.id);
-    const item = await articlesRepository.read(itemId);
+    const articlesId = Number(req.params.id);
+    const articles = await articlesRepository.read(articlesId);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
-    if (item == null) {
+    if (articles == null) {
       res.sendStatus(404);
     } else {
-      res.json(item);
+      res.json(articles);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -41,7 +41,7 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const newItem = {
+    const newArticles = {
       title: req.body.title,
       date: req.body.date,
       light_description: req.body.light_description,
@@ -51,7 +51,7 @@ const add: RequestHandler = async (req, res, next) => {
     };
 
     // Create the item
-    const insertId = await articlesRepository.create(newItem);
+    const insertId = await articlesRepository.create(newArticles);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
@@ -61,4 +61,47 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add };
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    // Update a specific category based on the provided ID
+    const articles = {
+      id: Number(req.body.id),
+      title: String(req.body.title),
+      date: String(req.body.date),
+      light_description: String(req.body.light_description),
+      compl_description: String(req.body.compl_description),
+      admin_id: Number(req.body.admin_id),
+      picture: String(req.body.picture),
+    };
+
+    const affectedRows = await articlesRepository.update(articles);
+
+    // If the category is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the category in JSON format
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    // Delete a specific category based on the provided ID
+    const articlesId = Number(req.params.id);
+
+    await articlesRepository.delete(articlesId);
+
+    // Respond with HTTP 204 (No Content) anyway
+    res.sendStatus(204);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { browse, read, add, edit, destroy };

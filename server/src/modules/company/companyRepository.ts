@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-type Item = {
+type Company = {
   id: number;
   light_description: string;
   complete_description: string;
@@ -20,21 +20,21 @@ type Item = {
 class CompanyRepository {
   // The C of CRUD - Create operation
 
-  async create(item: Omit<Item, "id">) {
+  async create(company: Omit<Company, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "insert into item (light_descritption, complete_description, siret_number, phone_number, street_number, postcode, city, cedex_number, user_id, raison_social) values (?, ?, ? ,? ,? ,? ,? ,? ,? ,?)",
+      "INSERT INTO company (light_descritption, complete_description, siret_number, phone_number, street_number, postcode, city, cedex_number, user_id, raison_social) VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,?)",
       [
-        item.light_description,
-        item.complete_description,
-        item.siret_number,
-        item.phone_number,
-        item.street_number,
-        item.postcode,
-        item.city,
-        item.cedex_number,
-        item.user_id,
-        item.raison_social,
+        company.light_description,
+        company.complete_description,
+        company.siret_number,
+        company.phone_number,
+        company.street_number,
+        company.postcode,
+        company.city,
+        company.cedex_number,
+        company.user_id,
+        company.raison_social,
       ],
     );
 
@@ -47,35 +47,57 @@ class CompanyRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "select * from item where id = ?",
+      "SELECT * FROM company WHERE id = ?",
       [id],
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as Item;
+    return rows[0] as Company;
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await databaseClient.query<Rows>("select * from item");
+    const [rows] = await databaseClient.query<Rows>("SELECT * FROM company");
 
     // Return the array of items
-    return rows as Item[];
+    return rows as Company[];
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing item
+  async update(company: Company) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE company SET light_description = ?,complete_description = ?, siret_number = ?, phone_number = ?, street_number = ?, postcode = ?, city = ?, cedex_number = ?, user_id = ?, raison_social = ? WHERE id = ?",
+      [
+        company.light_description,
+        company.complete_description,
+        company.siret_number,
+        company.phone_number,
+        company.street_number,
+        company.postcode,
+        company.city,
+        company.cedex_number,
+        company.user_id,
+        company.raison_social,
+        company.id,
+      ],
+    );
 
-  // async update(item: Item) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an item by its ID
+  async delete(id: number) {
+    // Execute the SQL DELETE query to delete an existing category from the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "DELETE FROM company WHERE id = ?",
+      [id],
+    );
 
-  // async delete(id: number) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 }
 
 export default new CompanyRepository();

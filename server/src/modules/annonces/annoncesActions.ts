@@ -7,10 +7,10 @@ import annoncesRepository from "./annoncesRepository";
 const browse: RequestHandler = async (req, res, next) => {
   try {
     // Fetch all items
-    const items = await annoncesRepository.readAll();
+    const annonces = await annoncesRepository.readAll();
 
     // Respond with the items in JSON format
-    res.json(items);
+    res.json(annonces);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -21,15 +21,15 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
-    const itemId = Number(req.params.id);
-    const item = await annoncesRepository.read(itemId);
+    const annoncesId = Number(req.params.id);
+    const annonces = await annoncesRepository.read(annoncesId);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
-    if (item == null) {
+    if (annonces == null) {
       res.sendStatus(404);
     } else {
-      res.json(item);
+      res.json(annonces);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -41,7 +41,7 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
-    const newItem = {
+    const newAnnonces = {
       creation_date: req.body.title,
       modification_date: req.body.modification_date,
       light_description: req.body.light_description,
@@ -56,7 +56,7 @@ const add: RequestHandler = async (req, res, next) => {
     };
 
     // Create the item
-    const insertId = await annoncesRepository.create(newItem);
+    const insertId = await annoncesRepository.create(newAnnonces);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
@@ -66,4 +66,54 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add };
+// The E of BREAD - Edit (Update) operation
+
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    // Update a specific category based on the provided ID
+    const annonces = {
+      id: Number(req.body.id),
+      creation_date: String(req.body.creation_date),
+      modification_date: Number(req.body.modification_date),
+      light_description: String(req.body.light_description),
+      complete_description: String(req.body.complete_description),
+      remuneration: String(req.body.remuneration),
+      experience: String(req.body.experience),
+      work: String(req.body.work),
+      field: String(req.body.field),
+      company_id: Number(req.body.company_id),
+      is_apply: Boolean(req.body.is_apply),
+      title: String(req.body.title),
+    };
+
+    const affectedRows = await annoncesRepository.update(annonces);
+
+    // If the category is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the category in JSON format
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    // Delete a specific category based on the provided ID
+    const annoncesId = Number(req.params.id);
+
+    await annoncesRepository.delete(annoncesId);
+
+    // Respond with HTTP 204 (No Content) anyway
+    res.sendStatus(204);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+export default { browse, read, add, edit, destroy };

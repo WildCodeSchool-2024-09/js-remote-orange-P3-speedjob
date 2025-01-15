@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-type Item = {
+type Articles = {
   id: number;
   title: string;
   date: string;
@@ -15,17 +15,17 @@ type Item = {
 class ArticlesRepository {
   // The C of CRUD - Create operation
 
-  async create(item: Omit<Item, "id">) {
+  async create(articles: Omit<Articles, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "insert into item (title, date, light_description, compl_descritpion, admin_id, picture) values (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO articles (title, date, light_description, compl_descritpion, admin_id, picture) VALUES (?, ?, ?, ?, ?, ?)",
       [
-        item.title,
-        item.date,
-        item.light_description,
-        item.compl_description,
-        item.admin_id,
-        item.picture,
+        articles.title,
+        articles.date,
+        articles.light_description,
+        articles.compl_description,
+        articles.admin_id,
+        articles.picture,
       ],
     );
 
@@ -38,35 +38,53 @@ class ArticlesRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "select * from item where id = ?",
+      "SELECT * FROM articles WHERE id = ?",
       [id],
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as Item;
+    return rows[0] as Articles;
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await databaseClient.query<Rows>("select * from item");
+    const [rows] = await databaseClient.query<Rows>("SELECT * FROM articles");
 
     // Return the array of items
-    return rows as Item[];
+    return rows as Articles[];
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing item
+  async update(admin: Articles) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE articles SET title = ?, date = ?, light_description = ?, compl_description = ?, admin_id = ?, picture = ? WHERE id = ?",
+      [
+        admin.title,
+        admin.date,
+        admin.light_description,
+        admin.compl_description,
+        admin.admin_id,
+        admin.picture,
+        admin.id,
+      ],
+    );
 
-  // async update(item: Item) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an item by its ID
+  async delete(id: number) {
+    // Execute the SQL DELETE query to delete an existing category from the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "DELETE FROM articles WHERE id = ?",
+      [id],
+    );
 
-  // async delete(id: number) {
-  //   ...
-  // }
+    // Return how many rows were affected
+    return result.affectedRows;
+  }
 }
 
 export default new ArticlesRepository();
