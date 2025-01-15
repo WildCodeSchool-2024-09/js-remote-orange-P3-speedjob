@@ -3,7 +3,11 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import AboutHome from "./components/aboutHome";
 import Footer from "./components/footer";
 import Header from "./components/header";
-import AboutPage from "./pages/aboutPage";
+
+import CheckConnexionProvider from "./context/checkConnexion";
+
+impot AboutPage from "./pages/aboutPage";
+
 import Blog from "./pages/blog";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
@@ -19,6 +23,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <CheckConnexionProvider>
         <Header />
         <Routes>
           <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
@@ -33,8 +38,10 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/result" element={<Result />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
+          </Routes>
+          <Footer />
+        </CheckConnexionProvider>
+
       </div>
     </Router>
   );

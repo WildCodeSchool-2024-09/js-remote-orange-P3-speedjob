@@ -1,6 +1,7 @@
 import About from "../components/about";
 
 const AboutPage = () => {
+
   return (
     <>
       <About />
@@ -8,5 +9,5 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
 
+export default AboutPage;
