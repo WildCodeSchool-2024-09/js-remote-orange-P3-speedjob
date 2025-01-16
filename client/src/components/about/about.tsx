@@ -30,6 +30,7 @@ const About = () => {
       <div>
         <AboutMap />
       </div>
+
       <Link to="/contact">
         <button
           type="button"

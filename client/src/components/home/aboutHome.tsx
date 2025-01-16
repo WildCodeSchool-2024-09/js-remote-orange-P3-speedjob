@@ -6,6 +6,7 @@ const AboutHome = () => {
     <div className="flex flex-col items-center justify-center space-y-6">
       <h1>À propos de SpeedJob</h1>
       <img src={logoblackwhite} alt="SpeedJob" />
+
       <p>
         SpeedJob est une plateforme en ligne dédiée à la mise en relation entre
         les entreprises et les candidats à la recherche d'emploi. Notre mission
@@ -15,6 +16,7 @@ const AboutHome = () => {
         proposons une interface conviviale et intuitive qui permet à chaque
         utilisateur de naviguer de manière fluide et efficace.
       </p>
+
       <Link to="/about">
         <button
           type="button"
