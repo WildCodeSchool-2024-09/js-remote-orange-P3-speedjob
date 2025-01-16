@@ -23,24 +23,23 @@ function App() {
     <Router>
       <div className="App">
         <CheckConnexionProvider>
-        <Header />
-        <Routes>
-          <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
-          <Route path="/aboutHome" element={<AboutHome />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/jobboard" element={<Jobboard />} />
-          <Route path="/legal" element={<Legal />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signIn" element={<SignIn />} />
-          <Route path="/result" element={<Result />} />
-          <Route path="*" element={<NotFound />} />
+          <Header />
+          <Routes>
+            <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
+            <Route path="/aboutHome" element={<AboutHome />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/jobboard" element={<Jobboard />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signIn" element={<SignIn />} />
+            <Route path="/result" element={<Result />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </CheckConnexionProvider>
-
       </div>
     </Router>
   );
