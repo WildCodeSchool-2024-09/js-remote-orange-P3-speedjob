@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
+import MapIcon from "@mui/icons-material/Map";
+import { Chip } from "@mui/material";
 
 function RandomJob() {
   const jobs = [
@@ -9,8 +13,8 @@ function RandomJob() {
       light_description: "Développement d'interfaces utilisateur modernes.",
       complete_description:
         "Nous recherchons un développeur frontend spécialisé en React pour concevoir et maintenir des interfaces utilisateur performantes et ergonomiques.",
-      company_id: "123",
-      remuneration: "45 000-55 000€/an",
+      company_id: "Sodexo Services",
+      remuneration: "45-55k€/an",
       experience: "2-3 ans",
       work: "Temps plein",
       field: "Informatique et technologie",
@@ -23,8 +27,8 @@ function RandomJob() {
         "Accompagnement des entreprises dans leur transformation stratégique.",
       complete_description:
         "Le consultant aura pour mission d'identifier les opportunités de croissance, d'optimiser les processus existants et de proposer des solutions innovantes.",
-      company_id: "124",
-      remuneration: "60 000-80 000€/an",
+      company_id: "Apple",
+      remuneration: "60-80k€/an",
       experience: "5 ans",
       work: "Temps plein",
       field: "Conseil",
@@ -36,8 +40,8 @@ function RandomJob() {
       light_description: "Conception d'expériences utilisateur engageantes.",
       complete_description:
         "Vous collaborerez avec l'équipe produit pour concevoir des interfaces intuitives et visuellement attrayantes, en mettant l'accent sur l'utilisateur final.",
-      company_id: "125",
-      remuneration: "40000-50000€/an",
+      company_id: "Fnac",
+      remuneration: "40-50k€/an",
       experience: "3 ans",
       work: "Temps plein",
       field: "Design",
@@ -49,8 +53,8 @@ function RandomJob() {
       light_description: "Gestion de campagnes marketing multi-canaux.",
       complete_description:
         "En tant que chef de projet, vous serez responsable de la planification, de l'exécution et de l'analyse des campagnes marketing pour divers clients.",
-      company_id: "126",
-      remuneration: "50000-65000€/an",
+      company_id: "Orange",
+      remuneration: "50-65k€/an",
       experience: "4 ans",
       work: "Temps plein",
       field: "Marketing",
@@ -62,8 +66,8 @@ function RandomJob() {
       light_description: "Assistance technique pour utilisateurs finaux.",
       complete_description:
         "Nous recherchons un technicien pour résoudre les problèmes techniques des utilisateurs et maintenir le parc informatique de l'entreprise.",
-      company_id: "127",
-      remuneration: "30000-35000€/an",
+      company_id: "France telecom",
+      remuneration: "30-35k€/an",
       experience: "1-2 ans",
       work: "Temps plein",
       field: "Informatique et technologie",
@@ -75,8 +79,8 @@ function RandomJob() {
       light_description: "Analyse de données pour la prise de décision.",
       complete_description:
         "Votre rôle sera de collecter, analyser et interpréter des données pour aider à la prise de décision stratégique de l'entreprise.",
-      company_id: "128",
-      remuneration: "40000-60000€/an",
+      company_id: "La Poste",
+      remuneration: "40-60k€/an",
       experience: "2 ans",
       work: "Temps plein",
       field: "Analyse de données",
@@ -89,8 +93,8 @@ function RandomJob() {
         "Automatisation et optimisation des processus de développement.",
       complete_description:
         "Vous serez chargé de créer des pipelines CI/CD, d'améliorer l'infrastructure cloud et d'assurer la stabilité des applications déployées.",
-      company_id: "129",
-      remuneration: "55000-70000€/an",
+      company_id: "SFR",
+      remuneration: "55-70k€/an",
       experience: "3-4 ans",
       work: "Temps plein",
       field: "Informatique et technologie",
@@ -103,8 +107,8 @@ function RandomJob() {
         "Gestion des talents et développement organisationnel.",
       complete_description:
         "Vous serez responsable de la gestion des recrutements, de la formation et du développement des employés.",
-      company_id: "130",
-      remuneration: "50000-65000€/an",
+      company_id: "Ineltis",
+      remuneration: "50-65k€/an",
       experience: "5 ans",
       work: "Temps plein",
       field: "Ressources humaines",
@@ -116,8 +120,8 @@ function RandomJob() {
       light_description: "Gestion des finances et rapports financiers.",
       complete_description:
         "Le comptable senior sera chargé de superviser les opérations comptables, de préparer les rapports financiers et d'assurer la conformité fiscale.",
-      company_id: "131",
-      remuneration: "45000-55000€/an",
+      company_id: "Telvenda",
+      remuneration: "45-55k€/an",
       experience: "5 ans",
       work: "Temps plein",
       field: "Finance",
@@ -129,8 +133,8 @@ function RandomJob() {
       light_description: "Optimisation de la chaîne d'approvisionnement.",
       complete_description:
         "Vous gérerez les opérations logistiques, planifierez les approvisionnements et optimiserez les coûts liés à la chaîne logistique.",
-      company_id: "132",
-      remuneration: "50000-60000€/an",
+      company_id: "Sifura",
+      remuneration: "50-60k€/an",
       experience: "4 ans",
       work: "Temps plein",
       field: "Logistique",
@@ -144,22 +148,75 @@ function RandomJob() {
   const job = getRandomJob();
 
   return (
-    <div className="flex flex-col items-center justify-center border-4 p-8">
-      <div className="flex flex-col items-center justify-center border-4 p-8">
-        <div className="font-bold">Une offre qui pourrait vous interesser:</div>
-        <p className="font-bold p-8">{job.titre}</p>
-        <p className="font-italic">Date de la parution: {job.date}</p>
-        <p>{job.light_description}</p>
-        <p>Nom de l'entreprise: {job.company_id}</p>
-        <p>{job.remuneration}</p>
-        <p>{job.experience} minimum requis dans le même secteur</p>
-        <p>#{job.work}</p>
-        <p>#{job.field}</p>
-        <div className="font-bold border solid-black border-4 p-8 bg-black">
-          <Link to="/jobboard">Voir toutes les offres</Link>
+    <section className="py-12 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <div className="flex flex-col items-center justify-center border-4 p-8">
+            <div className="flex flex-col items-center justify-center border-4 p-8">
+              <h2 className="text-3xl font-bold mb-8">
+                Les dernières offres pour vous:
+              </h2>
+              <p className="font-bold">{job.titre}</p>
+              <AccessTimeIcon className="font-italic" />
+              {job.date}
+              <p>{job.light_description}</p>
+              <div className="flex wrap items-start justify-between">
+                <div className="flex-1 justify-center">
+                  <h3 className="text-xl font-semibold mb-2">{job.titre}</h3>
+                  <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
+                    <span className="flex items-center justify-center">
+                      <ApartmentIcon className="mr-1" fontSize="small" />
+                      {job.company_id}
+                    </span>
+                    <span className="flex items-center">
+                      <MapIcon className="mr-1" fontSize="small" />
+                      Paris, France
+                    </span>
+                    <span className="flex items-center">
+                      <AccessTimeIcon className="mr-1" fontSize="small" />
+                      {job.date}
+                    </span>
+                    <span className="flex items-center">
+                      <EuroSymbolIcon className="mr-1" fontSize="small" />
+                      {job.remuneration}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    Nous recherchons un développeur Full Stack passionné pour
+                    rejoindre notre équipe dynamique...
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[`${job.work}`, `${job.field}`].map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                  alt={job.company_id}
+                  className="w-8 h-8 rounded-lg object-fit"
+                />
+              </div>
+              <div className="flex justify-end mt-4">
+                <Chip
+                  className="font-bold border solid-black border-4 p-8 bg-black"
+                  label="Voir toutes les offres"
+                  component="a"
+                  href="./jobboard"
+                  variant="outlined"
+                  clickable
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

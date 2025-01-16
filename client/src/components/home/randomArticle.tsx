@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { Chip } from "@mui/material";
 
 function RandomArticle() {
   const articles = [
@@ -111,24 +112,40 @@ function RandomArticle() {
   const article = getRandomArticle();
 
   return (
-    <div className="flex flex-col items-center justify-center border-4 p-8">
-      <div className="flex flex-col items-center justify-center border-4 p-8">
-        <h2>Les tips pour vous démarquer:</h2>
-        <p className="font-bold">{article.titre}</p>
-        <p className="font-italic">{article.date}</p>
-        <img
-          src={article.sourceImage}
-          alt={article.titre}
-          w-full
-          h-48
-          object-cover
-        />
-        <p>{article.petiteDescription}</p>
-        <div className="font-bold border solid-black border-4 p-8 bg-black">
-          <Link to="/blog">Voir tous nos articles</Link>
+    <section className="py-12 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <div className="flex flex-col items-center justify-center border-4 p-8">
+            <div className="flex flex-col items-center justify-center border-4 p-8">
+              <h2 className="text-3xl font-bold mb-8">
+                Les tips pour vous démarquer:
+              </h2>
+              <p className="font-bold">{article.titre}</p>
+              <AccessTimeIcon className="font-italic" />
+              {article.date}
+              <img
+                src={article.sourceImage}
+                alt={article.titre}
+                w-50
+                h-48
+                object-cover
+              />
+              <p>{article.petiteDescription}</p>
+              <div className="flex justify-end mt-4">
+                <Chip
+                  className="font-bold border solid-black border-4 p-8 bg-black"
+                  label="Voir toutes les offres"
+                  component="a"
+                  href="./blog"
+                  variant="outlined"
+                  clickable
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
