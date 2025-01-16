@@ -1,4 +1,4 @@
-import SignInModule from "../components/signInModule";
+import SignInModule from "../components/register/signInModule";
 
 function SignIn() {
   return (

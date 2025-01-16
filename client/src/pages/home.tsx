@@ -1,6 +1,6 @@
-import AboutHome from "../components/aboutHome";
-import RandomArticle from "../components/randomArticle";
-import RandomJob from "../components/randomJob";
+import AboutHome from "../components/home/aboutHome";
+import RandomArticle from "../components/home/randomArticle";
+import RandomJob from "../components/home/randomJob";
 
 function Home() {
   return (

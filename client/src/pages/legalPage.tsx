@@ -1,6 +1,6 @@
-import Legal from "../components/legal";
+import Legal from "../components/legal/legal";
 
-const legalPage = () => {
+const LegalPage = () => {
   return (
     <>
       <Legal />
@@ -8,4 +8,4 @@ const legalPage = () => {
   );
 };
 
-export default legalPage;
+export default LegalPage;
