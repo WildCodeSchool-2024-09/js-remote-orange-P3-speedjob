@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SignInModule() {
   const [login, setLogin] = useState("");
@@ -65,6 +66,15 @@ function SignInModule() {
             >
               Register
             </button>
+            <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+              You don't have an account ?
+              <Link
+                to="/signUp"
+                className="font-semibold text-pink-500 transition-colors hover:text-black-700"
+              >
+                Sign Up
+              </Link>
+            </p>
           </form>
         </div>
       </div>

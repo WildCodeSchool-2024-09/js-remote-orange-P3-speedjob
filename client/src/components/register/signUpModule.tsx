@@ -43,7 +43,7 @@ function SignUpModule() {
     if (role === "societe") {
       navigate("/signUpEntreprise");
     } else if (role === "candidat") {
-      navigate("/autrePage"); // Remplacez "/autrePage" candidat
+      navigate("/signUpCandidat");
     }
   };
 
