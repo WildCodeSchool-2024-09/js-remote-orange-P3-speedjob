@@ -14,9 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { TextField, Button } from "@mui/material";
 import bg_header from "../../assets/images/bg_header.png";
 
 export default function AccountMenu() {
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -136,6 +138,26 @@ export default function AccountMenu() {
             </MenuItem>
           </Menu>
         </React.Fragment>
+      </Box>
+      <Box display="flex" alignItems="center" justifyContent="center" sx={{ ml: 2 }}>
+        <TextField
+          type="text"
+          placeholder="Rechercher par métier, entreprise, secteur d'activité,..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          variant="outlined"
+          fullWidth
+          sx={{ mt: 10, mr: 0 }}
+        />
+        <Button
+          component={Link}
+          to="/result"
+          variant="contained"
+          color="primary"
+          sx={{ mt: 10, mr: 3,  p: 2 }}
+        >
+          Rechercher
+        </Button>
       </Box>
     </Box>
   );
