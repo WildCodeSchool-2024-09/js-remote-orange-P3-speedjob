@@ -12,17 +12,17 @@ import Contact from "./pages/contact";
 import Home from "./pages/home";
 import Jobboard from "./pages/jobboard";
 import LegalPage from "./pages/legalPage";
-import SignUp from "./pages/signUp";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
 import SignIn from "./pages/signIn";
-import SignUpEntreprise from "./pages/signUpEntreprise";
+import SignUp from "./pages/signUp";
 import SignUpCandidat from "./pages/signUpCandidat";
+import SignUpEntreprise from "./pages/signUpEntreprise";
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="min-h-screen bg-white">
         <CheckConnexionProvider>
           <Header />
           <Routes>

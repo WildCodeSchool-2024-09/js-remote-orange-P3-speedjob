@@ -2,13 +2,17 @@ import AboutHome from "../components/home/aboutHome";
 import RandomArticle from "../components/home/randomArticle";
 import RandomJob from "../components/home/randomJob";
 
+import Stack from "@mui/material/Stack";
+
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-center border-4 p-8">
-      <RandomJob />
-      <RandomArticle />
-      <AboutHome />
-    </div>
+    <section>
+      <Stack spacing={0} margin={0} gap={0}>
+        <RandomJob />
+        <RandomArticle />
+        <AboutHome />
+      </Stack>
+    </section>
   );
 }
 
