@@ -141,14 +141,17 @@ const SignUpCa = () => {
               required
             />
           </Box>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit}
-            sx={{ mt: 2 }}
-          >
-            Submit
-          </Button>
+          <Link to="/signIn" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit}
+              sx={{ mt: 2 }}
+              fullWidth
+            >
+              Submit
+            </Button>
+          </Link>
           <Typography variant="body2" align="center" mt={4}>
             Already have an account?{" "}
             <Link
