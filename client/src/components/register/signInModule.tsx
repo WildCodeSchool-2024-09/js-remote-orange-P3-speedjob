@@ -55,12 +55,15 @@ function SignInModule() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <Button
             fullWidth
             variant="contained"
             color="primary"
             type="submit"
             sx={{ mt: 2 }}
+            component={Link}
+            to="/SignInCandidat"
           >
             Sign In
           </Button>
