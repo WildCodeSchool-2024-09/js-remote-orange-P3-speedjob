@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, TextField, Button, Typography } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const SignUpCa = () => {
-  const [birthDate, setBirthDate] = useState("");
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
   const [streetName, setStreetName] = useState("");
@@ -12,36 +15,60 @@ const SignUpCa = () => {
   const [cvLink, setCvLink] = useState<File | null>(null);
   const [lmLink, setLmLink] = useState<File | null>(null);
 
-  const [formData, setFormData] = useState({
-    birthDate: "",
-    phoneNumber: "",
-    streetNumber: "",
-    streetName: "",
-    postCode: "",
-    city: "",
-    cvLink: "",
-    lmLink: "",
-    checked: false,
-  });
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!cvLink || !lmLink) {
+      alert("Veuillez télécharger votre CV et votre lettre de motivation.");
+      return;
+    }
 
-  const handleSubmit = () => {
-    setFormData({
-      birthDate: birthDate,
-      phoneNumber: phoneNumber,
-      streetNumber: streetNumber,
-      streetName: streetName,
-      postCode: postCode,
-      city: city,
-      cvLink: cvLink ? cvLink.name : "",
-      lmLink: lmLink ? lmLink.name : "",
-      checked: formData.checked,
-    });
+    // Convertir la date au format YYYY-MM-DD
+    const formattedBirthDate = birthDate
+      ? birthDate.toISOString().split("T")[0]
+      : null;
+
+    if (!formattedBirthDate) {
+      alert("Veuillez entrer une date de naissance valide.");
+      return;
+    }
+
+    const formdata = new FormData();
+    formdata.append("birthdate", formattedBirthDate);
+    formdata.append("phoneNumber", phoneNumber);
+    formdata.append("streetNumber", streetNumber);
+    formdata.append("streetName", streetName);
+    formdata.append("postCode", postCode);
+    formdata.append("city", city);
+    if (cvLink) {
+      formdata.append("cv", cvLink);
+    }
+    if (lmLink) {
+      formdata.append("lm", lmLink);
+    }
+
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow" as RequestRedirect,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3310/api/upload",
+        requestOptions,
+      );
+      await response.text();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <section id="signUpCa">
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box display="flex" justifyContent="center" alignItems="center">
         <Box
+          component="form"
+          onSubmit={handleSubmit}
           display="flex"
           flexDirection="column"
           borderRadius="16px"
@@ -59,13 +86,13 @@ const SignUpCa = () => {
           >
             Sign Up Candidat
           </Typography>
-          <TextField
-            label="Birth Date"
+          <DatePicker
+            label="Date de naissance"
             value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            margin="normal"
-            fullWidth
-            size="small"
+            onChange={(newValue) => setBirthDate(newValue)}
+            slotProps={{
+              textField: { margin: "normal", fullWidth: true, size: "small" },
+            }}
           />
           <TextField
             label="Phone Number"
@@ -141,17 +168,15 @@ const SignUpCa = () => {
               required
             />
           </Box>
-          <Link to="/signIn" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              sx={{ mt: 2 }}
-              fullWidth
-            >
-              Submit
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{ mt: 2 }}
+            fullWidth
+          >
+            Submit
+          </Button>
           <Typography variant="body2" align="center" mt={4}>
             Already have an account?{" "}
             <Link
@@ -167,7 +192,7 @@ const SignUpCa = () => {
           </Typography>
         </Box>
       </Box>
-    </section>
+    </LocalizationProvider>
   );
 };
 

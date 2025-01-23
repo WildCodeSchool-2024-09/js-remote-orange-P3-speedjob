@@ -43,6 +43,7 @@ const add: RequestHandler = async (req, res, next) => {
     // Extract the item data from the request body
     const newRole = {
       name: req.body.name,
+      description: req.body.description,
     };
 
     // Create the item
@@ -62,6 +63,7 @@ const edit: RequestHandler = async (req, res, next) => {
     const role = {
       id: Number(req.body.id),
       name: String(req.body.name),
+      description: String(req.body.description),
     };
 
     const affectedRows = await roleRepository.update(role);
@@ -93,5 +95,28 @@ const destroy: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
+
+async function createRole(newRoleData: { name: string; description: string }) {
+  const newRole = {
+    name: newRoleData.name,
+    description: newRoleData.description,
+  };
+  const insertId = await roleRepository.create(newRole);
+  return insertId;
+}
+
+async function updateRole(roleData: {
+  id: number;
+  name: string;
+  description: string;
+}) {
+  const role = {
+    id: roleData.id,
+    name: roleData.name,
+    description: roleData.description,
+  };
+  const affectedRows = await roleRepository.update(role);
+  return affectedRows;
+}
 
 export default { browse, read, add, edit, destroy };
