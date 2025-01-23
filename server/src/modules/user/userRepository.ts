@@ -3,6 +3,7 @@ import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
 
 type User = {
+  token: never;
   id: number;
   firstname: string;
   lastname: string;
@@ -50,6 +51,15 @@ class UserRepository {
       [id],
     );
 
+    // Return the first row of the result, which represents the item
+    return rows[0] as User;
+  }
+
+  async checkuser(login: string, password: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM user WHERE login = ? AND password = ?",
+      [login, password],
+    );
     // Return the first row of the result, which represents the item
     return rows[0] as User;
   }
