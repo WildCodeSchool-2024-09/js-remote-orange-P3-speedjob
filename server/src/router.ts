@@ -56,6 +56,11 @@ router.post("/api/articles", articlesActions.add);
 router.put("/api/articles/:id", articlesActions.edit);
 router.delete("/api/articles/:id", articlesActions.destroy);
 
+import SignIn from "./modules/auth/auth";
+
+router.post("/api/auth/signin", SignIn.SignIn);
+router.post("/api/auth/signup", SignIn.SignUp);
+router.get("/api/auth/check", SignIn.Check);
 /* ************************************************************************* */
 
 export default router;
