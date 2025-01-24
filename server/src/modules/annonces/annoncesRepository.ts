@@ -56,6 +56,17 @@ class AnnoncesRepository {
     return rows[0] as Annonces;
   }
 
+  async search(id: number) {
+    // Execute the SQL SELECT query to retrieve a specific item by its ID
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM annonce WHERE work LIKE %$?%",
+      [id],
+    );
+
+    // Return the first row of the result, which represents the item
+    return rows[0] as Annonces;
+  }
+
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await databaseClient.query<Rows>("SELECT * FROM annonces");
