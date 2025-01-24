@@ -1,10 +1,14 @@
 import databaseClient from "../../../database/client";
 
-import type { Result, Rows } from "../../../database/client";
+import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+
+type Result = ResultSetHeader;
+type Rows = RowDataPacket[];
 
 type Role = {
   id: number;
   name: string;
+  description: string;
 };
 
 class RoleRepository {
@@ -13,8 +17,8 @@ class RoleRepository {
   async create(role: Omit<Role, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO role (name) VALUES (?)",
-      [role.name],
+      "INSERT INTO role (name, description) VALUES (?, ?)",
+      [role.name, role.description],
     );
 
     // Return the ID of the newly inserted item
@@ -46,8 +50,8 @@ class RoleRepository {
   async update(role: Role) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE ROLE SET name = ? WHERE id = ?",
-      [role.name, role.id],
+      "UPDATE role SET name = ?, description = ? WHERE id = ?",
+      [role.name, role.description, role.id],
     );
 
     // Return how many rows were affected
