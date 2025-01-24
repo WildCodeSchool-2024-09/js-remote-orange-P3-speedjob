@@ -1,85 +1,127 @@
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
+
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { TextField, Button, Typography, Container, Box } from "@mui/material";
+import { useAuth } from "../../hooks/useAuth";
 
 function SignInModule() {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const { handleLogin, handleRegister, handleLogout, isAuth, message } =
+    useAuth();
 
-  const authenfication = () => {
-    if (login === "admin" && password === "admin") {
-      alert("authenfication success");
-    } else {
-      alert("authenfication failed");
-    }
-  };
+  const [login, setLogin] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [type, setType] = useState("password");
 
   return (
-    <Container id="signInModule" maxWidth="sm">
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        mt={4}
-      >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Sign In
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Enter your login and password
-        </Typography>
-        <form
-          id="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            authenfication();
-          }}
+    <>
+      {isAuth ? (
+        <Container
+          id="signInModule"
+          maxWidth="sm"
+          style={{ display: "flex", flexDirection: "column" }}
         >
-          <TextField
-            fullWidth
-            margin="normal"
-            id="login"
-            label="Login"
-            variant="outlined"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            id="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ mt: 2 }}
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            mt={4}
           >
-            Sign In
-          </Button>
-          <Typography variant="body2" align="center" mt={4}>
-            Already have an account?{" "}
-            <Link
-              to="/SignUp"
-              style={{
-                fontWeight: "bold",
-                color: "#1976d2",
-                textDecoration: "none",
-              }}
-            >
-              Sign Up
-            </Link>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Salut {login}
+            </Typography>
+
+            <div>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+                onClick={handleLogout}
+              >
+                Je me déconnecte
+              </Button>
+            </div>
+          </Box>
+        </Container>
+      ) : (
+        <Container
+          id="signInModule"
+          maxWidth="sm"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <Typography variant="h4" component="h1" gutterBottom>
+            Login
           </Typography>
-        </form>
-      </Box>
-    </Container>
+          {message && <div style={{ color: "red" }}>{message}</div>}
+          <form
+            id="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <TextField
+              fullWidth
+              margin="normal"
+              id="login"
+              label="Login"
+              variant="outlined"
+              value={login}
+              type="text"
+              name="login"
+              onChange={(e) => setLogin(e.target.value)}
+            />
+          </form>
+          <div>
+            <TextField
+              fullWidth
+              margin="normal"
+              id="password"
+              label="Password"
+              variant="outlined"
+              type={type}
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{ mt: 2 }}
+              onClick={() => setType(type === "password" ? "text" : "password")}
+            >
+              {type === "password" ? "Afficher" : "Cacher"} mon mot de passe
+            </Button>
+          </div>
+          <div>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{ mt: 2 }}
+              onClick={() => handleLogin(login, password)}
+            >
+              Je me connecte
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{ mt: 2 }}
+              onClick={() => handleRegister(login, password)}
+            >
+              Je crée mon compte
+            </Button>
+          </div>
+        </Container>
+      )}
+    </>
   );
 }
 

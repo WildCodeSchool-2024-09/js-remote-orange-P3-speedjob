@@ -1,6 +1,7 @@
 // Import necessary modules from React and React Router
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { AuthProvider } from "./hooks/useAuth";
 // import { Route, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 /* ************************************************************************* */
@@ -30,7 +31,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </StrictMode>,
 );
 

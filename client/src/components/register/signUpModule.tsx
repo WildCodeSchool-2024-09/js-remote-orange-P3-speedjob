@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
-  Typography,
   Button,
   Checkbox,
-  TextField,
   FormControlLabel,
+  TextField,
+  Typography,
 } from "@mui/material";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpModule = () => {
   const navigate = useNavigate();

@@ -5,6 +5,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LoginIcon from "@mui/icons-material/Login";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import { Button, TextField } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -25,6 +26,8 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [searchQuery, setSearchQuery] = React.useState("");
+
   return (
     <Box
       sx={{
@@ -136,6 +139,33 @@ export default function AccountMenu() {
             </MenuItem>
           </Menu>
         </React.Fragment>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ position: "relative", zIndex: 1, p: 2 }}
+      >
+        <TextField
+          type="text"
+          placeholder="Rechercher par métier, entreprise, secteur d'activité,..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
+          variant="outlined"
+          fullWidth
+          size="small"
+          sx={{ mt: 1, backgroundColor: "white" }}
+        />
+        <Button
+          component={Link}
+          to="/result"
+          variant="contained"
+          color="primary"
+          sx={{ ml: 1, p: 1.8 }}
+        >
+          Rechercher
+        </Button>
       </Box>
     </Box>
   );

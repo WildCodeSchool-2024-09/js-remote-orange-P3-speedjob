@@ -3,6 +3,22 @@ import type { RequestHandler } from "express";
 // Import access to data
 import userRepository from "./userRepository";
 
+type UserProps = {
+  id: number;
+  title: string;
+  firstname: string;
+  lastname: string;
+  login: string;
+  password: string;
+  email: string;
+  creation_date: string;
+  modification_date: string;
+  isAdmin: boolean;
+  role_id: number;
+  admin_id: number;
+  token: string;
+};
+
 // The B of BREAD - Browse (Read All) operation
 const browse: RequestHandler = async (req, res, next) => {
   try {
@@ -11,6 +27,7 @@ const browse: RequestHandler = async (req, res, next) => {
 
     // Respond with the items in JSON format
     res.json(user);
+    return;
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

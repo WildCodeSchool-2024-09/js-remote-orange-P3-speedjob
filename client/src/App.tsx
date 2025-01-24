@@ -15,6 +15,7 @@ import LegalPage from "./pages/legalPage";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
 import SignIn from "./pages/signIn";
+import SignInCandidat from "./pages/signInCandidat";
 import SignUp from "./pages/signUp";
 import SignUpCandidat from "./pages/signUpCandidat";
 import SignUpEntreprise from "./pages/signUpEntreprise";
@@ -34,6 +35,7 @@ function App() {
             <Route path="/jobboard" element={<Jobboard />} />
             <Route path="/legal" element={<LegalPage />} />
             <Route path="/signIn" element={<SignIn />} />
+            <Route path="/signInCandidat" element={<SignInCandidat />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
             <Route path="/signUpCandidat" element={<SignUpCandidat />} />
