@@ -1,13 +1,39 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+
+type UserDataProps = {
+  id: number;
+  title: string;
+  firstname: string;
+  lastname: string;
+  login: string;
+  password: string;
+  email: string;
+  creation_date: string;
+  modification_date: string;
+  isAdmin: boolean;
+  role_id: number;
+  admin_id: number;
+  token: string;
+};
 
 function SignInModule() {
   const { handleLogin, handleLogout, isAuth, message } = useAuth();
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [type, setType] = useState("password");
+  const [userData, setUserData] = useState([] as UserDataProps[]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/user/:id}`)
+      .then((response) => response.json())
+      .then((data: UserDataProps[]) => {
+        setUserData(data);
+      });
+  }, [userData]);
 
   return (
     <>
@@ -25,7 +51,7 @@ function SignInModule() {
             mt={4}
           >
             <Typography variant="h4" component="h1" gutterBottom>
-              Bonjour, voici les actions possibles:
+              Bonjour {login}, voici les actions possibles:
             </Typography>
 
             <Box

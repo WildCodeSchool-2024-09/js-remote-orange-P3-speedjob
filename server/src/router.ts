@@ -11,10 +11,10 @@ const router = express.Router();
 import userActions from "./modules/user/userActions";
 
 router.get("/api/user", userActions.browse);
-router.get("/api/user/:id", userActions.read);
+router.get("/api/user/:id([0-9]+)", userActions.read);
 router.post("/api/user", userActions.add);
-router.put("/api/user/:id", userActions.edit);
-router.delete("/api/user/:id", userActions.destroy);
+router.put("/api/user/:id([0-9]+)", userActions.edit);
+router.delete("/api/user/:id([0-9]+)", userActions.destroy);
 
 import companyActions from "./modules/company/companyActions";
 

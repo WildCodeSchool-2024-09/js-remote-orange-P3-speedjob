@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-type User = {
+type UserProps = {
   token: never;
   id: number;
   firstname: string;
@@ -20,7 +20,7 @@ type User = {
 class UserRepository {
   // The C of CRUD - Create operation
 
-  async create(user: Omit<User, "id">) {
+  async create(user: Omit<UserProps, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO user (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin, role_id, admin_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -52,7 +52,7 @@ class UserRepository {
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as User;
+    return rows as UserProps[];
   }
 
   async checkuser(login: string, password: string) {
@@ -61,7 +61,7 @@ class UserRepository {
       [login, password],
     );
     // Return the first row of the result, which represents the item
-    return rows[0] as User;
+    return rows[0] as UserProps;
   }
 
   async readAll() {
