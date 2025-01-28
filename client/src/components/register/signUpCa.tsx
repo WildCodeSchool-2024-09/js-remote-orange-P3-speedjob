@@ -1,6 +1,6 @@
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, TextField, Button, Typography } from "@mui/material";
 
 const SignUpCa = () => {
   const [birthDate, setBirthDate] = useState("");

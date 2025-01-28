@@ -44,6 +44,7 @@ import annoncesActions from "./modules/annonces/annoncesActions";
 
 router.get("/api/annonces", annoncesActions.browse);
 router.get("/api/annonces/:id", annoncesActions.read);
+router.get("/api/annonces/search/:id", annoncesActions.search);
 router.post("/api/annonces", annoncesActions.add);
 router.put("/api/annonces/:id", annoncesActions.edit);
 router.delete("/api/annonces/:id", annoncesActions.destroy);
@@ -61,6 +62,7 @@ import SignIn from "./modules/auth/auth";
 router.post("/api/auth/signin", SignIn.SignIn);
 router.post("/api/auth/signup", SignIn.SignUp);
 router.get("/api/auth/check", SignIn.Check);
+
 /* ************************************************************************* */
 
 export default router;

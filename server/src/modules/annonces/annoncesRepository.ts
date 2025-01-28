@@ -43,23 +43,25 @@ class AnnoncesRepository {
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
+  // The Ss of CRUD - Search operations
 
-  async read(id: number) {
+  async searchQuery(searchQuery: string) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonces WHERE id = ?",
-      [id],
+      "SELECT * FROM annonce WHERE work LIKE %$?%",
+      [searchQuery],
     );
 
     // Return the first row of the result, which represents the item
     return rows[0] as Annonces;
   }
 
-  async search(id: number) {
+  // The Rs of CRUD - Read operations
+
+  async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonce WHERE work LIKE %$?%",
+      "SELECT * FROM articles WHERE id = ?",
       [id],
     );
 

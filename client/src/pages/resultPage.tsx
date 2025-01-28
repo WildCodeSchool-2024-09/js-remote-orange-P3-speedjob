@@ -1,8 +1,10 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
-import { Box } from "@mui/material";
+import { TextField } from "@mui/material";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 type Annonces = {
@@ -20,23 +22,76 @@ type Annonces = {
 
 function Result() {
   const [Annonces, setAnnonces] = useState([] as Annonces[]);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSearchQuery("");
+  };
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    handleSubmit(e);
+    navigate("/result");
+  };
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/annonces`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/annonces/search/${searchQuery}`)
       .then((response) => response.json())
       .then((data: Annonces[]) => {
         setAnnonces(data);
       });
-  }, []);
+  }, [searchQuery]);
 
   return (
     <section
       id="results"
       className="flex flex-col items-center justify-center border-4 p-8"
     >
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="searchQuery">
+              <TextField
+                type="text"
+                placeholder="Rechercher par métier, entreprise, secteur d'activité,..."
+                id="query"
+                value={searchQuery}
+                onChange={handleChange}
+                required
+                variant="outlined"
+                fullWidth
+                sx={{ mt: 1, backgroundColor: "white" }}
+              />
+            </label>
+          </div>
+          <div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+              sx={{ ml: 1, p: 1.8 }}
+            >
+              Rechercher
+            </Button>
+          </div>
+        </form>
+      </Box>
       <div className="flex flex-col items-center justify-center ">
         <div className="text-3xl font-bold mb-8">
-          Votre recherche retourne {Annonces.length} résultats:
+          Votre recherche pour retourne {Annonces.length} résultats:
         </div>
         <ul>
           {Annonces.map((Annonces) => (
