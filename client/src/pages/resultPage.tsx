@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-type Annonces = {
+type AnnoncesProps = {
   id: number;
   name: string;
   title: string;
@@ -21,11 +21,12 @@ type Annonces = {
 };
 
 function Result() {
-  const [Annonces, setAnnonces] = useState([] as Annonces[]);
+  const [annonces, setAnnonces] = useState([] as AnnoncesProps[]);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     setSearchQuery(e.target.value);
   };
 
@@ -37,14 +38,18 @@ function Result() {
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
+    e.preventDefault();
     handleSubmit(e);
     navigate("/result");
   };
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/annonces/search/${searchQuery}`)
+    if (searchQuery === "") return;
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/annonces/search?searchQuery=${searchQuery}`,
+    )
       .then((response) => response.json())
-      .then((data: Annonces[]) => {
+      .then((data: AnnoncesProps[]) => {
         setAnnonces(data);
       });
   }, [searchQuery]);
@@ -91,28 +96,29 @@ function Result() {
       </Box>
       <div className="flex flex-col items-center justify-center ">
         <div className="text-3xl font-bold mb-8">
-          Votre recherche pour retourne {Annonces.length} résultats:
+          Votre recherche pour {searchQuery} retourne {annonces.length}{" "}
+          résultats:
         </div>
         <ul>
-          {Annonces.map((Annonces) => (
+          {annonces?.map((annonce) => (
             <Box
-              key={Annonces.id}
+              key={annonce.id}
               className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
             >
               <li>
-                <p className="font-bold">{Annonces.title}</p>
+                <p className="font-bold">{annonce.title}</p>
                 <AccessTimeIcon className="font-italic">
-                  {Annonces.date}
+                  {annonce.date}
                 </AccessTimeIcon>
-                <p>{Annonces.light_description}</p>
-                <p>{Annonces.complete_description}</p>
+                <p>{annonce.light_description}</p>
+                <p>{annonce.complete_description}</p>
                 <span className="flex items-center">
                   <EuroSymbolIcon className="mr-1" fontSize="small" />
                 </span>
-                <p>{Annonces.remuneration}</p>
-                <p>{Annonces.experience}</p>
-                <p>{Annonces.work}</p>
-                <p>{Annonces.field}</p>
+                <p>{annonce.remuneration}</p>
+                <p>{annonce.experience}</p>
+                <p>{annonce.work}</p>
+                <p>{annonce.field}</p>
               </li>
             </Box>
           ))}

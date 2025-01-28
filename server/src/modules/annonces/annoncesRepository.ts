@@ -2,7 +2,7 @@ import databaseClient from "../../../database/client";
 
 import type { Result, Rows } from "../../../database/client";
 
-type Annonces = {
+type AnnoncesProps = {
   id: number;
   creation_date: string;
   modification_date: number;
@@ -20,7 +20,7 @@ type Annonces = {
 class AnnoncesRepository {
   // The C of CRUD - Creatxe operation
 
-  async create(annonces: Omit<Annonces, "id">) {
+  async create(annonces: Omit<AnnoncesProps, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO annonces (title, creation_dat, modification_date, light_description, complete_description, remuneration, experience, work, field, company_id, is_apply) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -48,12 +48,12 @@ class AnnoncesRepository {
   async searchQuery(searchQuery: string) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonce WHERE work LIKE %$?%",
+      "SELECT * FROM annonces WHERE work LIKE ?",
       [searchQuery],
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as Annonces;
+    return rows as AnnoncesProps[];
   }
 
   // The Rs of CRUD - Read operations
@@ -66,7 +66,7 @@ class AnnoncesRepository {
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as Annonces;
+    return rows as AnnoncesProps[];
   }
 
   async readAll() {
@@ -74,11 +74,11 @@ class AnnoncesRepository {
     const [rows] = await databaseClient.query<Rows>("SELECT * FROM annonces");
 
     // Return the array of items
-    return rows as Annonces[];
+    return rows as AnnoncesProps[];
   }
 
   // The U of CRUD - Update operation
-  async update(annonces: Annonces) {
+  async update(annonces: AnnoncesProps) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
       "UPDATE annonces SET alias = ?, function = ? WHERE id = ?",

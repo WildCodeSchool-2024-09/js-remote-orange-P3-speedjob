@@ -41,7 +41,7 @@ const read: RequestHandler = async (req, res, next) => {
 const search: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided searchQuery
-    const searchQuery = String(req.body.searchQuery);
+    const searchQuery = String(req.query.searchQuery);
     const annonces = await annoncesRepository.searchQuery(searchQuery);
 
     // If the item is not found, respond with HTTP 404 (Not Found)

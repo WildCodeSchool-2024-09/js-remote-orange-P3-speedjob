@@ -1,12 +1,10 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
-
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 function SignInModule() {
-  const { handleLogin, handleRegister, handleLogout, isAuth, message } =
-    useAuth();
-
+  const { handleLogin, handleLogout, isAuth, message } = useAuth();
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [type, setType] = useState("password");
@@ -27,8 +25,72 @@ function SignInModule() {
             mt={4}
           >
             <Typography variant="h4" component="h1" gutterBottom>
-              Salut {login}
+              Bonjour, voici les actions possibles:
             </Typography>
+
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="center"
+              mt={4}
+            >
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+                component={Link}
+                to="/jobboard"
+              >
+                Consulter les offres d'emplois
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+                component={Link}
+                to="/blog"
+              >
+                Consulter les articles
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+                component={Link}
+                to="/jobboard"
+              >
+                Consulter mes annonces favorites
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+                component={Link}
+                to="/blog"
+              >
+                Consulter mes articles favorites
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+                component={Link}
+                to="/userInfos"
+              >
+                Consulter les informations de mon compte
+              </Button>
+            </Box>
 
             <div>
               <Button
@@ -114,7 +176,8 @@ function SignInModule() {
               color="primary"
               type="submit"
               sx={{ mt: 2 }}
-              onClick={() => handleRegister(login, password)}
+              component={Link}
+              to="/signUp"
             >
               Je crée mon compte
             </Button>

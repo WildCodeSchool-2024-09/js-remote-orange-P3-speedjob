@@ -43,11 +43,11 @@ router.delete("/api/admin/:id", adminActions.destroy);
 import annoncesActions from "./modules/annonces/annoncesActions";
 
 router.get("/api/annonces", annoncesActions.browse);
-router.get("/api/annonces/:id", annoncesActions.read);
-router.get("/api/annonces/search/:id", annoncesActions.search);
+router.get("/api/annonces/:id([0-9]+)", annoncesActions.read);
+router.get("/api/annonces/search", annoncesActions.search);
 router.post("/api/annonces", annoncesActions.add);
-router.put("/api/annonces/:id", annoncesActions.edit);
-router.delete("/api/annonces/:id", annoncesActions.destroy);
+router.put("/api/annonces/:id([0-9]+)", annoncesActions.edit);
+router.delete("/api/annonces/:id([0-9]+)", annoncesActions.destroy);
 
 import articlesActions from "./modules/articles/articlesActions";
 
