@@ -21,6 +21,7 @@ import SignUp from "./pages/signUp";
 import SignUpCandidat from "./pages/signUpCandidat";
 import SignUpEntreprise from "./pages/signUpEntreprise";
 import UserInfoPage from "./pages/userInfo";
+import UserInfoUpdateModule from "./components/candidate/userUpdate";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
               <Route path="/signUpCandidat" element={<SignUpCandidat />} />
               <Route path="/userInfo" element={<UserInfoPage />} />
+              <Route path="/userInfoUpdate" element={<UserInfoUpdateModule />} />
               <Route path="/result" element={<Result />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

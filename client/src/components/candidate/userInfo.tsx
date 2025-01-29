@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 function UserInfoModule() {
   const { user } = useAuth();
+
 
   return (
     <>
@@ -40,7 +42,8 @@ function UserInfoModule() {
             variant="contained"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
-            type="button"
+            component={Link}
+            to="/userInfoUpdate"
           >
             Modifier
           </Button>
