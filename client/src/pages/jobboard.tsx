@@ -36,7 +36,7 @@ function Jobboard() {
             Découvrez nos dernières offres d'emploi
           </p>
         </div>
-        <div className="flex flex-col gap-8 align-center">
+        <div className="flex flex-col gap-8 items-center">
           {annonces.map((annonce) => (
             <div
               key={annonce.id}
