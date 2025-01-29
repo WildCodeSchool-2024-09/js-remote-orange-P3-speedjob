@@ -172,6 +172,26 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
+// The S of SEARCH - Search operation
+const search: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch a specific item based on the provided searchQuery
+    const searchQuery = String(req.query.searchQuery);
+    const annonces = await annoncesRepository.searchQuery(searchQuery);
+
+    // If the item is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the item in JSON format
+    if (annonces == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(annonces);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 // The A of BREAD - Add (Create) operation
 const add: RequestHandler = async (req, res, next) => {
   try {
@@ -251,4 +271,4 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, edit, destroy };
+export default { browse, read, add, edit, destroy, search };

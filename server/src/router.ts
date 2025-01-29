@@ -35,10 +35,11 @@ router.put("/api/admin/:id", adminActions.edit);
 router.delete("/api/admin/:id", adminActions.destroy);
 
 router.get("/api/annonces", annoncesActions.browse);
-router.get("/api/annonces/:id", annoncesActions.read);
+router.get("/api/annonces/:id([0-9]+)", annoncesActions.read);
+router.get("/api/annonces/search", annoncesActions.search);
 router.post("/api/annonces", annoncesActions.add);
-router.put("/api/annonces/:id", annoncesActions.edit);
-router.delete("/api/annonces/:id", annoncesActions.destroy);
+router.put("/api/annonces/:id([0-9]+)", annoncesActions.edit);
+router.delete("/api/annonces/:id([0-9]+)", annoncesActions.destroy);
 
 router.get("/api/articles", articlesActions.browse);
 router.get("/api/articles/:id", articlesActions.read);
@@ -52,6 +53,7 @@ import SignIn from "./modules/auth/auth";
 router.post("/api/auth/signin", SignIn.SignIn);
 router.post("/api/auth/signup", SignIn.SignUp);
 router.get("/api/auth/check", SignIn.Check);
+
 /* ************************************************************************* */
 
 
