@@ -8,6 +8,9 @@ import roleActions from "./modules/role/roleActions";
 import adminActions from "./modules/admin/adminActions";
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
+import multer from "multer";
+
+const upload = multer({ dest: "uploads/" });
 
 // Définition des routes
 router.get("/api/user", userActions.browse);
@@ -18,7 +21,7 @@ router.delete("/api/user/:id", userActions.destroy);
 
 router.get("/api/company", companyActions.browse);
 router.get("/api/company/:id", companyActions.read);
-router.post("/api/company", companyActions.add);
+router.post("/api/company", upload.single("logo"), companyActions.add);
 router.put("/api/company/:id", companyActions.edit);
 router.delete("/api/company/:id", companyActions.destroy);
 
@@ -46,13 +49,11 @@ router.post("/api/articles", articlesActions.add);
 router.put("/api/articles/:id", articlesActions.edit);
 router.delete("/api/articles/:id", articlesActions.destroy);
 
-
 import SignIn from "./modules/auth/auth";
 
 router.post("/api/auth/signin", SignIn.SignIn);
 router.post("/api/auth/signup", SignIn.SignUp);
 router.get("/api/auth/check", SignIn.Check);
 /* ************************************************************************* */
-
 
 export default router;
