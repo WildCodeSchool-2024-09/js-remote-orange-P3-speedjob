@@ -1,4 +1,4 @@
-import SignUpEn from "../components/register/signUpEn";
+import SignUpEn from "../components/register/entreprise/signUpEn";
 
 const SignUpEntreprise = () => {
   return (
