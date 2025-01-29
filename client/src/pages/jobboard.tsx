@@ -1,3 +1,4 @@
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -45,6 +46,7 @@ function Jobboard() {
               <p className="bold">{annonce.titre}</p>
               <p>Date de parution: {annonce.date}</p>
               <p>{annonce.light_description}</p>
+              <FavoriteBorderIcon type="submit" />
               <p>Nom de l'entreprise: {annonce.company_id}</p>
               <p>{annonce.remuneration}</p>
               <p>{annonce.experience} d'expérience minium dans le secteur</p>

@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const values = { login: login, password: password };
     const { data } = await axios.post<LoginResponse>(
-      "http://localhost:3310/api/auth/signin",
+      `${import.meta.env.VITE_API_URL}/api/auth/signin`,
       {
         method: "POST",
         values: values,
@@ -90,11 +90,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (token) {
       // Test de connexion back
-      const { data } = await axios.get("http://localhost:3310/api/auth/check", {
-        headers: { token: token },
-      });
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/auth/check`,
+        {
+          headers: { token: token },
+        },
+      );
 
       setIsAuth((data as { check: boolean })?.check);
+      setUser((data as { user: array })?.user[0]);
       if (!(data as { check: boolean })?.check) {
         await handleClean();
       }
@@ -109,7 +113,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    currentUser();
+    setTimeout(() => {
+      currentUser();
+    }, "5000"); // totues les minutes
+
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   }, [currentUser]);
 

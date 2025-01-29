@@ -17,7 +17,8 @@ const SignIn: RequestHandler = async (req, res, next) => {
     if (!process.env.APP_SECRET) {
       throw new Error("APP_SECRET is not defined");
     }
-    const token = jwt.sign({ login: login }, process.env.APP_SECRET, {
+
+    const token = jwt.sign({ id: user.id }, process.env.APP_SECRET, {
       expiresIn: "2 days",
     });
     user.token = token;
@@ -46,21 +47,22 @@ const Check: RequestHandler = async (req, res, next) => {
   const token = req.headers.token as string;
 
   if (!token) {
-    res.status(401).send({ check: false });
-    return;
+    return res.status(401).send({ check: false });
   }
 
   const appSecret = process.env.APP_SECRET;
+
   if (!appSecret) {
-    res.status(500).send({ error: "APP_SECRET is not defined" });
-    return;
+    return res.status(500).send({ error: "APP_SECRET is not defined" });
   }
-  jwt.verify(token, appSecret, (error, decoded) => {
+  jwt.verify(token, appSecret, async (error, decoded) => {
     if (error) {
-      res.status(401).send({ check: false });
-      return;
+      return res.status(401).send({ check: false });
     }
-    next();
+
+    const user: { token?: string } = await userRepository.read(decoded.id);
+
+    return res.status(200).send({ check: true, user: user });
   });
 };
 

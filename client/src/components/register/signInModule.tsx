@@ -26,15 +26,6 @@ function SignInModule() {
   const [type, setType] = useState("password");
   const [userData, setUserData] = useState([] as UserDataProps[]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/user/:id}`)
-      .then((response) => response.json())
-      .then((data: UserDataProps[]) => {
-        setUserData(data);
-      });
-  }, [userData]);
-
   return (
     <>
       {isAuth ? (
@@ -51,12 +42,12 @@ function SignInModule() {
             mt={4}
           >
             <Typography variant="h4" component="h1" gutterBottom>
-              Bonjour {login}, voici les actions possibles:
+              Bonjour, voici les actions possibles:
             </Typography>
 
             <Box
               display="flex"
-              flexDirection="row"
+              flexDirection="column"
               alignItems="center"
               justifyContent="center"
               mt={4}
@@ -112,9 +103,9 @@ function SignInModule() {
                 type="submit"
                 sx={{ mt: 2 }}
                 component={Link}
-                to="/userInfos"
+                to="/userInfo"
               >
-                Consulter les informations de mon compte
+                Consulter / Modifier mes informations personnelles
               </Button>
             </Box>
 

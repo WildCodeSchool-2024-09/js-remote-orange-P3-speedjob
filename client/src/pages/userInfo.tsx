@@ -1,15 +1,11 @@
-import UserInfo from "../components/candidate/userInfo";
-import Footer from "../components/header_footer/footer";
-import Header from "../components/header_footer/header";
+import UserInfoModule from "../components/candidate/userInfo";
 
-const adminPage = () => {
+const UserInfoPage = () => {
   return (
     <div>
-      <Header />
-      <UserInfo />
-      <Footer />
+      <UserInfoModule />
     </div>
   );
 };
 
-export default adminPage;
+export default UserInfoPage;

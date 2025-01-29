@@ -69,11 +69,11 @@ class UserRepository {
     const [rows] = await databaseClient.query<Rows>("SELECT * FROM user");
 
     // Return the array of items
-    return rows as User[];
+    return rows as UserProps[];
   }
 
   // The U of CRUD - Update operation
-  async update(user: User) {
+  async update(user: UserProps) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
       "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ? WHERE id = ?",
