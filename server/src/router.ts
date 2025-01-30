@@ -41,6 +41,16 @@ router.post("/api/user", userActions.add);
 router.put("/api/user/:id([0-9]+)", userActions.edit);
 router.delete("/api/user/:id([0-9]+)", userActions.destroy);
 
+import favoriteActions from "./modules/favorite/favoriteActions";
+
+router.get("/api/favorite", favoriteActions.browse);
+router.get("/api/favorite/:id([0-9]+)", favoriteActions.read);
+router.post("/api/favorite", favoriteActions.add);
+router.put("/api/favorite/:id([0-9]+)", favoriteActions.edit);
+router.delete("/api/favorite/:id([0-9]+)", favoriteActions.destroy);
+
+import companyActions from "./modules/company/companyActions";
+
 router.get("/api/company", companyActions.browse);
 router.get("/api/company/:id", companyActions.read);
 router.post("/api/company", upload.single("logo"), companyActions.add);
