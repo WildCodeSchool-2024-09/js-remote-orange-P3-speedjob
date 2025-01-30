@@ -2,11 +2,11 @@ require("dotenv").config();
 
 // Load the express module to create a web application
 
-import express from "express";
-import cors from "cors";
 import bodyParser from "body-parser";
-import uploadRouter from "./upload"; // Import du routeur upload
+import cors from "cors";
+import express from "express";
 import router from "./router";
+import uploadRouter from "./upload"; // Import du routeur upload
 
 const app = express();
 const port = process.env.PORT || 3310;
