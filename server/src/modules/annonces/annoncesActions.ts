@@ -9,7 +9,7 @@ const annonces = [
     light_description: "Développement d'interfaces utilisateur modernes.",
     complete_description:
       "Nous recherchons un développeur frontend spécialisé en React pour concevoir et maintenir des interfaces utilisateur performantes et ergonomiques.",
-    company_id: "123",
+    compagny_id: "123",
     remuneration: "45000-55000€/an",
     experience: "2-3 ans",
     work: "Temps plein",
@@ -23,7 +23,7 @@ const annonces = [
       "Accompagnement des entreprises dans leur transformation stratégique.",
     complete_description:
       "Le consultant aura pour mission d'identifier les opportunités de croissance, d'optimiser les processus existants et de proposer des solutions innovantes.",
-    company_id: "124",
+    compagny_id: "124",
     remuneration: "60000-80000€/an",
     experience: "5 ans",
     work: "Temps plein",
@@ -36,7 +36,7 @@ const annonces = [
     light_description: "Conception d'expériences utilisateur engageantes.",
     complete_description:
       "Vous collaborerez avec l'équipe produit pour concevoir des interfaces intuitives et visuellement attrayantes, en mettant l'accent sur l'utilisateur final.",
-    company_id: "125",
+    compagny_id: "125",
     remuneration: "40000-50000€/an",
     experience: "3 ans",
     work: "Temps plein",
@@ -49,7 +49,7 @@ const annonces = [
     light_description: "Gestion de campagnes marketing multi-canaux.",
     complete_description:
       "En tant que chef de projet, vous serez responsable de la planification, de l'exécution et de l'analyse des campagnes marketing pour divers clients.",
-    company_id: "126",
+    compagny_id: "126",
     remuneration: "50000-65000€/an",
     experience: "4 ans",
     work: "Temps plein",
@@ -62,7 +62,7 @@ const annonces = [
     light_description: "Assistance technique pour utilisateurs finaux.",
     complete_description:
       "Nous recherchons un technicien pour résoudre les problèmes techniques des utilisateurs et maintenir le parc informatique de l'entreprise.",
-    company_id: "127",
+    compagny_id: "127",
     remuneration: "30000-35000€/an",
     experience: "1-2 ans",
     work: "Temps plein",
@@ -75,7 +75,7 @@ const annonces = [
     light_description: "Analyse de données pour la prise de décision.",
     complete_description:
       "Votre rôle sera de collecter, analyser et interpréter des données pour aider à la prise de décision stratégique de l'entreprise.",
-    company_id: "128",
+    compagny_id: "128",
     remuneration: "40000-60000€/an",
     experience: "2 ans",
     work: "Temps plein",
@@ -89,7 +89,7 @@ const annonces = [
       "Automatisation et optimisation des processus de développement.",
     complete_description:
       "Vous serez chargé de créer des pipelines CI/CD, d'améliorer l'infrastructure cloud et d'assurer la stabilité des applications déployées.",
-    company_id: "129",
+    compagny_id: "129",
     remuneration: "55000-70000€/an",
     experience: "3-4 ans",
     work: "Temps plein",
@@ -102,7 +102,7 @@ const annonces = [
     light_description: "Gestion des talents et développement organisationnel.",
     complete_description:
       "Vous serez responsable de la gestion des recrutements, de la formation et du développement des employés.",
-    company_id: "130",
+    compagny_id: "130",
     remuneration: "50000-65000€/an",
     experience: "5 ans",
     work: "Temps plein",
@@ -115,7 +115,7 @@ const annonces = [
     light_description: "Gestion des finances et rapports financiers.",
     complete_description:
       "Le comptable senior sera chargé de superviser les opérations comptables, de préparer les rapports financiers et d'assurer la conformité fiscale.",
-    company_id: "131",
+    compagny_id: "131",
     remuneration: "45000-55000€/an",
     experience: "5 ans",
     work: "Temps plein",
@@ -128,7 +128,7 @@ const annonces = [
     light_description: "Optimisation de la chaîne d'approvisionnement.",
     complete_description:
       "Vous gérerez les opérations logistiques, planifierez les approvisionnements et optimiserez les coûts liés à la chaîne logistique.",
-    company_id: "132",
+    compagny_id: "132",
     remuneration: "50000-60000€/an",
     experience: "4 ans",
     work: "Temps plein",
@@ -185,7 +185,7 @@ const add: RequestHandler = async (req, res, next) => {
       experience: req.body.experience,
       work: req.body.work,
       field: req.body.field,
-      company_id: req.body.company_id,
+      compagny_id: req.body.compagny_id,
       is_apply: req.body.is_apply,
       title: req.body.title,
     };
@@ -216,7 +216,7 @@ const edit: RequestHandler = async (req, res, next) => {
       experience: String(req.body.experience),
       work: String(req.body.work),
       field: String(req.body.field),
-      company_id: Number(req.body.company_id),
+      compagny_id: Number(req.body.compagny_id),
       is_apply: Boolean(req.body.is_apply),
       title: String(req.body.title),
     };

@@ -9,6 +9,8 @@ import adminActions from "./modules/admin/adminActions";
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
 
+router.get("/", (req, res) => console.log("Hello World"));
+
 // Définition des routes
 router.get("/api/user", userActions.browse);
 router.get("/api/user/:id", userActions.read);
@@ -46,13 +48,11 @@ router.post("/api/articles", articlesActions.add);
 router.put("/api/articles/:id", articlesActions.edit);
 router.delete("/api/articles/:id", articlesActions.destroy);
 
-
 import SignIn from "./modules/auth/auth";
 
 router.post("/api/auth/signin", SignIn.SignIn);
 router.post("/api/auth/signup", SignIn.SignUp);
 router.get("/api/auth/check", SignIn.Check);
 /* ************************************************************************* */
-
 
 export default router;

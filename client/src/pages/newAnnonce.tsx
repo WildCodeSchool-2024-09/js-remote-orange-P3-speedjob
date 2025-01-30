@@ -1,6 +1,13 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Link from "@mui/material/Link";
 
 type NewAnnonces = {
   title: string;
@@ -10,6 +17,8 @@ type NewAnnonces = {
   experience: string;
   work: string;
   field: string;
+  compagny_id?: number;
+  is_apply?: boolean;
 };
 
 function NewAnnonce() {
@@ -22,23 +31,48 @@ function NewAnnonce() {
     work: "",
     field: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    console.log(import.meta.env.VITE_API_URL);
-    fetch(`${import.meta.env.VITE_API_URL}/api/annonces`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAnnonces),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        navigate("/annonces");
-      });
-  };
+  const handleSubmit = async () => {
+    if (
+      !newAnnonces.title ||
+      !newAnnonces.light_description ||
+      !newAnnonces.complete_description
+    ) {
+      setError("Tous les champs doivent être remplis.");
+      return;
+    }
 
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/annonces`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newAnnonces),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la création de l'annonce");
+      }
+
+      const data = await response.json();
+      navigate("/jobboard");
+    } catch (error) {
+      setError("Erreur lors de la création de l'annonce");
+      console.error("Erreur:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewAnnonces((prev) => ({
@@ -121,8 +155,13 @@ function NewAnnonce() {
           onChange={handleChange}
           margin="normal"
         />
-        <Button onClick={handleSubmit} variant="contained" color="primary">
-          Valider
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+        >
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Valider"}
         </Button>
       </Box>
     </Box>
@@ -130,3 +169,6 @@ function NewAnnonce() {
 }
 
 export default NewAnnonce;
+//type="Button"
+//component={Link}
+//to="/jobboard"

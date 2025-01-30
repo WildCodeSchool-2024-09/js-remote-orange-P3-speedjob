@@ -15,7 +15,7 @@ type Annonces = {
   experience: string;
   work: string;
   field: string;
-  company_id: number;
+  compagny_id: number;
   is_apply: boolean;
   title: string;
 };
@@ -26,7 +26,7 @@ class AnnoncesRepository {
   async create(annonces: Omit<Annonces, "id">) {
     // Execute the SQL INSERT query to add a new item to the "annonces" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO annonces (title, creation_date, modification_date, light_description, complete_description, remuneration, experience, work, field, company_id, is_apply) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO annonces (title, creation_date, modification_date, light_description, complete_description, remuneration, experience, work, field, compagny_id, is_apply) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         annonces.title,
         annonces.creation_date,
@@ -37,7 +37,7 @@ class AnnoncesRepository {
         annonces.experience,
         annonces.work,
         annonces.field,
-        annonces.company_id,
+        annonces.compagny_id,
         annonces.is_apply,
       ],
     );
@@ -55,7 +55,6 @@ class AnnoncesRepository {
   }
 
   async readAll() {
-
     // Execute the SQL SELECT query to retrieve all items from the "annonces" table
 
     const [rows] = await databaseClient.query<Rows>("SELECT * FROM annonces");
@@ -64,7 +63,6 @@ class AnnoncesRepository {
 
   // The U of CRUD - Update operation
   async update(annonces: Annonces) {
-
     // Execute the SQL UPDATE query to update an existing item in the "annonces" table
     const [result] = await databaseClient.query<Result>(
       "UPDATE annonces SET creation_date = ?, modification_date = ?, light_description = ?, complete_description = ?, remuneration = ?, experience = ?, work = ?, field = ?, company_id = ?, is_apply = ?, title = ? WHERE id = ?",
@@ -79,7 +77,7 @@ class AnnoncesRepository {
         annonces.experience,
         annonces.work,
         annonces.field,
-        annonces.company_id,
+        annonces.compagny_id,
         annonces.is_apply,
         annonces.id,
       ],
@@ -89,7 +87,6 @@ class AnnoncesRepository {
 
   // The D of CRUD - Delete operation
   async delete(id: number) {
-
     // Execute the SQL DELETE query to delete an existing item from the "annonces" table
 
     const [result] = await databaseClient.query<Result>(
