@@ -17,22 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
--- -----------------------------------------------------
--- Table `mydb`.`company`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`company` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `light_description` VARCHAR(100) NOT NULL,
-  `complete_description` VARCHAR(250) NOT NULL,
-  `siret_number` INT NOT NULL,
-  `phone_number` INT NOT NULL,
-  `street_number` INT NOT NULL,
-  `street_name` VARCHAR(45) NOT NULL,
-  `postcode` VARCHAR(45) NOT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  `cedex_number` VARCHAR(45) NOT NULL,
-  `raison_social` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`));
+
 
 -- -----------------------------------------------------
 -- Table `mydb`.`annonces`
@@ -178,21 +163,6 @@ VALUES
     "Logistique",
     "0"
   );
--- -----------------------------------------------------
--- Table `mydb`.`candidate`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`candidate` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `birthdate` DATETIME NOT NULL,
-  `street_number` VARCHAR(250) NOT NULL,
-  `street_name` VARCHAR(250) NOT NULL,
-  `phone_number` VARCHAR(20) NOT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  `postcode` VARCHAR(45) NOT NULL,
-  `cv_link` VARCHAR(255) NOT NULL,
-  `lm_link` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`));
-
 
 -- -----------------------------------------------------
 -- Table `mydb`.`admin`
@@ -216,7 +186,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`articles` (
   `picture` VARCHAR(250) NOT NULL,
   PRIMARY KEY (`id`));
 
-
 -- -----------------------------------------------------
 -- Table `mydb`.`user`
 -- -----------------------------------------------------
@@ -230,8 +199,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `creation_date` DATETIME NOT NULL,
   `modification_date` DATETIME NULL,
   `isAdmin` TINYINT NOT NULL,
+  `street_number` INT NOT NULL,
+  `street_name` VARCHAR(250) NOT NULL,
+  `postcode` TINYINT NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  `phone_number` TINYINT NOT NULL,
+  `birthdate` DATETIME NULL,  
+  `cv_link` VARCHAR(255) NULL,
+  `lm_link` VARCHAR(255) NULL,
+  `light_description` VARCHAR(100) NULL,
+  `complete_description` VARCHAR(250) NULL,
+  `siret_number` INT NULL,
+  `cedex_number` VARCHAR(45) NULL,
+  `raison_social` VARCHAR(100) NULL,
   PRIMARY KEY (`id`));
-
 
 -- -----------------------------------------------------
 -- Table `mydb`.`role`
