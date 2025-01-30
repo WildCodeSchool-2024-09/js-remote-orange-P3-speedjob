@@ -1,27 +1,29 @@
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useEffect, useState } from "react";
-
-type Annonces = {
+type AnnoncesProps = {
   id: number;
+  name: string;
   titre: string;
-  creation_date: string;
   light_description: string;
   complete_description: string;
-  company_id: number;
   remuneration: string;
   experience: string;
+  company_id: number;
   work: string;
+  is_apply: boolean;
   field: string;
+  date: string;
 };
 
 function Jobboard() {
-  const [annonces, setAnnonces] = useState([] as Annonces[]);
+  const [annonces, setAnnonces] = useState([] as AnnoncesProps[]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/annonces`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/annonces/`)
       .then((response) => response.json())
-      .then((data: Annonces[]) => {
+      .then((data: AnnoncesProps[]) => {
         setAnnonces(data);
       });
   }, []);
@@ -35,25 +37,23 @@ function Jobboard() {
             Découvrez nos dernières offres d'emploi
           </p>
         </div>
-        <div className="flex flex-col gap-8 items-center">
+        <div className="flex flex-col gap-8 align-center">
           {annonces.map((annonce) => (
             <div
               key={annonce.id}
               className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
             >
-              <p className="font-bold">{annonce.titre}</p>
-              <p>Date de parution: {annonce.creation_date}</p>
+              <p className="bold">{annonce.titre}</p>
+              <p>Date de parution: {annonce.date}</p>
               <p>{annonce.light_description}</p>
-              <p>{annonce.complete_description}</p>
+              <FavoriteBorderIcon type="submit" />
               <p>Nom de l'entreprise: {annonce.company_id}</p>
-              <p>{annonce.remuneration}€/an</p>
+              <p>{annonce.remuneration}</p>
               <p>{annonce.experience} d'expérience minium dans le secteur</p>
-              <p>{annonce.work}</p>
-              <p>{annonce.field}</p>
-              <div className="font-bold border border-black border-4 p-8 bg-black">
-                <Link to="/signin" className="text-white">
-                  Postuler immédiatement
-                </Link>
+              <p>#{annonce.work}</p>
+              <p>#{annonce.field}</p>
+              <div className="font-bold border solid-black border-4 p-8 bg-black">
+                <Link to="/login">Postuler immédiatement</Link>
               </div>
             </div>
           ))}

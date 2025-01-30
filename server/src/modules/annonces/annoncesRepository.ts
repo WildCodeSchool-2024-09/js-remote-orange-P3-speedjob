@@ -5,7 +5,7 @@ import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
-type Annonces = {
+type AnnoncesProps = {
   id: number;
   creation_date: string;
   modification_date: number;
@@ -23,8 +23,9 @@ type Annonces = {
 class AnnoncesRepository {
   // The C of CRUD - Create operation
 
-  async create(annonces: Omit<Annonces, "id">) {
-    // Execute the SQL INSERT query to add a new item to the "annonces" table
+  async create(annonces: Omit<AnnoncesProps, "id">) {
+    // Execute the SQL INSERT query to add a new item to the "item" table
+
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO annonces (title, creation_date, modification_date, light_description, complete_description, remuneration, experience, work, field, company_id, is_apply) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
@@ -44,28 +45,42 @@ class AnnoncesRepository {
     return result.insertId;
   }
 
+  // The Ss of CRUD - Search operations
+
+  async searchQuery(searchQuery: string) {
+    // Execute the SQL SELECT query to retrieve a specific item by its ID
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM annonces WHERE work LIKE ?",
+      [searchQuery],
+    );
+
+    // Return the first row of the result, which represents the item
+    return rows as AnnoncesProps[];
+  }
+
   // The Rs of CRUD - Read operations
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonces WHERE id = ?",
+      "SELECT * FROM articles WHERE id = ?",
       [id],
     );
-    return rows[0] as Annonces;
+
+    // Return the first row of the result, which represents the item
+    return rows as AnnoncesProps[];
+
   }
 
   async readAll() {
 
-    // Execute the SQL SELECT query to retrieve all items from the "annonces" table
-
-    const [rows] = await databaseClient.query<Rows>("SELECT * FROM annonces");
-    return rows as Annonces[];
+    // Return the array of items
+    return rows as AnnoncesProps[];
   }
 
   // The U of CRUD - Update operation
-  async update(annonces: Annonces) {
+  async update(annonces: AnnoncesProps) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
 
-    // Execute the SQL UPDATE query to update an existing item in the "annonces" table
     const [result] = await databaseClient.query<Result>(
       "UPDATE annonces SET creation_date = ?, modification_date = ?, light_description = ?, complete_description = ?, remuneration = ?, experience = ?, work = ?, field = ?, company_id = ?, is_apply = ?, title = ? WHERE id = ?",
 

@@ -48,6 +48,7 @@
     "@mui/x-date-pickers": "^7.24.0",
     "@types/multer": "^1.4.12",
     "date-fns": "^2.29.3",
+    "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "uuid": "^11.0.5"
   }
