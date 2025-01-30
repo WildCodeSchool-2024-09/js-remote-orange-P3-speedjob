@@ -17,6 +17,19 @@ type UserProps = {
   role_id: number;
   admin_id: number;
   token: string;
+  street_number: number;
+  street_name: string;
+  postcode: number;
+  city: string;
+  phone_number: number;
+  birthdate: string;
+  cv_link: string;
+  lm_link: string;
+  light_description: string;
+  complete_description: string;
+  siret_number: number;
+  cedex_number: number;
+  raison_social: string;
 };
 
 // The B of BREAD - Browse (Read All) operation
@@ -59,6 +72,7 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newUser = {
+      token: req.body.token,
       title: req.body.title,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -70,6 +84,19 @@ const add: RequestHandler = async (req, res, next) => {
       isAdmin: req.body.isAdmin,
       role_id: req.body.role_id,
       admin_id: req.body.admin_id,
+      street_number: req.body.street_number,
+      street_name: req.body.street_name,
+      postcode: req.body.postcode,
+      city: req.body.city,
+      phone_number: req.body.phone_number,
+      birthdate: req.body.birthdate,
+      cv_link: req.body.cv_link,
+      lm_link: req.body.lm_link,
+      light_description: req.body.light_description,
+      complete_description: req.body.complete_description,
+      siret_number: req.body.siret_number,
+      cedex_number: req.body.cedex_number,
+      raison_social: req.body.raison_social,
     };
 
     // Create the item
@@ -89,7 +116,7 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     // Update a specific category based on the provided ID
     const user = {
-      id: Number(req.body.id),
+      id: Number(req.params.id),
       firstname: String(req.body.firstname),
       lastname: String(req.body.firstname),
       login: String(req.body.login),
@@ -100,6 +127,20 @@ const edit: RequestHandler = async (req, res, next) => {
       isAdmin: Boolean(req.body.isAdmin),
       role_id: Number(req.body.role_id),
       admin_id: Number(req.body.admin_id),
+      token: String(req.body.token),
+      street_number: Number(req.body.street_number),
+      street_name: String(req.body.street_name),
+      postcode: Number(req.body.postcode),
+      city: String(req.body.city),
+      phone_number: Number(req.body.phone_number),
+      birthdate: String(req.body.birthdate),
+      cv_link: String(req.body.cv_link),
+      lm_link: String(req.body.lm_link),
+      light_description: String(req.body.light_description),
+      complete_description: String(req.body.complete_description),
+      siret_number: Number(req.body.siret_number),
+      cedex_number: Number(req.body.cedex_number),
+      raison_social: String(req.body.raison_social),
     };
 
     const affectedRows = await userRepository.update(user);
