@@ -1,17 +1,13 @@
-// Load environment variables from .env file
 import "dotenv/config";
-
 import fs from "node:fs";
 import path from "node:path";
+import mysql from "mysql2/promise";
 
 // Build the path to the schema SQL file
 const schema = path.join(__dirname, "../../server/database/schema.sql");
 
 // Get database connection details from .env file
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
-
-// Update the database schema
-import mysql from "mysql2/promise";
 
 const migrate = async () => {
   try {
@@ -21,7 +17,7 @@ const migrate = async () => {
     // Create a specific connection to the database
     const database = await mysql.createConnection({
       host: DB_HOST,
-      port: DB_PORT as number | undefined,
+      port: Number(DB_PORT),
       user: DB_USER,
       password: DB_PASSWORD,
       multipleStatements: true, // Allow multiple SQL statements
