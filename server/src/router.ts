@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 const router = express.Router();
 
 // Import des actions
@@ -8,9 +9,30 @@ import roleActions from "./modules/role/roleActions";
 import adminActions from "./modules/admin/adminActions";
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
-import multer from "multer";
 
-const upload = multer({ dest: "uploads/" });
+// Configuration de Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const fileFilter = (
+  req: express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback,
+) => {
+  if (file.mimetype.startsWith("image/")) {
+    cb(null, true);
+  } else {
+    cb(new Error("Invalid file type. Only images are allowed."));
+  }
+};
+
+const upload = multer({ storage, fileFilter });
 
 // Définition des routes
 router.get("/api/user", userActions.browse);

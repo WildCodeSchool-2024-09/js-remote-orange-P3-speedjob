@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`company` (
   `city` VARCHAR(45) NOT NULL,
   `cedex_number` VARCHAR(45) NOT NULL,
   `raison_social` VARCHAR(100) NOT NULL,
+  `logo` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------

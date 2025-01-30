@@ -53,7 +53,7 @@ const add: RequestHandler = async (req, res, next) => {
       cedex_number: req.body.cedexNumber,
       user_id: req.body.user_id,
       raison_social: req.body.raisonSocial,
-      logo: req.file?.filename, // Assuming you handle file upload separately
+      logo: req.file?.filename || "", // Provide a default empty string if undefined
     };
 
     // Create the item
@@ -85,6 +85,7 @@ const edit: RequestHandler = async (req, res, next) => {
       cedex_number: Number(req.body.cedex_number),
       user_id: Number(req.body.user_id),
       raison_social: String(req.body.raison_social),
+      logo: String(req.body.logo),
     };
 
     const affectedRows = await companyRepository.update(company);
