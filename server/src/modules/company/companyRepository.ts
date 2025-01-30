@@ -18,6 +18,7 @@ type Company = {
   cedex_number: number;
   user_id: number;
   raison_social: string;
+  logo: string;
 };
 
 class CompanyRepository {
@@ -26,7 +27,7 @@ class CompanyRepository {
   async create(company: Omit<Company, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO company (light_description, complete_description, siret_number, phone_number, street_number, street_name, postcode, city, cedex_number, user_id, raison_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO company (light_description, complete_description, siret_number, phone_number, street_number, street_name, postcode, city, cedex_number, raison_social, logo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         company.light_description,
         company.complete_description,
@@ -37,8 +38,8 @@ class CompanyRepository {
         company.postcode,
         company.city,
         company.cedex_number,
-        company.user_id,
         company.raison_social,
+        company.logo,
       ],
     );
 
@@ -71,7 +72,7 @@ class CompanyRepository {
   async update(company: Company) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE company SET light_description = ?, complete_description = ?, siret_number = ?, phone_number = ?, street_number = ?, street_name = ?, postcode = ?, city = ?, cedex_number = ?, user_id = ?, raison_social = ? WHERE id = ?",
+      "UPDATE company SET light_description = ?, complete_description = ?, siret_number = ?, phone_number = ?, street_number = ?, street_name = ?, postcode = ?, city = ?, cedex_number = ?, user_id = ?, raison_social = ?, logo = ? WHERE id = ?",
       [
         company.light_description,
         company.complete_description,
@@ -84,6 +85,7 @@ class CompanyRepository {
         company.cedex_number,
         company.user_id,
         company.raison_social,
+        company.logo,
         company.id,
       ],
     );

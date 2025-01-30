@@ -42,17 +42,18 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newCompany = {
-      light_description: req.body.light_description,
-      complete_description: req.body.complete_description,
-      siret_number: req.body.siret_number,
-      phone_number: req.body.phone_number,
-      street_number: req.body.street_number,
-      street_name: req.body.street_name,
-      postcode: req.body.postcode,
+      light_description: req.body.lightDescription,
+      complete_description: req.body.completeDescription,
+      siret_number: req.body.siretNumber,
+      phone_number: req.body.phoneNumber,
+      street_number: req.body.streetNumber,
+      street_name: req.body.streetName,
+      postcode: req.body.postCode,
       city: req.body.city,
-      cedex_number: req.body.cedex_number,
+      cedex_number: req.body.cedexNumber,
       user_id: req.body.user_id,
-      raison_social: req.body.raison_social,
+      raison_social: req.body.raisonSocial,
+      logo: req.file?.filename || "", // Provide a default empty string if undefined
     };
 
     // Create the item
@@ -84,6 +85,7 @@ const edit: RequestHandler = async (req, res, next) => {
       cedex_number: Number(req.body.cedex_number),
       user_id: Number(req.body.user_id),
       raison_social: String(req.body.raison_social),
+      logo: String(req.body.logo),
     };
 
     const affectedRows = await companyRepository.update(company);

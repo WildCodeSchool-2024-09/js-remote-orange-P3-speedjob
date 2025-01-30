@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 const router = express.Router();
 
 // Import des actions
@@ -9,6 +10,30 @@ import adminActions from "./modules/admin/adminActions";
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
 
+// Configuration de Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const fileFilter = (
+  req: express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback,
+) => {
+  if (file.mimetype.startsWith("image/")) {
+    cb(null, true);
+  } else {
+    cb(new Error("Invalid file type. Only images are allowed."));
+  }
+};
+
+const upload = multer({ storage, fileFilter });
+
 // Définition des routes
 router.get("/api/user", userActions.browse);
 router.get("/api/user/:id([0-9]+)", userActions.read);
@@ -18,7 +43,7 @@ router.delete("/api/user/:id([0-9]+)", userActions.destroy);
 
 router.get("/api/company", companyActions.browse);
 router.get("/api/company/:id", companyActions.read);
-router.post("/api/company", companyActions.add);
+router.post("/api/company", upload.single("logo"), companyActions.add);
 router.put("/api/company/:id", companyActions.edit);
 router.delete("/api/company/:id", companyActions.destroy);
 
@@ -47,7 +72,6 @@ router.post("/api/articles", articlesActions.add);
 router.put("/api/articles/:id", articlesActions.edit);
 router.delete("/api/articles/:id", articlesActions.destroy);
 
-
 import SignIn from "./modules/auth/auth";
 
 router.post("/api/auth/signin", SignIn.SignIn);
@@ -55,6 +79,5 @@ router.post("/api/auth/signup", SignIn.SignUp);
 router.get("/api/auth/check", SignIn.Check);
 
 /* ************************************************************************* */
-
 
 export default router;

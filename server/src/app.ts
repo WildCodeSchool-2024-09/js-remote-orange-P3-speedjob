@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/upload", uploadRouter); // Utilisation du routeur upload
-app.use("/api", router);
+app.use("/", router);
 
 app.listen(port, () => {
   console.info(`Server is running on port ${port}`);

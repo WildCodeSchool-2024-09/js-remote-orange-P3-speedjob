@@ -1,6 +1,6 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Box, TextField, Button, Typography } from "@mui/material";
 
 const SignUpEn = () => {
   const [lightDescription, setLightDescription] = useState("");
@@ -13,34 +13,44 @@ const SignUpEn = () => {
   const [city, setCity] = useState("");
   const [cedexNumber, setCedexNumber] = useState("");
   const [raisonSocial, setRaisonSocial] = useState("");
-  const [formData, setFormData] = useState({
-    lightDescription: "",
-    completeDescription: "",
-    siretNumber: "",
-    phoneNumber: "",
-    streetNumber: "",
-    streetName: "",
-    postCode: "",
-    city: "",
-    cedexNumber: "",
-    raisonSocial: "",
-    checked: false,
-  });
+  const [logo, setLogo] = useState<File | null>(null);
 
-  const handleSubmit = () => {
-    setFormData({
-      lightDescription: lightDescription,
-      completeDescription: completeDescription,
-      siretNumber: siretNumber,
-      phoneNumber: phoneNumber,
-      streetNumber: streetNumber,
-      streetName: streetName,
-      postCode: postCode,
-      city: city,
-      cedexNumber: cedexNumber,
-      raisonSocial: raisonSocial,
-      checked: formData.checked,
-    });
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("lightDescription", lightDescription);
+    formData.append("completeDescription", completeDescription);
+    formData.append("siretNumber", siretNumber);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("streetNumber", streetNumber);
+    formData.append("streetName", streetName);
+    formData.append("postCode", postCode);
+    formData.append("city", city);
+    formData.append("cedexNumber", cedexNumber);
+    formData.append("raisonSocial", raisonSocial);
+    if (logo) {
+      formData.append("logo", logo);
+    }
+
+    const requestOptions = {
+      method: "POST",
+      body: formData,
+      redirect: "follow" as RequestRedirect,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3310/api/company",
+        requestOptions,
+      );
+      if (response.ok) {
+        alert("Inscription réussie !");
+      } else {
+        alert("Erreur lors de l'inscription.");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Erreur lors de l'inscription.");
+    }
   };
 
   return (
@@ -146,6 +156,22 @@ const SignUpEn = () => {
             fullWidth
             size="small"
           />
+          <Box mt={2}>
+            <Typography
+              variant="body1"
+              component="label"
+              display="block"
+              gutterBottom
+            >
+              Logo
+            </Typography>
+            <input
+              type="file"
+              onChange={(e) =>
+                setLogo((e.target as HTMLInputElement).files?.[0] || null)
+              }
+            />
+          </Box>
           <Link to="/signIn" style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
@@ -157,19 +183,6 @@ const SignUpEn = () => {
               Submit
             </Button>
           </Link>
-          <Typography variant="body2" align="center" mt={4}>
-            Already have an account?{" "}
-            <Link
-              to="/SignIn"
-              style={{
-                fontWeight: "bold",
-                color: "#1976d2",
-                textDecoration: "none",
-              }}
-            >
-              Sign In
-            </Link>
-          </Typography>
         </Box>
       </Box>
     </section>
