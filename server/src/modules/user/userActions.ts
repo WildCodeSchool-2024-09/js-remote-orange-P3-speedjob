@@ -11,6 +11,9 @@ type UserProps = {
   login: string;
   password: string;
   email: string;
+  name_street: string;
+  postcode: string;
+  city: string;
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
@@ -65,11 +68,15 @@ const add: RequestHandler = async (req, res, next) => {
       login: req.body.login,
       password: req.body.password,
       email: req.body.email,
+      name_street: req.body.name_street,
+      postcode: req.body.postcode,
+      city: req.body.city,
       creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       isAdmin: req.body.isAdmin,
       role_id: req.body.role_id,
       admin_id: req.body.admin_id,
+      token: req.body.token,
     };
 
     // Create the item
@@ -89,17 +96,21 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     // Update a specific category based on the provided ID
     const user = {
-      id: Number(req.body.id),
+      id: Number(req.params.id),
       firstname: String(req.body.firstname),
       lastname: String(req.body.firstname),
       login: String(req.body.login),
       password: String(req.body.password),
       email: String(req.body.email),
+      name_street: String(req.body.name_street),
+      postcode: String(req.body.postcode),
+      city: String(req.body.city),
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
       isAdmin: Boolean(req.body.isAdmin),
       role_id: Number(req.body.role_id),
       admin_id: Number(req.body.admin_id),
+      token: String(req.body.token),
     };
 
     const affectedRows = await userRepository.update(user);
