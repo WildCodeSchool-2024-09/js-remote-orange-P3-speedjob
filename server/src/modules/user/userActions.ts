@@ -4,7 +4,6 @@ import type { RequestHandler } from "express";
 import userRepository from "./userRepository";
 
 type UserProps = {
-
   id: number;
   title: string;
   firstname: string;
@@ -97,7 +96,7 @@ const add: RequestHandler = async (req, res, next) => {
       complete_description: req.body.complete_description,
       siret_number: req.body.siret_number,
       cedex_number: req.body.cedex_number,
-      raison_social: req.body.raison_social,      
+      raison_social: req.body.raison_social,
     };
 
     // Create the item
