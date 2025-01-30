@@ -1,13 +1,13 @@
 import express from "express";
 const router = express.Router();
 
-// Import des actions
-import userActions from "./modules/user/userActions";
-import companyActions from "./modules/company/companyActions";
-import roleActions from "./modules/role/roleActions";
 import adminActions from "./modules/admin/adminActions";
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
+import companyActions from "./modules/company/companyActions";
+import roleActions from "./modules/role/roleActions";
+// Import des actions
+import userActions from "./modules/user/userActions";
 
 router.get("/", (req, res) => console.log("Hello World"));
 

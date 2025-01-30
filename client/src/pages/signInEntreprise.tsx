@@ -1,4 +1,4 @@
-import SignInEn from "../components/register/entreprise/signinEn.tsx";
+import SignInEn from "../components/register/entreprise/signInEn.tsx";
 const signInEntreprise = () => {
   return (
     <div>

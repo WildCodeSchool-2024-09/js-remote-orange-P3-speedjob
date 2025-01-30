@@ -1,5 +1,5 @@
+import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
-import { Typography, Box, Button } from "@mui/material";
 
 const SeeCandidate = () => {
   interface Candidate {

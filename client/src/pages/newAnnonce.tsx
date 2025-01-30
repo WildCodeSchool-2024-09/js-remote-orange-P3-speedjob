@@ -1,13 +1,12 @@
 import {
   Box,
   Button,
+  CircularProgress,
   TextField,
   Typography,
-  CircularProgress,
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Link from "@mui/material/Link";
 
 type NewAnnonces = {
   title: string;
@@ -64,7 +63,7 @@ function NewAnnonce() {
         throw new Error("Erreur lors de la création de l'annonce");
       }
 
-      const data = await response.json();
+      //const data = await response.json();
       navigate("/jobboard");
     } catch (error) {
       setError("Erreur lors de la création de l'annonce");
@@ -155,6 +154,11 @@ function NewAnnonce() {
           onChange={handleChange}
           margin="normal"
         />
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
         <Button
           onClick={handleSubmit}
           variant="contained"
@@ -169,6 +173,3 @@ function NewAnnonce() {
 }
 
 export default NewAnnonce;
-//type="Button"
-//component={Link}
-//to="/jobboard"

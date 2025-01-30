@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`company` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`annonces` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `creation_date` VARCHAR(45) NULL,
+  `creation_date` VARCHAR(45) NOT NULL,
   `modification_date` VARCHAR(45) NULL,
   `light_description` VARCHAR(250) NOT NULL,
   `complete_description` VARCHAR(250) NOT NULL,
@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`annonces` (
   `experience` VARCHAR(45) NOT NULL,
   `work` VARCHAR(45) NOT NULL,
   `field` VARCHAR(45) NOT NULL,
-  `compagny_id` int unsigned null,
-  foreign key (compagny_id) references compagny(id),
-  `is_apply` TINYINT  NULL,
+  `company_id` int unsigned null,
+  foreign key (company_id) references company(id),
+  `is_apply` TINYINT NOT NULL,
   `title` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`));
 
