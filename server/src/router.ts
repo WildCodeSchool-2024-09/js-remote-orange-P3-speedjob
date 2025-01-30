@@ -11,10 +11,10 @@ import articlesActions from "./modules/articles/articlesActions";
 
 // Définition des routes
 router.get("/api/user", userActions.browse);
-router.get("/api/user/:id", userActions.read);
+router.get("/api/user/:id([0-9]+)", userActions.read);
 router.post("/api/user", userActions.add);
-router.put("/api/user/:id", userActions.edit);
-router.delete("/api/user/:id", userActions.destroy);
+router.put("/api/user/:id([0-9]+)", userActions.edit);
+router.delete("/api/user/:id([0-9]+)", userActions.destroy);
 
 router.get("/api/company", companyActions.browse);
 router.get("/api/company/:id", companyActions.read);

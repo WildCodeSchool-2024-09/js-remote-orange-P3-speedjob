@@ -20,6 +20,7 @@ import SignInCandidat from "./pages/signInCandidat";
 import SignUp from "./pages/signUp";
 import SignUpCandidat from "./pages/signUpCandidat";
 import SignUpEntreprise from "./pages/signUpEntreprise";
+import UserInfoPage from "./pages/userInfo";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
               <Route path="/signUpCandidat" element={<SignUpCandidat />} />
+              <Route path="/userInfo" element={<UserInfoPage />} />
               <Route path="/result" element={<Result />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

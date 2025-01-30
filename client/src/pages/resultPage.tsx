@@ -96,7 +96,7 @@ function Result() {
       </Box>
       <div className="flex flex-col items-center justify-center ">
         <div className="text-3xl font-bold mb-8">
-          Votre recherche pour {searchQuery} retourne {annonces.length}{" "}
+          Votre recherche pour le poste {searchQuery} retourne {annonces.length}{" "}
           résultats:
         </div>
         <ul>

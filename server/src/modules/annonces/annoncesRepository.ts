@@ -65,7 +65,7 @@ class AnnoncesRepository {
       "SELECT * FROM articles WHERE id = ?",
       [id],
     );
-    
+
     // Return the first row of the result, which represents the item
     return rows as AnnoncesProps[];
 
