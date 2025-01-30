@@ -1,6 +1,9 @@
 import databaseClient from "../../../database/client";
 
-import type { Result, Rows } from "../../../database/client";
+import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+
+type Result = ResultSetHeader;
+type Rows = RowDataPacket[];
 
 type Company = {
   id: number;
@@ -23,7 +26,7 @@ class CompanyRepository {
   async create(company: Omit<Company, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO company (light_description, complete_description, siret_number, phone_number, street_number, street_name, postcode, city, cedex_number, user_id, raison_social) VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,?)",
+      "INSERT INTO company (light_description, complete_description, siret_number, phone_number, street_number, street_name, postcode, city, cedex_number, user_id, raison_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         company.light_description,
         company.complete_description,
@@ -68,13 +71,14 @@ class CompanyRepository {
   async update(company: Company) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE company SET light_description = ?,complete_description = ?, siret_number = ?, phone_number = ?, street_number = ?, postcode = ?, city = ?, cedex_number = ?, user_id = ?, raison_social = ? WHERE id = ?",
+      "UPDATE company SET light_description = ?, complete_description = ?, siret_number = ?, phone_number = ?, street_number = ?, street_name = ?, postcode = ?, city = ?, cedex_number = ?, user_id = ?, raison_social = ? WHERE id = ?",
       [
         company.light_description,
         company.complete_description,
         company.siret_number,
         company.phone_number,
         company.street_number,
+        company.street_name,
         company.postcode,
         company.city,
         company.cedex_number,

@@ -1,6 +1,9 @@
 import databaseClient from "../../../database/client";
 
-import type { Result, Rows } from "../../../database/client";
+import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+
+type Result = ResultSetHeader;
+type Rows = RowDataPacket[];
 
 type UserProps = {
   token: string;
