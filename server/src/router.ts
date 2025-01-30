@@ -13,6 +13,8 @@ import userActions from "./modules/user/userActions";
 router.get("/", (req, res) => console.log("Hello World"));
 
 // Configuration de Multer
+
+// Configuration de Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
