@@ -6,7 +6,7 @@ type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
 type User = {
-  token: never;
+  token: string;
   id: number;
   firstname: string;
   lastname: string;

@@ -59,6 +59,7 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newUser = {
+      token: req.body.token,
       title: req.body.title,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -89,7 +90,8 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     // Update a specific category based on the provided ID
     const user = {
-      id: Number(req.body.id),
+      id: Number(req.params.id),
+      token: String(req.body.token),
       firstname: String(req.body.firstname),
       lastname: String(req.body.firstname),
       login: String(req.body.login),
