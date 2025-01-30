@@ -1,6 +1,7 @@
 import ArticleIcon from "@mui/icons-material/Article";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import CopyrightIcon from "@mui/icons-material/Copyright";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LoginIcon from "@mui/icons-material/Login";
@@ -116,6 +117,12 @@ export default function AccountMenu() {
                 <WorkOutlineIcon fontSize="small" />
               </ListItemIcon>
               <Link to="/jobboard">Accéder aux offres</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <FavoriteIcon fontSize="small" />
+              </ListItemIcon>
+              <Link to="/favorite">Accéder aux favoris</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>

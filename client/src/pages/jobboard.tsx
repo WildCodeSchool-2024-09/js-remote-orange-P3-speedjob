@@ -2,6 +2,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 type AnnoncesProps = {
   id: number;
@@ -18,12 +19,13 @@ type AnnoncesProps = {
   date: string;
 };
 
-type favoritesProps = {
-  id: number;
+type FavoriteProps = {
+  user_id: number;
   annonce_id: number;
 };
 
 function Jobboard() {
+  const { user } = useAuth();
   const [annonces, setAnnonces] = useState([] as AnnoncesProps[]);
 
   useEffect(() => {
@@ -49,16 +51,24 @@ function Jobboard() {
     setSelectedAnnonce(null);
   };
 
-  const favorites = [];
-  const handleAddToFavorites = (
-    favorites: favoritesProps,
-    annonce: AnnonceProps,
-  ) => {
-    if (favorites.includes(annonce.id)) {
-      favorites.delete(annonce.id);
-    } else {
-      favorites.push(annonce.id);
-    }
+  const handleAddFavorite = () => {
+    const favorite: FavoriteProps = {
+      user_id: user.id,
+      annonce_id: selectedAnnonce.id,
+    };
+    fetch(`${import.meta.env.VITE_API_URL}/api/favorites/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(favorite),
+    }).then((response) => {
+      if (response.ok) {
+        alert("Annonce ajoutée à vos favoris");
+      } else {
+        alert("Erreur lors de l'ajout de l'annonce à vos favoris");
+      }
+    });
   };
 
   return (
@@ -80,10 +90,14 @@ function Jobboard() {
               <p className="bold">{annonce.titre}</p>
               <p>Date de parution: {annonce.date}</p>
               <p>{annonce.light_description}</p>
-              <FavoriteBorderIcon
+              <Button
                 type="button"
-                onClick={handleAddToFavorites}
-              />
+                value={annonce.id}
+                onClick={handleAddFavorite}
+                className="font-bold border solid-black border-4 p-8 bg-black"
+              >
+                Add to favorites
+              </Button>
               <p>Nom de l'entreprise: {annonce.company_id}</p>
               <p>{annonce.remuneration}</p>
               <p>{annonce.experience} d'expérience minium dans le secteur</p>
@@ -145,6 +159,7 @@ function Jobboard() {
                 type="button"
                 id="Postuler"
                 className="font-bold border solid-black border-4 p-8 bg-black"
+                onClick={() => handleAddFavorite()}
               >
                 Ajouter à mes favoris
               </Button>

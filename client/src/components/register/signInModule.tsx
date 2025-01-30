@@ -26,7 +26,6 @@ function SignInModule() {
   const [type, setType] = useState("password");
   const [userData, setUserData] = useState([] as UserDataProps[]);
 
-
   return (
     <>
       {isAuth ? (
@@ -82,7 +81,7 @@ function SignInModule() {
                 type="submit"
                 sx={{ mt: 2 }}
                 component={Link}
-                to="/jobboard"
+                to="/favorite"
               >
                 Consulter mes annonces favorites
               </Button>
