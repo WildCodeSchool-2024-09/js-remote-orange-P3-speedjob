@@ -15,7 +15,7 @@ class FavoriteRepository {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
       "INSERT INTO annonces (user_id, annonce_id) VALUES (?, ?)",
-      [favorite.user_id, favorite.annonce_id],
+      [user_id, annonce_id],
     );
 
     // Return the ID of the newly inserted item
