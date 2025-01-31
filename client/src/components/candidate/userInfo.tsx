@@ -1,9 +1,6 @@
-import { Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { Box } from "@mui/system";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 function UserInfoModule() {
@@ -33,21 +30,114 @@ function UserInfoModule() {
           Vos informations personnelles
         </Typography>
         <form>
-          <ul>
-            <p>Prénom:{user?.firstname}</p>
-            <p>Nom:{user?.lastname}</p>
-            <p>email:{user?.email}</p>
-            <p>date de création:{user?.creation_date}</p>
-          </ul>
-          <p>Adresse:</p>
-          <p>Numero de rue:{user?.number_street}</p>
-          <p>Nom de rue:{user?.street_name}</p>
-          <p>Code postal:{user?.postcode}</p>
-          <p>Ville:{user?.city}</p>
-          <p>Téléphone:{user?.phone}</p>
-          <p>CV: {user?.cvlink}</p>
-          <p>Lettre de motivation:{user?.lmlink}</p>
-          <p>Photo de profil:{user?.picture}</p>
+          <Box display="flex" flexDirection="column" gap={2}>
+            <TextField
+              label="Prénom"
+              type="text"
+              value={user?.firstname || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Nom"
+              type="text"
+              value={user?.lastname || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Email"
+              type="email"
+              value={user?.email || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <Typography variant="h6" component="h2">
+              Adresse
+            </Typography>
+
+            <TextField
+              label="Numéro de rue"
+              type="text"
+              value={user?.number_street || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Nom de rue"
+              type="text"
+              value={user?.street_name || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Code postal"
+              type="text"
+              value={user?.postcode || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Ville"
+              type="text"
+              value={user?.city || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Téléphone"
+              type="text"
+              value={user?.phone || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <Typography variant="h6" component="h2">
+              Documents de candidature
+            </Typography>
+            <TextField
+              label="CV"
+              type="text"
+              value={user?.cvlink || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Lettre de motivation"
+              type="text"
+              value={user?.lmlink || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              label="Photo de profil"
+              type="text"
+              value={user?.picture || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+          </Box>
           <Button
             fullWidth
             variant="contained"

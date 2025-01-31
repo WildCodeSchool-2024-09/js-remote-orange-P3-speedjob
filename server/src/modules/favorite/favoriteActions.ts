@@ -42,7 +42,7 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newFavorite = {
-      user_id: req.body.user_id,
+      user_id: Number.parseInt(req.body.user_id),
       annonce_id: req.body.annonce_id,
     };
 
@@ -63,7 +63,7 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     // Update a specific category based on the provided ID
     const favorite = {
-      user_id: Number(req.body.user_id),
+      user_id: Number(req.params.user_id),
       annonce_id: Number(req.body.annonce_id),
     };
 
@@ -97,4 +97,4 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, edit, destroy, search };
+export default { browse, read, add, edit, destroy };
