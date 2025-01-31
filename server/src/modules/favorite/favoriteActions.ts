@@ -42,7 +42,7 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newFavorite = {
-      user_id: Number.parseInt(req.body.user_id),
+      user_id: Number.parseInt(req.params.user_id),
       annonce_id: req.body.annonce_id,
     };
 

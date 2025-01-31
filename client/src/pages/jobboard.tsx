@@ -81,12 +81,12 @@ function Jobboard() {
         annonce_id: selectedAnnonce.id,
       };
 
-      fetch(`${import.meta.env.VITE_API_URL}/api/favorite/`, {
+      fetch(`${import.meta.env.VITE_API_URL}/api/favorite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user_id, annonce_id),
+        body: JSON.stringify(favorite, user_id, annonce_id),
       })
         .then((response) => response.json())
         .then((data) => {});
@@ -114,7 +114,10 @@ function Jobboard() {
               <p className="bold">{annonce.titre}</p>
               <p>Date de parution: {annonce.date}</p>
               <p>{annonce.light_description}</p>
-              <div className="flex wrap items-start justify-between">
+              <Box
+                className="flex wrap items-center justify-between"
+                sx={{ justifyContent: "space-around" }}
+              >
                 <div className="flex-1 justify-center">
                   <h3 className="text-xl font-semibold mb-2">
                     {annonce.titre}
@@ -156,7 +159,7 @@ function Jobboard() {
                   alt={annonce.company_id}
                   className="w-8 h-8 rounded-lg object-fit"
                 />
-              </div>
+              </Box>
               <Button
                 type="button"
                 id="Postuler"

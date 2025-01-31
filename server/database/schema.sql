@@ -105,6 +105,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `isAdmin` TINYINT NOT NULL,
   PRIMARY KEY (`id`));
 
+  -- -----------------------------------------------------
+-- Table `mydb`.`favorite`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`favorites` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `annonce_id` INT NOT NULL,
+  PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
 -- Table `mydb`.`role`
