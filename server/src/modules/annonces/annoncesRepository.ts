@@ -15,7 +15,6 @@ type AnnoncesProps = {
   experience: string;
   work: string;
   field: string;
-  company_id: number;
   is_apply: boolean;
   title: string;
 };
@@ -38,7 +37,6 @@ class AnnoncesRepository {
         annonces.experience,
         annonces.work,
         annonces.field,
-        annonces.company_id,
         annonces.is_apply,
       ],
     );
@@ -65,13 +63,13 @@ class AnnoncesRepository {
       "SELECT * FROM articles WHERE id = ?",
       [id],
     );
-
     // Return the first row of the result, which represents the item
     return rows as AnnoncesProps[];
-
   }
 
   async readAll() {
+    // Execute the SQL SELECT query to retrieve all items from the "item" table
+    const [rows] = await databaseClient.query<Rows>("SELECT * FROM annonces");
 
     // Return the array of items
     return rows as AnnoncesProps[];
@@ -94,7 +92,6 @@ class AnnoncesRepository {
         annonces.experience,
         annonces.work,
         annonces.field,
-        annonces.company_id,
         annonces.is_apply,
         annonces.id,
       ],
@@ -104,9 +101,7 @@ class AnnoncesRepository {
 
   // The D of CRUD - Delete operation
   async delete(id: number) {
-
     // Execute the SQL DELETE query to delete an existing item from the "annonces" table
-
     const [result] = await databaseClient.query<Result>(
       "DELETE FROM annonces WHERE id = ?",
       [id],
