@@ -32,6 +32,30 @@ const SignUpModule = () => {
     });
   };
 
+  const userData = {
+    fName: fName,
+    lName: lName,
+    email: email,
+    password: password,
+    checkedPassword: checkedPassword,
+    role: role,
+    checked: checked,
+  };
+
+  const handleCreateAccount = () => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate(`/user/${data.insertId}`);
+      });
+  };
+
   const handleSubmit = () => {
     const selectedRole = role.societe
       ? "societe"
@@ -143,7 +167,11 @@ const SignUpModule = () => {
             }
             label="I agree to the terms and conditions"
           />
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit && handleCreateAccount}
+          >
             Submit
           </Button>
           <Typography variant="body2" align="center" mt={4}>

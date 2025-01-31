@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setTimeout(() => {
       currentUser();
-    }, "5000"); // totues les minutes
+    }, "5000"); // toutes les minutes
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   }, [currentUser]);

@@ -11,6 +11,9 @@ type UserProps = {
   login: string;
   password: string;
   email: string;
+  name_street: string;
+  postcode: string;
+  city: string;
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
@@ -79,6 +82,9 @@ const add: RequestHandler = async (req, res, next) => {
       login: req.body.login,
       password: req.body.password,
       email: req.body.email,
+      name_street: req.body.name_street,
+      postcode: req.body.postcode,
+      city: req.body.city,
       creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       isAdmin: req.body.isAdmin,
@@ -122,6 +128,9 @@ const edit: RequestHandler = async (req, res, next) => {
       login: String(req.body.login),
       password: String(req.body.password),
       email: String(req.body.email),
+      name_street: String(req.body.name_street),
+      postcode: String(req.body.postcode),
+      city: String(req.body.city),
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
       isAdmin: Boolean(req.body.isAdmin),
