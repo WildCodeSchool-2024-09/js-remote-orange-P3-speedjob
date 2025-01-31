@@ -6,7 +6,7 @@ type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
 type UserProps = {
-  token: never;
+  token: string;
   id: number;
   firstname: string;
   lastname: string;
@@ -79,24 +79,12 @@ class UserRepository {
   async update(user: UserProps) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ? WHERE id = ?",
-      [
-        user.firstname,
-        user.lastname,
-        user.login,
-        user.password,
-        user.email,
-        user.creation_date,
-        user.modification_date,
-        user.isAdmin,
-        user.role_id,
-        user.admin_id,
-        user.id,
-      ],
+      // "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ? WHERE id = ?",
+      "UPDATE user SET firstname = ? WHERE id = ?",
+      [user.firstname, user.id],
     );
-
     // Return how many rows were affected
-    return result.affectedRows;
+    return result.affectedRows[0];
   }
 
   // The D of CRUD - Delete operation

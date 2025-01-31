@@ -2,10 +2,23 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 function UserInfoModule() {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  function handleDelete() {
+    fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/");
+      }
+    });
+  }
 
   return (
     <>
@@ -40,7 +53,8 @@ function UserInfoModule() {
             variant="contained"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
-            type="button"
+            component={Link}
+            to="/userInfoUpdate"
           >
             Modifier
           </Button>
@@ -50,8 +64,20 @@ function UserInfoModule() {
             color="primary"
             sx={{ mt: 3, mb: 2 }}
             type="button"
+            onClick={handleDelete}
           >
             Supprimer
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, mb: 2 }}
+            type="button"
+            component={Link}
+            to="/signIn"
+          >
+            Retour en arrière
           </Button>
         </form>
       </Box>
