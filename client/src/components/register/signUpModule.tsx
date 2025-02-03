@@ -11,8 +11,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUpModule = () => {
   const navigate = useNavigate();
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
@@ -33,8 +34,9 @@ const SignUpModule = () => {
   };
 
   const userData = {
-    fName: fName,
-    lName: lName,
+    firstname: firstname,
+    lastname: lastname,
+    login: login,
     email: email,
     password: password,
     checkedPassword: checkedPassword,
@@ -52,7 +54,7 @@ const SignUpModule = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/user/${data.insertId}`);
+        navigate("/signIn");
       });
   };
 
@@ -64,8 +66,9 @@ const SignUpModule = () => {
         : "";
 
     const formData = new FormData();
-    formData.append("fName", fName);
-    formData.append("lName", lName);
+    formData.append("firstname", firstname);
+    formData.append("lastname", lastname);
+    formData.append("login", login);
     formData.append("email", email);
     formData.append("birthdate", birthdate);
     formData.append("password", password);
@@ -100,15 +103,21 @@ const SignUpModule = () => {
             Sign Up
           </Typography>
           <TextField
-            label="First Name"
-            value={fName}
-            onChange={(e) => setFName(e.target.value)}
+            label="Prénom"
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
             margin="normal"
           />
           <TextField
-            label="Last Name"
-            value={lName}
-            onChange={(e) => setLName(e.target.value)}
+            label="Nom"
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="Login"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
             margin="normal"
           />
           <TextField
@@ -170,7 +179,10 @@ const SignUpModule = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit && handleCreateAccount}
+            onClick={() => {
+              handleSubmit();
+              handleCreateAccount();
+            }}
           >
             Submit
           </Button>

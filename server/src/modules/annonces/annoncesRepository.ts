@@ -60,7 +60,7 @@ class AnnoncesRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM articles WHERE id = ?",
+      "SELECT * FROM annonces WHERE id = ?",
       [id],
     );
     // Return the first row of the result, which represents the item

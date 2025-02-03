@@ -1,20 +1,59 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+
+type UserProps = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  login: string;
+  password: string;
+  email: string;
+  creation_date: string;
+  modification_date: string;
+  isAdmin: boolean;
+  role: string;
+  street_number: number;
+  street_name: string;
+  postcode: number;
+  city: string;
+  phone_number: number;
+  birthdate: string;
+  cv_link: string;
+  lm_link: string;
+  light_description: string;
+  complete_description: string;
+  siret_number: number;
+  cedex_number: string;
+  raison_social: string;
+};
 
 function UserInfoModule() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
   function handleDelete() {
-    fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
-      method: "DELETE",
-    }).then((response) => {
-      if (response.status === 204) {
-        navigate("/");
-      }
-    });
+    alert("Voulez-vous vraiment supprimer votre compte ?");
+    if (confirm) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
+        method: "DELETE",
+      }).then((response) => {
+        if (response.status === 204) {
+          navigate("/");
+        }
+      });
+    }
+  }
+
+  function handleReadUser() {
+    useEffect(() => {
+      fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`)
+        .then((response) => response.json())
+        .then((data: User[]) => {
+          setUserData(data);
+        });
+    }, []);
   }
 
   return (

@@ -5,34 +5,31 @@ import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
-
 type User = {
-
-  token: string;
+  // token: string;
   id: number;
   firstname: string;
   lastname: string;
   login: string;
   password: string;
   email: string;
-  creation_date: string;
-  modification_date: string;
+  creation_date: string | null;
+  modification_date: string | null;
   isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
-  street_number: number;
-  street_name: string;
-  postcode: number;
-  city: string;
-  phone_number: number;
-  birthdate: string;
-  cv_link: string;
-  lm_link: string;
-  light_description: string;
-  complete_description: string;
-  siret_number: number;
-  cedex_number: number;
-  raison_social: string;
+  role: string;
+  street_number: number | null;
+  street_name: string | null;
+  postcode: number | null;
+  city: string | null;
+  phone_number: number | null;
+  birthdate: string | null;
+  cv_link: string | null;
+  lm_link: string | null;
+  light_description: string | null;
+  complete_description: string | null;
+  siret_number: number | null;
+  cedex_number: string | null;
+  raison_social: string | null;
 };
 
 class UserRepository {
@@ -41,34 +38,16 @@ class UserRepository {
   async create(user: Omit<User, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin, role_id, admin_id, street_number, street_name, postcode, city, phone_number, birthdate, cv_link, lm_link, light_description, complete_description, siret_number, cedex_number, raison_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (firstname, lastname, login, birthdate, password, email) VALUES (?, ?, ?, ?, ?, ?)",
       [
         user.firstname,
         user.lastname,
         user.login,
+        user.birthdate,
         user.password,
         user.email,
-        user.creation_date,
-        user.modification_date,
-        user.isAdmin,
-        user.role_id,
-        user.admin_id,
-        user.street_number,
-        user.street_name,
-        user.postcode,
-        user.city,
-        user.phone_number,
-        user.birthdate,
-        user.cv_link,
-        user.lm_link,
-        user.light_description,
-        user.complete_description,
-        user.siret_number,
-        user.cedex_number,
-        user.raison_social,
       ],
     );
-
     // Return the ID of the newly inserted item
     return result.insertId;
   }
@@ -107,8 +86,7 @@ class UserRepository {
   async update(user: User) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-
-      "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ?,street_number = ?, street_name = ?, postcode = ?, city = ?, phone_number = ?, birthdate = ?, cv_link = ?, lm_link = ?, light_description = ?, complete_description = ?, siret_number = ?, cedex_number = ?, raison_social = ? WHERE id = ?",
+      "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?,isAdmin = ?, role = ?, street_number = ?, street_name = ?, postcode = ?, city = ?, phone_number = ?, birthdate = ?, cv_link = ?, lm_link = ?, light_description = ?, complete_description = ?, siret_number = ?, cedex_number = ?, raison_social = ? WHERE id = ?",
       [
         user.firstname,
         user.lastname,
@@ -118,9 +96,7 @@ class UserRepository {
         user.creation_date,
         user.modification_date,
         user.isAdmin,
-        user.role_id,
-        user.admin_id,
-        user.id,
+        user.role,
         user.street_number,
         user.street_name,
         user.postcode,
@@ -134,8 +110,8 @@ class UserRepository {
         user.siret_number,
         user.cedex_number,
         user.raison_social,
+        user.id,
       ],
-
     );
     // Return how many rows were affected
     return result.affectedRows[0];

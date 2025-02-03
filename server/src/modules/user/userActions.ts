@@ -17,13 +17,10 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
+  role: string;
   token: string;
   street_number: number;
   street_name: string;
-  postcode: number;
-  city: string;
   phone_number: number;
   birthdate: string;
   cv_link: string;
@@ -75,7 +72,6 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newUser = {
-      token: req.body.token,
       title: req.body.title,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -88,12 +84,9 @@ const add: RequestHandler = async (req, res, next) => {
       creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       isAdmin: req.body.isAdmin,
-      role_id: req.body.role_id,
-      admin_id: req.body.admin_id,
+      role: req.body.role,
       street_number: req.body.street_number,
       street_name: req.body.street_name,
-      postcode: req.body.postcode,
-      city: req.body.city,
       phone_number: req.body.phone_number,
       birthdate: req.body.birthdate,
       cv_link: req.body.cv_link,
@@ -134,13 +127,10 @@ const edit: RequestHandler = async (req, res, next) => {
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
       isAdmin: Boolean(req.body.isAdmin),
-      role_id: Number(req.body.role_id),
-      admin_id: Number(req.body.admin_id),
+      role: Number(req.body.role),
       token: String(req.body.token),
       street_number: Number(req.body.street_number),
       street_name: String(req.body.street_name),
-      postcode: Number(req.body.postcode),
-      city: String(req.body.city),
       phone_number: Number(req.body.phone_number),
       birthdate: String(req.body.birthdate),
       cv_link: String(req.body.cv_link),
