@@ -7,7 +7,7 @@ interface AuthContextType {
   handleLogout: () => Promise<void>;
   isAuth: boolean;
   message: string | null;
-  user: string | null;
+  user: { is_admin: boolean } | null;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -16,7 +16,7 @@ import type { ReactNode } from "react";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<{ is_admin: boolean } | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
   const handleRegister = async (login: string, password: string) => {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   interface LoginResponse {
     token: string;
-    user: string;
+    user: { is_admin: boolean };
     message: string;
   }
 
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (data.token) {
       setIsAuth(true);
-      setUser(data.user);
+      setUser({ is_admin: data.user.is_admin });
       localStorage.setItem("token", data.token);
     } else {
       setIsAuth(false);
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       );
 
       setIsAuth((data as { check: boolean })?.check);
-      setUser((data as { user: array })?.user[0]);
+      setUser((data as { user: { is_admin: boolean } })?.user);
       if (!(data as { check: boolean })?.check) {
         await handleClean();
       }
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setTimeout(() => {
       currentUser();
-    }, "5000"); // toutes les minutes
+    }, 5000); // toutes les minutes
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   }, [currentUser]);
@@ -140,5 +140,9 @@ export const useAuth = () => {
   const context = useContext(AuthContext);
 
   if (!context) throw new Error("Pour utiliser useAuth context est necessaire");
-  return context;
+
+  const { user } = context;
+  const isAdmin = user?.is_admin;
+
+  return { ...context, isAdmin };
 };

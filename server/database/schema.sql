@@ -30,19 +30,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`annonces` (
   `experience` VARCHAR(45) NOT NULL,
   `work` VARCHAR(45) NOT NULL,
   `field` VARCHAR(45) NOT NULL,
-  `compagny_id` int unsigned null,
-  foreign key (compagny_id) references compagny(id),
-  `is_apply` TINYINT NOT NULL,
+  `compagny` VARCHAR(45) NULL,
   `title` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`));
-
--- -----------------------------------------------------
--- Table `mydb`.`admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`admin` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `alias` VARCHAR(45) NOT NULL,
-  `function` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -52,10 +41,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`admin` (
 CREATE TABLE IF NOT EXISTS `mydb`.`articles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NOT NULL,
-  `date` DATETIME NOT NULL,
+  `date` DATETIME NULL,
   `light_description` TEXT NOT NULL,
   `compl_description` TEXT NOT NULL,
-  `picture` TEXT NOT NULL,
+  `picture` TEXT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -69,15 +58,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `login` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `creation_date` DATETIME NOT NULL,
+  `creation_date` DATETIME NULL,
   `modification_date` DATETIME NULL,
-  `isAdmin` TINYINT NOT NULL,
-  `street_number` INT NOT NULL,
-  `street_name` VARCHAR(250) NOT NULL,
-  `postcode` TINYINT NOT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  `phone_number` TINYINT NOT NULL,
-  `birthdate` DATETIME NULL,  
+  `isAdmin` TINYINT NULL,
+  `role` VARCHAR(45) NOT NULL,
+  `street_number` INT NULL,
+  `street_name` VARCHAR(250) NULL,
+  `postcode` INT NULL,
+  `city` VARCHAR(45) NULL,
+  `phone_number` INT NULL,
+  `birthdate` DATETIME NOT NULL,  
   `cv_link` VARCHAR(255) NULL,
   `lm_link` VARCHAR(255) NULL,
   `light_description` VARCHAR(100) NULL,
@@ -85,15 +75,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `siret_number` INT NULL,
   `cedex_number` VARCHAR(45) NULL,
   `raison_social` VARCHAR(100) NULL,
-  PRIMARY KEY (`id`));
-
-
--- -----------------------------------------------------
--- Table `mydb`.`role`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`role` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -119,8 +100,7 @@ INSERT INTO annonces
     remuneration,
     experience,
     work,
-    field,
-    is_apply) 
+    field) 
 VALUES
   (
     "Développeur Frontend React",
@@ -130,8 +110,7 @@ VALUES
     "45000-55000",
     "2-3 ans",
     "Temps plein",
-    "Informatique et technologie",
-    "0"
+    "Informatique et technologie"
   ),
   (
     "Consultant en stratégie",
@@ -141,8 +120,7 @@ VALUES
     "60000-80000",
     "5 ans",
     "Temps plein",
-    "Conseil",
-    "0"
+    "Conseil"
   ),
   (
     "Designer UX/UI",
@@ -152,8 +130,7 @@ VALUES
     "40000-50000",
     "3 ans",
     "Temps plein",
-    "Design",
-    "0"
+    "Design"
   ),
   (
     "Chef de projet marketing",
@@ -163,8 +140,7 @@ VALUES
     "50000-65000",
     "4 ans",
     "Temps plein",
-    "Marketing",
-    "0"
+    "Marketing"
   ),
   (
     "Technicien support informatique",
@@ -174,8 +150,7 @@ VALUES
     "30000-35000",
     "1-2 ans",
     "Temps plein",
-    "Informatique et technologie",
-    "0"
+    "Informatique et technologie"
   ),
   (
     "Data Analyst",
@@ -185,8 +160,7 @@ VALUES
     "40000-60000",
     "2 ans",
     "Temps plein",
-    "Analyse de données",
-    "0"
+    "Analyse de données"
   ),
   (
     "Ingénieur DevOps",
@@ -196,8 +170,7 @@ VALUES
     "55000-70000",
     "3-4 ans",
     "Temps plein",
-    "Informatique et technologie",
-    "0"
+    "Informatique et technologie"
   ),
   (
     "Responsable des ressources humaines",
@@ -207,8 +180,7 @@ VALUES
     "50000-65000",
     "5 ans",
     "Temps plein",
-    "Ressources humaines",
-    "0"
+    "Ressources humaines"
   ),
   (
     "Comptable senior",
@@ -218,8 +190,7 @@ VALUES
     "45000-55000",
     "5 ans",
     "Temps plein",
-    "Finance",
-    "0"
+    "Finance"
   ),
   (
     "Responsable logistique",
@@ -229,8 +200,7 @@ VALUES
     "50000-60000",
     "4 ans",
     "Temps plein",
-    "Logistique",
-    "0"
+    "Logistique"
   );
 
   -- -----------------------------------------------------

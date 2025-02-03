@@ -46,7 +46,6 @@ const add: RequestHandler = async (req, res, next) => {
       date: req.body.date,
       light_description: req.body.light_description,
       compl_description: req.body.compl_description,
-      admin_id: req.body.admin_id,
       picture: req.body.picture,
     };
 
@@ -70,7 +69,6 @@ const edit: RequestHandler = async (req, res, next) => {
       date: String(req.body.date),
       light_description: String(req.body.light_description),
       compl_description: String(req.body.compl_description),
-      admin_id: Number(req.body.admin_id),
       picture: String(req.body.picture),
     };
 

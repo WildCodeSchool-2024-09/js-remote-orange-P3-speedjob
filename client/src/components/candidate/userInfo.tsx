@@ -11,13 +11,15 @@ function UserInfoModule() {
   const navigate = useNavigate();
 
   function handleDelete() {
-    fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
-      method: "DELETE",
-    }).then((response) => {
-      if (response.status === 204) {
-        navigate("/");
-      }
-    });
+    if (user) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
+        method: "DELETE",
+      }).then((response) => {
+        if (response.status === 204) {
+          navigate("/");
+        }
+      });
+    }
   }
 
   return (
