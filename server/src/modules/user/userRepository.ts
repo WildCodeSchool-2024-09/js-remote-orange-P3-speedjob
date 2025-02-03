@@ -23,7 +23,7 @@ class UserRepository {
   async create(user: Omit<UserProps, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin, role_id, admin_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [
         user.firstname,
         user.lastname,
@@ -33,8 +33,6 @@ class UserRepository {
         user.creation_date,
         user.modification_date,
         user.isAdmin,
-        user.role_id,
-        user.admin_id,
       ],
     );
 

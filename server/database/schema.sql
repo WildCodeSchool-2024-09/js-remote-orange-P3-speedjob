@@ -100,9 +100,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `login` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `creation_date` DATETIME NOT NULL,
-  `modification_date` DATETIME NULL,
-  `isAdmin` TINYINT NOT NULL,
+  `isAdmin` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`id`));
 
   -- -----------------------------------------------------

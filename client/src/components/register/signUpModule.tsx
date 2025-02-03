@@ -11,13 +11,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUpModule = () => {
   const navigate = useNavigate();
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
+  const [creation_date, setCreationDate] = useState("");
+  const [modification_date, setModificationDate] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
   const [role, setRole] = useState({ societe: false, candidat: false });
+  const [isAdmin, setIsAdmin] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -33,12 +37,16 @@ const SignUpModule = () => {
   };
 
   const userData = {
-    fName: fName,
-    lName: lName,
+    firstname: firstname,
+    lastname: lastname,
     email: email,
+    login: login,
     password: password,
+    creation_date: creation_date,
+    modification_date: modification_date,
     checkedPassword: checkedPassword,
     role: role,
+    isAdmin: isAdmin,
     checked: checked,
   };
 
@@ -52,7 +60,7 @@ const SignUpModule = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/user/${data.insertId}`);
+        navigate("/signUpCandidat");
       });
   };
 
@@ -64,13 +72,17 @@ const SignUpModule = () => {
         : "";
 
     const formData = new FormData();
-    formData.append("fName", fName);
-    formData.append("lName", lName);
+    formData.append("firstname", firstname);
+    formData.append("lastname", lastname);
     formData.append("email", email);
+    formData.append("login", login);
     formData.append("birthdate", birthdate);
     formData.append("password", password);
+    formData.append("creation_date", creation_date);
+    formData.append("modification_date", modification_date);
     formData.append("checkedPassword", checkedPassword);
     formData.append("role", selectedRole);
+    formData.append("isAdmin", isAdmin.toString());
     formData.append("checked", checked.toString());
 
     if (selectedRole === "societe") {
@@ -101,14 +113,20 @@ const SignUpModule = () => {
           </Typography>
           <TextField
             label="First Name"
-            value={fName}
-            onChange={(e) => setFName(e.target.value)}
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
             margin="normal"
           />
           <TextField
             label="Last Name"
-            value={lName}
-            onChange={(e) => setLName(e.target.value)}
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="login"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
             margin="normal"
           />
           <TextField
@@ -124,6 +142,18 @@ const SignUpModule = () => {
             margin="normal"
           />
           <TextField
+            label="Creation Date"
+            value={creation_date}
+            onChange={(e) => setCreationDate(e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="Birthdate"
+            value={modification_date}
+            onChange={(e) => setModificationDate(e.target.value)}
+            margin="normal"
+          />
+          <TextField
             label="Password"
             type="password"
             value={password}
@@ -135,6 +165,13 @@ const SignUpModule = () => {
             type="password"
             value={checkedPassword}
             onChange={(e) => setCheckedPassword(e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="isAdmin"
+            type="isAdmin"
+            value={isAdmin}
+            onChange={(e) => setIsAdmin(e.target.value === "true")}
             margin="normal"
           />
           <Box display="flex" flexDirection="row">
@@ -170,7 +207,10 @@ const SignUpModule = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit && handleCreateAccount}
+            onClick={() => {
+              handleSubmit();
+              handleCreateAccount();
+            }}
           >
             Submit
           </Button>
