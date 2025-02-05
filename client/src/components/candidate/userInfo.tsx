@@ -12,12 +12,12 @@ function UserInfoModule() {
 
   function handleDelete() {
     fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
-      method: "DELETE",
-    }).then((response) => {
-      if (response.status === 204) {
-        navigate("/");
-      }
-    });
+        method: "DELETE",
+      }).then((response) => {
+        if (response.status === 204) {
+          navigate("/");
+        }
+      });    
   }
 
   return (

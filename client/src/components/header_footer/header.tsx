@@ -1,3 +1,4 @@
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import ArticleIcon from "@mui/icons-material/Article";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import CopyrightIcon from "@mui/icons-material/Copyright";
@@ -15,6 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import bg_header from "../../assets/images/bg_header.png";
+import { useAuth } from "../../hooks/useAuth";
 import SearchBar from "./searchbar";
 
 export default function AccountMenu() {
@@ -26,6 +28,9 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { isAdmin } = useAuth();
+
   return (
     <Box
       sx={{
@@ -135,6 +140,14 @@ export default function AccountMenu() {
               </ListItemIcon>
               <Link to="/legal">Mentions légales</Link>
             </MenuItem>
+            {/* {isAdmin && ( */}
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <AdminPanelSettingsIcon fontSize="small" />
+              </ListItemIcon>
+              <Link to="/Admin">Admin</Link>
+            </MenuItem>
+            {/* )} */}
           </Menu>
         </React.Fragment>
       </Box>

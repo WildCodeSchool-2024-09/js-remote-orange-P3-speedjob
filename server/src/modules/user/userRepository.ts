@@ -5,9 +5,7 @@ import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
-
 type User = {
-
   token: string;
   id: number;
   firstname: string;
@@ -107,7 +105,6 @@ class UserRepository {
   async update(user: User) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-
       "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ?,street_number = ?, street_name = ?, postcode = ?, city = ?, phone_number = ?, birthdate = ?, cv_link = ?, lm_link = ?, light_description = ?, complete_description = ?, siret_number = ?, cedex_number = ?, raison_social = ? WHERE id = ?",
       [
         user.firstname,
@@ -135,10 +132,9 @@ class UserRepository {
         user.cedex_number,
         user.raison_social,
       ],
-
     );
     // Return how many rows were affected
-    return result.affectedRows[0];
+    return result.affectedRows;
   }
 
   // The D of CRUD - Delete operation

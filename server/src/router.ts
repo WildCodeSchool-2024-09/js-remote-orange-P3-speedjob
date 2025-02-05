@@ -2,13 +2,10 @@ import express from "express";
 import multer from "multer";
 const router = express.Router();
 
-// Import des actions
-import userActions from "./modules/user/userActions";
-import companyActions from "./modules/company/companyActions";
-import roleActions from "./modules/role/roleActions";
-import adminActions from "./modules/admin/adminActions";
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
+// Import des actions
+import userActions from "./modules/user/userActions";
 
 // Configuration de Multer
 const storage = multer.diskStorage({
@@ -40,24 +37,6 @@ router.get("/api/user/:id([0-9]+)", userActions.read);
 router.post("/api/user", userActions.add);
 router.put("/api/user/:id([0-9]+)", userActions.edit);
 router.delete("/api/user/:id([0-9]+)", userActions.destroy);
-
-router.get("/api/company", companyActions.browse);
-router.get("/api/company/:id", companyActions.read);
-router.post("/api/company", upload.single("logo"), companyActions.add);
-router.put("/api/company/:id", companyActions.edit);
-router.delete("/api/company/:id", companyActions.destroy);
-
-router.get("/api/role", roleActions.browse);
-router.get("/api/role/:id", roleActions.read);
-router.post("/api/role", roleActions.add);
-router.put("/api/role/:id", roleActions.edit);
-router.delete("/api/role/:id", roleActions.destroy);
-
-router.get("/api/admin", adminActions.browse);
-router.get("/api/admin/:id", adminActions.read);
-router.post("/api/admin", adminActions.add);
-router.put("/api/admin/:id", adminActions.edit);
-router.delete("/api/admin/:id", adminActions.destroy);
 
 router.get("/api/annonces", annoncesActions.browse);
 router.get("/api/annonces/:id([0-9]+)", annoncesActions.read);

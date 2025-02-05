@@ -7,7 +7,9 @@ import AboutHome from "./components/home/aboutHome";
 import CheckConnexionProvider from "./context/checkConnexion";
 import SearchQueryProvider from "./context/searchQueryContext";
 
+import UserInfoUpdateModule from "./components/candidate/userUpdate";
 import AboutPage from "./pages/aboutPage";
+import Admin from "./pages/adminPage";
 import Blog from "./pages/blog";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
@@ -21,7 +23,6 @@ import SignUp from "./pages/signUp";
 import SignUpCandidat from "./pages/signUpCandidat";
 import SignUpEntreprise from "./pages/signUpEntreprise";
 import UserInfoPage from "./pages/userInfo";
-import UserInfoUpdateModule from "./components/candidate/userUpdate";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/aboutHome" element={<AboutHome />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/jobboard" element={<Jobboard />} />
@@ -44,7 +46,10 @@ function App() {
               <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
               <Route path="/signUpCandidat" element={<SignUpCandidat />} />
               <Route path="/userInfo" element={<UserInfoPage />} />
-              <Route path="/userInfoUpdate" element={<UserInfoUpdateModule />} />
+              <Route
+                path="/userInfoUpdate"
+                element={<UserInfoUpdateModule />}
+              />
               <Route path="/result" element={<Result />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

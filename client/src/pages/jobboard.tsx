@@ -52,7 +52,7 @@ function Jobboard() {
   const favorites = [];
   const handleAddToFavorites = (
     favorites: favoritesProps,
-    annonce: AnnonceProps,
+    annonce: AnnoncesProps,
   ) => {
     if (favorites.includes(annonce.id)) {
       favorites.delete(annonce.id);

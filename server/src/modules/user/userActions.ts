@@ -22,8 +22,6 @@ type UserProps = {
   token: string;
   street_number: number;
   street_name: string;
-  postcode: number;
-  city: string;
   phone_number: number;
   birthdate: string;
   cv_link: string;
@@ -92,8 +90,6 @@ const add: RequestHandler = async (req, res, next) => {
       admin_id: req.body.admin_id,
       street_number: req.body.street_number,
       street_name: req.body.street_name,
-      postcode: req.body.postcode,
-      city: req.body.city,
       phone_number: req.body.phone_number,
       birthdate: req.body.birthdate,
       cv_link: req.body.cv_link,
@@ -129,7 +125,7 @@ const edit: RequestHandler = async (req, res, next) => {
       password: String(req.body.password),
       email: String(req.body.email),
       name_street: String(req.body.name_street),
-      postcode: String(req.body.postcode),
+      postcode: Number(req.body.postcode),
       city: String(req.body.city),
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
@@ -139,8 +135,6 @@ const edit: RequestHandler = async (req, res, next) => {
       token: String(req.body.token),
       street_number: Number(req.body.street_number),
       street_name: String(req.body.street_name),
-      postcode: Number(req.body.postcode),
-      city: String(req.body.city),
       phone_number: Number(req.body.phone_number),
       birthdate: String(req.body.birthdate),
       cv_link: String(req.body.cv_link),

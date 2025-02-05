@@ -19,14 +19,12 @@ type UserDataProps = {
   token: string;
 };
 
-
 function SignInModule() {
   const { handleLogin, handleLogout, isAuth, message } = useAuth();
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [type, setType] = useState("password");
   const [userData, setUserData] = useState([] as UserDataProps[]);
-
 
   return (
     <>
