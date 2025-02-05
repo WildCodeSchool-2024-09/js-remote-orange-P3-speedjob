@@ -1,31 +1,13 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-
-type UserDataProps = {
-  id: number;
-  title: string;
-  firstname: string;
-  lastname: string;
-  login: string;
-  password: string;
-  email: string;
-  creation_date: string;
-  modification_date: string;
-  isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
-  token: string;
-};
-
 
 function SignInModule() {
   const { handleLogin, handleLogout, isAuth, message } = useAuth();
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [type, setType] = useState("password");
-  const [userData, setUserData] = useState([] as UserDataProps[]);
 
   return (
     <>

@@ -5,22 +5,19 @@ import userRepository from "./userRepository";
 
 type UserProps = {
   id: number;
-  title: string;
   firstname: string;
   lastname: string;
   login: string;
   password: string;
   email: string;
-  name_street: string;
-  postcode: string;
-  city: string;
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
   role: string;
-  token: string;
   street_number: number;
   street_name: string;
+  postcode: string;
+  city: string;
   phone_number: number;
   birthdate: string;
   cv_link: string;
@@ -30,6 +27,7 @@ type UserProps = {
   siret_number: number;
   cedex_number: number;
   raison_social: string;
+  token: string;
 };
 
 // The B of BREAD - Browse (Read All) operation

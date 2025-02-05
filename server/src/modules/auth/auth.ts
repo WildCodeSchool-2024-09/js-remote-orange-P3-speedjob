@@ -24,6 +24,7 @@ const SignIn: RequestHandler = async (req, res, next) => {
     user.token = token;
     // Respond with the items in JSON format
     res.json(user);
+    return;
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

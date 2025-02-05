@@ -1,7 +1,8 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+// import axios from "axios";
 
 type UserProps = {
   id: number;
@@ -31,32 +32,25 @@ type UserProps = {
 
 function UserInfoModule() {
   const { user } = useAuth();
+  const { isAuth } = useAuth();
   const navigate = useNavigate();
 
   function handleDelete() {
     alert("Voulez-vous vraiment supprimer votre compte ?");
-    if (confirm) {
-      fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
-        method: "DELETE",
-      }).then((response) => {
-        if (response.status === 204) {
-          navigate("/");
-        }
-      });
-    }
+    fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/");
+      }
+    });
   }
 
-  function handleReadUser() {
-    useEffect(() => {
-      fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`)
-        .then((response) => response.json())
-        .then((data: User[]) => {
-          setUserData(data);
-        });
-    }, []);
-  }
-
-  return (
+  return isAuth === false ? (
+    <Typography component="h1" variant="h5" gutterBottom>
+      Vous devez être connecté pour accéder à cette page
+    </Typography>
+  ) : (
     <>
       <Box
         display="flex"
@@ -73,10 +67,7 @@ function UserInfoModule() {
             <TextField
               label="Prénom"
               type="text"
-              value={user?.firstname || ""}
-              InputProps={{
-                readOnly: true,
-              }}
+              value={user?.firstname}
               variant="outlined"
             />
             <TextField

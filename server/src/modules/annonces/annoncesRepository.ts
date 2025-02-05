@@ -48,7 +48,7 @@ class AnnoncesRepository {
   async searchQuery(searchQuery: string) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonces WHERE work LIKE ?",
+      "SELECT * FROM annonces WHERE title LIKE %?%",
       [searchQuery],
     );
 

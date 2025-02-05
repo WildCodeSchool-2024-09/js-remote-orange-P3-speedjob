@@ -1,9 +1,7 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-// import Modal from "@mui/material/Modal";
-// import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 type UserProps = {
@@ -11,32 +9,29 @@ type UserProps = {
   title: string;
   firstname: string;
   lastname: string;
-  login: string;
-  password: string;
   email: string;
-  creation_date: string;
-  modification_date: string;
   name_street: string;
   postcode: string;
   city: string;
-  isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
   token: string;
 };
 
 function UserInfoUpdateModule() {
-  const { user }: { user: UserProps | null } = useAuth();
+  const { user } = useAuth();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [street_name, setStreet_name] = useState("");
   const [postcode, setPostcode] = useState("");
   const [city, setCity] = useState("");
-  const [phone, setPhone] = useState("");
   const navigate = useNavigate();
 
   function handleUpdate() {
+    if (!user) {
+      console.error("User is not defined");
+      return;
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
       method: "PUT",
       headers: {
@@ -49,7 +44,6 @@ function UserInfoUpdateModule() {
         street_name,
         postcode,
         city,
-        phone,
       }),
     }).then((response) => {
       if (response.status === 204) {
@@ -141,15 +135,6 @@ function UserInfoUpdateModule() {
             variant="outlined"
             fullWidth
           />
-          <TextField
-            label="Téléphone"
-            type="text"
-            name="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            variant="outlined"
-            fullWidth
-          />{" "}
           <Button
             fullWidth
             variant="contained"
