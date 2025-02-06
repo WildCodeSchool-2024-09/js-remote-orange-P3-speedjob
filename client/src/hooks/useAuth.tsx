@@ -11,6 +11,33 @@ interface AuthContextType {
   admin: { is_admin: boolean } | null;
 }
 
+type UserProps = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  login: string;
+  password: string;
+  email: string;
+  creation_date: string;
+  modification_date: string;
+  isAdmin: boolean;
+  role: string;
+  street_number: number;
+  street_name: string;
+  postcode: string;
+  city: string;
+  phone_number: number;
+  birthdate: string;
+  cv_link: string;
+  lm_link: string;
+  light_description: string;
+  complete_description: string;
+  siret_number: number;
+  cedex_number: number;
+  raison_social: string;
+  token: string;
+};
+
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 import type { ReactNode } from "react";
@@ -53,6 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     token: string;
     user: string;
     admin: { is_admin: boolean };
+
     message: string;
   }
 
@@ -102,8 +130,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       );
 
       setIsAuth((data as { check: boolean })?.check);
-      setUser((data as { user: array })?.user[0]);
+      setUser((data as { user: array })?.user);
       setAdmin((data as { user: { is_admin: boolean } })?.user);
+
       if (!(data as { check: boolean })?.check) {
         await handleClean();
       }

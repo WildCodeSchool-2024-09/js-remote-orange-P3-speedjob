@@ -48,7 +48,7 @@ class AnnoncesRepository {
   async searchQuery(searchQuery: string) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonces WHERE work LIKE ?",
+      "SELECT * FROM annonces WHERE title LIKE %?%",
       [searchQuery],
     );
 
@@ -60,7 +60,7 @@ class AnnoncesRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM articles WHERE id = ?",
+      "SELECT * FROM annonces WHERE id = ?",
       [id],
     );
     // Return the first row of the result, which represents the item

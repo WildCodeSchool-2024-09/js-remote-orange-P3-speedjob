@@ -5,23 +5,19 @@ import userRepository from "./userRepository";
 
 type UserProps = {
   id: number;
-  title: string;
   firstname: string;
   lastname: string;
   login: string;
   password: string;
   email: string;
-  name_street: string;
-  postcode: string;
-  city: string;
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
-  token: string;
+  role: string;
   street_number: number;
   street_name: string;
+  postcode: string;
+  city: string;
   phone_number: number;
   birthdate: string;
   cv_link: string;
@@ -31,6 +27,7 @@ type UserProps = {
   siret_number: number;
   cedex_number: number;
   raison_social: string;
+  token: string;
 };
 
 // The B of BREAD - Browse (Read All) operation
@@ -73,7 +70,6 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newUser = {
-      token: req.body.token,
       title: req.body.title,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -86,8 +82,7 @@ const add: RequestHandler = async (req, res, next) => {
       creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       isAdmin: req.body.isAdmin,
-      role_id: req.body.role_id,
-      admin_id: req.body.admin_id,
+      role: req.body.role,
       street_number: req.body.street_number,
       street_name: req.body.street_name,
       phone_number: req.body.phone_number,
@@ -130,8 +125,7 @@ const edit: RequestHandler = async (req, res, next) => {
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
       isAdmin: Boolean(req.body.isAdmin),
-      role_id: Number(req.body.role_id),
-      admin_id: Number(req.body.admin_id),
+      role: Number(req.body.role),
       token: String(req.body.token),
       street_number: Number(req.body.street_number),
       street_name: String(req.body.street_name),

@@ -4,6 +4,9 @@ const router = express.Router();
 
 import annoncesActions from "./modules/annonces/annoncesActions";
 import articlesActions from "./modules/articles/articlesActions";
+import SignIn from "./modules/auth/auth";
+import favoriteActions from "./modules/favorite/favoriteActions";
+
 // Import des actions
 import userActions from "./modules/user/userActions";
 
@@ -38,6 +41,12 @@ router.post("/api/user", userActions.add);
 router.put("/api/user/:id([0-9]+)", userActions.edit);
 router.delete("/api/user/:id([0-9]+)", userActions.destroy);
 
+router.get("/api/favorite", favoriteActions.browse);
+router.get("/api/favorite/:id([0-9]+)", favoriteActions.read);
+router.post("/api/favorite", favoriteActions.add);
+router.put("/api/favorite/:id([0-9]+)", favoriteActions.edit);
+router.delete("/api/favorite/:id([0-9]+)", favoriteActions.destroy);
+
 router.get("/api/annonces", annoncesActions.browse);
 router.get("/api/annonces/:id([0-9]+)", annoncesActions.read);
 router.get("/api/annonces/search", annoncesActions.search);
@@ -50,8 +59,6 @@ router.get("/api/articles/:id", articlesActions.read);
 router.post("/api/articles", articlesActions.add);
 router.put("/api/articles/:id", articlesActions.edit);
 router.delete("/api/articles/:id", articlesActions.destroy);
-
-import SignIn from "./modules/auth/auth";
 
 router.post("/api/auth/signin", SignIn.SignIn);
 router.post("/api/auth/signup", SignIn.SignUp);

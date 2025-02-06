@@ -5,6 +5,7 @@ import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
+type UserProps = {
 type User = {
   token: string;
   id: number;
@@ -16,14 +17,13 @@ type User = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
+  role: string;
   street_number: number;
   street_name: string;
-  postcode: number;
+  postcode: string;
   city: string;
   phone_number: number;
-  birthdate: string;
+  birthdate: Date;
   cv_link: string;
   lm_link: string;
   light_description: string;
@@ -31,42 +31,25 @@ type User = {
   siret_number: number;
   cedex_number: number;
   raison_social: string;
+  token: string;
 };
 
 class UserRepository {
   // The C of CRUD - Create operation
 
-  async create(user: Omit<User, "id">) {
+  async create(user: Omit<UserProps, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (firstname, lastname, login, password, email, creation_date, modification_date, isAdmin, role_id, admin_id, street_number, street_name, postcode, city, phone_number, birthdate, cv_link, lm_link, light_description, complete_description, siret_number, cedex_number, raison_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (firstname, lastname, login, birthdate, password, email) VALUES (?, ?, ?, ?, ?, ?)",
       [
         user.firstname,
         user.lastname,
         user.login,
+        user.birthdate,
         user.password,
         user.email,
-        user.creation_date,
-        user.modification_date,
-        user.isAdmin,
-        user.role_id,
-        user.admin_id,
-        user.street_number,
-        user.street_name,
-        user.postcode,
-        user.city,
-        user.phone_number,
-        user.birthdate,
-        user.cv_link,
-        user.lm_link,
-        user.light_description,
-        user.complete_description,
-        user.siret_number,
-        user.cedex_number,
-        user.raison_social,
       ],
     );
-
     // Return the ID of the newly inserted item
     return result.insertId;
   }
@@ -81,7 +64,7 @@ class UserRepository {
     );
 
     // Return the first row of the result, which represents the item
-    return rows[0] as User;
+    return rows[0] as UserProps;
   }
 
   async checkuser(login: string, password: string) {
@@ -90,7 +73,7 @@ class UserRepository {
       [login, password],
     );
     // Return the first row of the result, which represents the item
-    return rows[0] as User;
+    return rows[0] as UserProps;
   }
 
   async readAll() {
@@ -98,39 +81,26 @@ class UserRepository {
     const [rows] = await databaseClient.query<Rows>("SELECT * FROM user");
 
     // Return the array of items
-    return rows as User[];
+    return rows as UserProps[];
   }
 
   // The U of CRUD - Update operation
-  async update(user: User) {
+  async update(user: UserProps) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE user SET firstname = ?, lastname = ?, login = ?, password = ?, email = ?, creation_date = ?, modification_date = ?, isAdmin = ?, role_id = ?, admin_id = ?,street_number = ?, street_name = ?, postcode = ?, city = ?, phone_number = ?, birthdate = ?, cv_link = ?, lm_link = ?, light_description = ?, complete_description = ?, siret_number = ?, cedex_number = ?, raison_social = ? WHERE id = ?",
+      "UPDATE user SET firstname = ?, lastname = ?, email = ?, street_name = ?, postcode = ?, city = ?, phone_number = ?, birthdate = ? WHERE id = ?",
       [
         user.firstname,
         user.lastname,
-        user.login,
-        user.password,
         user.email,
-        user.creation_date,
-        user.modification_date,
-        user.isAdmin,
-        user.role_id,
-        user.admin_id,
-        user.id,
-        user.street_number,
         user.street_name,
-        user.postcode,
-        user.city,
-        user.phone_number,
-        user.birthdate,
-        user.cv_link,
-        user.lm_link,
-        user.light_description,
-        user.complete_description,
-        user.siret_number,
-        user.cedex_number,
-        user.raison_social,
+        user.postcode || "0000",
+        user.city || "",
+        user.phone_number || 0,
+        user.birthdate === "undefined"
+          ? new Date(1995, 11, 17, 3, 24, 0)
+          : user.birthdate,
+        user.id,
       ],
     );
     // Return how many rows were affected

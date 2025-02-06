@@ -12,6 +12,7 @@ import AboutPage from "./pages/aboutPage";
 import Admin from "./pages/adminPage";
 import Blog from "./pages/blog";
 import Contact from "./pages/contact";
+import FavoritePage from "./pages/favoritesPage";
 import Home from "./pages/home";
 import Jobboard from "./pages/jobboard";
 import LegalPage from "./pages/legalPage";
@@ -38,6 +39,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/favorite" element={<FavoritePage />} />
               <Route path="/jobboard" element={<Jobboard />} />
               <Route path="/legal" element={<LegalPage />} />
               <Route path="/signIn" element={<SignIn />} />

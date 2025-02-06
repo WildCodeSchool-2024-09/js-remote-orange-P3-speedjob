@@ -1,5 +1,5 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -81,7 +81,7 @@ function SignInModule() {
                 type="submit"
                 sx={{ mt: 2 }}
                 component={Link}
-                to="/jobboard"
+                to="/favorite"
               >
                 Consulter mes annonces favorites
               </Button>

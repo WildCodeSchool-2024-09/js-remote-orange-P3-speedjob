@@ -1,7 +1,12 @@
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import MapIcon from "@mui/icons-material/Map";
+import { Box, Button, Chip, Modal, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 type AnnoncesProps = {
   id: number;
@@ -18,12 +23,32 @@ type AnnoncesProps = {
   date: string;
 };
 
-type favoritesProps = {
+type UserProps = {
   id: number;
+  title: string;
+  firstname: string;
+  lastname: string;
+  login: string;
+  password: string;
+  email: string;
+  creation_date: string;
+  modification_date: string;
+  name_street: string;
+  postcode: string;
+  city: string;
+  isAdmin: boolean;
+  role_id: number;
+  admin_id: number;
+  token: string;
+};
+
+type FavoriteProps = {
+  user_id: number;
   annonce_id: number;
 };
 
 function Jobboard() {
+  const { user } = useAuth();
   const [annonces, setAnnonces] = useState([] as AnnoncesProps[]);
 
   useEffect(() => {
@@ -49,6 +74,24 @@ function Jobboard() {
     setSelectedAnnonce(null);
   };
 
+
+  const handleAddFavorite = () => {
+    if (selectedAnnonce && user) {
+      const favorite: FavoriteProps = {
+        user_id: user.id,
+        annonce_id: selectedAnnonce.id,
+      };
+
+      fetch(`${import.meta.env.VITE_API_URL}/api/favorite/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user_id, annonce_id),
+      })
+        .then((response) => response.json())
+        .then((data) => {});
+
   const favorites = [];
   const handleAddToFavorites = (
     favorites: favoritesProps,
@@ -56,14 +99,15 @@ function Jobboard() {
   ) => {
     if (favorites.includes(annonce.id)) {
       favorites.delete(annonce.id);
+
     } else {
-      favorites.push(annonce.id);
+      console.error("No selected annonce or user is not authenticated");
     }
   };
 
   return (
     <section id="projects" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900">Notre Jobboard</h2>
           <p className="mt-4 text-xl text-gray-600">
@@ -80,22 +124,56 @@ function Jobboard() {
               <p className="bold">{annonce.titre}</p>
               <p>Date de parution: {annonce.date}</p>
               <p>{annonce.light_description}</p>
-              <FavoriteBorderIcon
-                type="button"
-                onClick={handleAddToFavorites}
-              />
-              <p>Nom de l'entreprise: {annonce.company_id}</p>
-              <p>{annonce.remuneration}</p>
-              <p>{annonce.experience} d'expérience minium dans le secteur</p>
-              <p>#{annonce.work}</p>
-              <p>#{annonce.field}</p>
+              <div className="flex wrap items-start justify-between">
+                <div className="flex-1 justify-center">
+                  <h3 className="text-xl font-semibold mb-2">
+                    {annonce.titre}
+                  </h3>
+                  <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
+                    <span className="flex items-center justify-center">
+                      <ApartmentIcon className="mr-1" fontSize="small" />
+                      {annonce.company_id}
+                    </span>
+                    <span className="flex items-center">
+                      <MapIcon className="mr-1" fontSize="small" />
+                      Paris, France
+                    </span>
+                    <span className="flex items-center">
+                      <AccessTimeIcon className="mr-1" fontSize="small" />
+                      {annonce.date}
+                    </span>
+                    <span className="flex items-center">
+                      <EuroSymbolIcon className="mr-1" fontSize="small" />
+                      {annonce.remuneration}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    {annonce.complete_description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[`${annonce.work}`, `${annonce.field}`].map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                  alt={annonce.company_id}
+                  className="w-8 h-8 rounded-lg object-fit"
+                />
+              </div>
               <Button
                 type="button"
                 id="Postuler"
                 className="font-bold border solid-black border-4 p-8 bg-black"
-                onClick={() => handleOpen(annonce.id)}
+                onClick={() => handleOpen(annonce)}
               >
-                Voir l'annonce complète
+                Postuler immédiatement
               </Button>
             </div>
           ))}
@@ -112,51 +190,82 @@ function Jobboard() {
             width: 400,
             bgcolor: "background.paper",
             border: "2px solid #000",
-            borderRadius: 16,
             boxShadow: 24,
             p: 4,
           }}
         >
           {selectedAnnonce && (
-            <>
-              <Typography variant="h6" component="h2">
-                {selectedAnnonce.titre}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                {selectedAnnonce.complete_description}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Remuneration: {selectedAnnonce.remuneration}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Experience: {selectedAnnonce.experience}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Company ID: {selectedAnnonce.company_id}
-              </Typography>
-              <Button
-                type="button"
-                id="Postuler"
-                className="font-bold border solid-black border-4 p-8 bg-black"
-              >
-                Postuler
-              </Button>
-              <Button
-                type="button"
-                id="Postuler"
-                className="font-bold border solid-black border-4 p-8 bg-black"
-              >
-                Ajouter à mes favoris
-              </Button>
-              <Button
-                type="button"
-                id="Postuler"
-                className="font-bold border solid-black border-4 p-8 bg-black"
-                onClick={handleClose}
-              >
-                Fermer la fenetre
-              </Button>
-            </>
+            <div className="flex felx-col gap-8 align-center">
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8">
+                <p className="bold">{selectedAnnonce.titre}</p>
+                <p>Date de parution: {selectedAnnonce.date}</p>
+                <p>{selectedAnnonce.light_description}</p>
+                <div className="flex wrap items-start justify-between">
+                  <div className="flex-1 justify-center">
+                    <h3 className="text-xl font-semibold mb-2">
+                      {selectedAnnonce.titre}
+                    </h3>
+                    <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
+                      <span className="flex items-center justify-center">
+                        <ApartmentIcon className="mr-1" fontSize="small" />
+                        {selectedAnnonce.company_id}
+                      </span>
+                      <span className="flex items-center">
+                        <MapIcon className="mr-1" fontSize="small" />
+                        Paris, France
+                      </span>
+                      <span className="flex items-center">
+                        <AccessTimeIcon className="mr-1" fontSize="small" />
+                        {selectedAnnonce.date}
+                      </span>
+                      <span className="flex items-center">
+                        <EuroSymbolIcon className="mr-1" fontSize="small" />
+                        {selectedAnnonce.remuneration}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 mb-4">
+                      {selectedAnnonce.complete_description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        `${selectedAnnonce.work}`,
+                        `${selectedAnnonce.field}`,
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <img
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                    alt={selectedAnnonce.company_id}
+                    className="w-8 h-8 rounded-lg object-fit"
+                  />
+                </div>
+                <div className="flex justify-end mt-4">
+                  <Button
+                    type="button"
+                    id="Close"
+                    className="font-bold border solid-black border-4 p-8 bg-black"
+                    onClick={handleClose}
+                  >
+                    Fermer la fenêtre
+                  </Button>
+                  <Button
+                    type="button"
+                    id="Postuler"
+                    className="font-bold border solid-black border-4 p-8 bg-black"
+                    onClick={handleAddFavorite}
+                  >
+                    Ajouter à mes favoris
+                  </Button>
+                </div>
+              </div>
+            </div>
           )}
         </Box>
       </Modal>

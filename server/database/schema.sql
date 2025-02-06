@@ -53,15 +53,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`articles` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(45) NOT NULL,
-  `lastname` VARCHAR(45) NOT NULL,
-  `login` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
+  `firstname` VARCHAR(45) NULL,
+  `lastname` VARCHAR(45) NULL,
+  `login` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
   `creation_date` DATETIME NULL,
   `modification_date` DATETIME NULL,
-  `isAdmin` TINYINT NULL,
-  `role` VARCHAR(45) NOT NULL,
+  `isAdmin` VARCHAR(45) NULL,
+  `role`VARCHAR(45) NULL,
   `street_number` INT NULL,
   `street_name` VARCHAR(250) NULL,
   `postcode` INT NULL,
@@ -100,7 +100,7 @@ INSERT INTO annonces
     remuneration,
     experience,
     work,
-    field) 
+    field)
 VALUES
   (
     "Développeur Frontend React",
