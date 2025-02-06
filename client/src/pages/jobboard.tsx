@@ -42,9 +42,10 @@ type UserProps = {
   token: string;
 };
 
-type FavoriteProps = {
+type FavoritesProps = {
   user_id: number;
   annonce_id: number;
+  is_apply: boolean;
 };
 
 function Jobboard() {
@@ -58,6 +59,8 @@ function Jobboard() {
         setAnnonces(data);
       });
   }, []);
+
+  console.log("Annonces in jobboard=", annonces);
 
   const [open, setOpen] = useState(false);
   const [selectedAnnonce, setSelectedAnnonce] = useState<AnnoncesProps | null>(
@@ -74,36 +77,7 @@ function Jobboard() {
     setSelectedAnnonce(null);
   };
 
-
-  const handleAddFavorite = () => {
-    if (selectedAnnonce && user) {
-      const favorite: FavoriteProps = {
-        user_id: user.id,
-        annonce_id: selectedAnnonce.id,
-      };
-
-      fetch(`${import.meta.env.VITE_API_URL}/api/favorite/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user_id, annonce_id),
-      })
-        .then((response) => response.json())
-        .then((data) => {});
-
-  const favorites = [];
-  const handleAddToFavorites = (
-    favorites: favoritesProps,
-    annonce: AnnoncesProps,
-  ) => {
-    if (favorites.includes(annonce.id)) {
-      favorites.delete(annonce.id);
-
-    } else {
-      console.error("No selected annonce or user is not authenticated");
-    }
-  };
+  const handleAddFavorite = () => {};
 
   return (
     <section id="projects" className="py-20 bg-gray-50">
@@ -132,7 +106,7 @@ function Jobboard() {
                   <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
                     <span className="flex items-center justify-center">
                       <ApartmentIcon className="mr-1" fontSize="small" />
-                      {annonce.company_id}
+                      {annonce.company}
                     </span>
                     <span className="flex items-center">
                       <MapIcon className="mr-1" fontSize="small" />

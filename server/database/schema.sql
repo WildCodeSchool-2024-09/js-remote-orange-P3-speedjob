@@ -23,14 +23,14 @@ USE `mydb` ;
 CREATE TABLE IF NOT EXISTS `mydb`.`annonces` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `creation_date` VARCHAR(45) NOT NULL,
-  `modificaiton_date` VARCHAR(45) NULL,
+  `modification_date` VARCHAR(45) NULL,
   `light_description` VARCHAR(250) NOT NULL,
   `complete_description` VARCHAR(250) NOT NULL,
   `remuneration` VARCHAR(45) NOT NULL,
   `experience` VARCHAR(45) NOT NULL,
   `work` VARCHAR(45) NOT NULL,
   `field` VARCHAR(45) NOT NULL,
-  `compagny` VARCHAR(45) NULL,
+  `company` VARCHAR(45) NULL,
   `title` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`));
 

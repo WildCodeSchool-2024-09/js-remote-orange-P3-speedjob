@@ -6,7 +6,6 @@ type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
 type UserProps = {
-type User = {
   token: string;
   id: number;
   firstname: string;
@@ -31,7 +30,6 @@ type User = {
   siret_number: number;
   cedex_number: number;
   raison_social: string;
-  token: string;
 };
 
 class UserRepository {

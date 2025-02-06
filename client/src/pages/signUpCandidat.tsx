@@ -1,4 +1,4 @@
-import SignUpCa from "../components/register/signUpCa";
+import SignUpCa from "../components/register/candidate/signUpCa";
 
 const SignUpCandidat = () => {
   return (

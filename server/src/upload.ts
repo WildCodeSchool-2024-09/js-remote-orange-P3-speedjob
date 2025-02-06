@@ -95,4 +95,19 @@ router.post(
   },
 );
 
+router.get(
+  "/",
+  async (req: express.Request, res: express.Response): Promise<void> => {
+    try {
+      const [rows] = await databaseClient.query("SELECT * FROM candidate");
+      res.json(rows);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des candidatures:", error);
+      res
+        .status(500)
+        .json({ message: "Erreur lors de la récupération des candidatures" });
+    }
+  },
+);
+
 export default router;
