@@ -67,7 +67,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `postcode` INT NULL,
   `city` VARCHAR(45) NULL,
   `phone_number` INT NULL,
-  `birthdate` DATETIME NOT NULL,  
   `cv_link` VARCHAR(255) NULL,
   `lm_link` VARCHAR(255) NULL,
   `light_description` VARCHAR(100) NULL,
@@ -87,6 +86,17 @@ CREATE TABLE IF NOT EXISTS mydb.favorites (
   annonce_id INT NOT NULL,
   is_apply BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table mydb.candidatures
+-- -----------------------------------------------------
+CREATE TABLE candidatures (
+    user_id INT NOT NULL,
+    annonce_id INT NOT NULL,
+    PRIMARY KEY (user_id, annonce_id),
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (annonce_id) REFERENCES annonces(id) ON DELETE CASCADE
+);
 
 
 -- -----------------------------------------------------
