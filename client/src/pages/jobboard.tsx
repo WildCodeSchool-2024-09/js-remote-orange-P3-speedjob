@@ -74,6 +74,7 @@ function Jobboard() {
     setSelectedAnnonce(null);
   };
 
+
   const handleAddFavorite = () => {
     if (selectedAnnonce && user) {
       const favorite: FavoriteProps = {
@@ -90,6 +91,15 @@ function Jobboard() {
       })
         .then((response) => response.json())
         .then((data) => {});
+
+  const favorites = [];
+  const handleAddToFavorites = (
+    favorites: favoritesProps,
+    annonce: AnnoncesProps,
+  ) => {
+    if (favorites.includes(annonce.id)) {
+      favorites.delete(annonce.id);
+
     } else {
       console.error("No selected annonce or user is not authenticated");
     }

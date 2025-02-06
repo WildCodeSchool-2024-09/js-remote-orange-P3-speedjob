@@ -120,7 +120,7 @@ const edit: RequestHandler = async (req, res, next) => {
       password: String(req.body.password),
       email: String(req.body.email),
       name_street: String(req.body.name_street),
-      postcode: String(req.body.postcode),
+      postcode: Number(req.body.postcode),
       city: String(req.body.city),
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),

@@ -6,6 +6,8 @@ type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
 type UserProps = {
+type User = {
+  token: string;
   id: number;
   firstname: string;
   lastname: string;

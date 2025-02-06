@@ -9,6 +9,7 @@ import SearchQueryProvider from "./context/searchQueryContext";
 
 import UserInfoUpdateModule from "./components/candidate/userUpdate";
 import AboutPage from "./pages/aboutPage";
+import Admin from "./pages/adminPage";
 import Blog from "./pages/blog";
 import Contact from "./pages/contact";
 import FavoritePage from "./pages/favoritesPage";
@@ -35,6 +36,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/aboutHome" element={<AboutHome />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/favorite" element={<FavoritePage />} />

@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`annonces` (
 CREATE TABLE IF NOT EXISTS `mydb`.`articles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NOT NULL,
-  `date` DATETIME NOT NULL,
+  `date` DATETIME NULL,
   `light_description` TEXT NOT NULL,
   `compl_description` TEXT NOT NULL,
-  `picture` TEXT NOT NULL,
+  `picture` TEXT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `postcode` INT NULL,
   `city` VARCHAR(45) NULL,
   `phone_number` INT NULL,
-  `birthdate` DATETIME NULL, 
+  `birthdate` DATETIME NOT NULL,  
   `cv_link` VARCHAR(255) NULL,
   `lm_link` VARCHAR(255) NULL,
   `light_description` VARCHAR(100) NULL,

@@ -7,7 +7,6 @@ type Articles = {
   date: string;
   light_description: string;
   compl_description: string;
-  admin_id: number;
   picture: string;
 };
 
@@ -17,13 +16,12 @@ class ArticlesRepository {
   async create(articles: Omit<Articles, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO articles (title, date, light_description, compl_descritpion, admin_id, picture) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO articles (title, date, light_description, compl_description, picture) VALUES (?, ?, ?, ?, ?)",
       [
         articles.title,
         articles.date,
         articles.light_description,
         articles.compl_description,
-        articles.admin_id,
         articles.picture,
       ],
     );
@@ -57,15 +55,13 @@ class ArticlesRepository {
   async update(admin: Articles) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE articles SET title = ?, date = ?, light_description = ?, compl_description = ?, admin_id = ?, picture = ? WHERE id = ?",
+      "UPDATE articles SET title = ?, date = ?, light_description = ?, compl_description = ?, picture = ? WHERE id = ?",
       [
         admin.title,
         admin.date,
         admin.light_description,
         admin.compl_description,
-        admin.admin_id,
         admin.picture,
-        admin.id,
       ],
     );
 

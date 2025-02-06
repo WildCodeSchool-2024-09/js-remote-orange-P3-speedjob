@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Box, TextField, Button, Typography } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUpCa = () => {
   const [birthDate, setBirthDate] = useState<Date | null>(null);
