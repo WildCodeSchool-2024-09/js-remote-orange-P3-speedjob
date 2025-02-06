@@ -46,7 +46,7 @@ function UserInfoModule() {
     });
   }
 
-  return isAuth === false ? (
+  return (isAuth === false) ? (
     <Typography component="h1" variant="h5" gutterBottom>
       Vous devez être connecté pour accéder à cette page
     </Typography>
@@ -178,16 +178,7 @@ function UserInfoModule() {
           >
             Modifier
           </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            type="button"
-            onClick={handleDelete}
-          >
-            Supprimer
-          </Button>
+
           <Button
             fullWidth
             variant="contained"
@@ -198,6 +189,16 @@ function UserInfoModule() {
             to="/signIn"
           >
             Retour en arrière
+          </Button>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="primary"
+            sx={{ mt: 3, mb: 2 }}
+            type="button"
+            onClick={handleDelete}
+          >
+            Supprimer votre compte
           </Button>
         </form>
       </Box>

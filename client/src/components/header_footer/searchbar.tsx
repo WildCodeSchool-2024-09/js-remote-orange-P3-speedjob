@@ -30,7 +30,7 @@ function SearchBar() {
         onClick={handleClick}
         sx={{ ml: 1, p: 1.8 }}
       >
-        Rechercher
+        RECHERCHER VOTRE FUTURE EMPLOI
       </Button>
     </Box>
   );

@@ -46,10 +46,11 @@ class AnnoncesRepository {
   // The Ss of CRUD - Search operations
 
   async searchQuery(searchQuery: string) {
+    const searchPattern = `%${searchQuery}%`;
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM annonces WHERE title LIKE %?%",
-      [searchQuery],
+      "SELECT * FROM annonces WHERE title LIKE ?",
+      [searchPattern],
     );
 
     // Return the first row of the result, which represents the item

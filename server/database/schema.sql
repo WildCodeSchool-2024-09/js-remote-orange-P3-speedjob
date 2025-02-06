@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS mydb.favorites (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   annonce_id INT NOT NULL,
+  is_apply BOOLEAN DEFAULT false,
   PRIMARY KEY (id));
 
 
