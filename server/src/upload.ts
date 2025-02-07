@@ -72,7 +72,7 @@ router.post(
 
       // Insert data into the database
       await databaseClient.query(
-        "INSERT INTO candidate (birthdate, phone_number, street_number, street_name, postcode, city, cv_link, lm_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO user (birthdate, phone_number, street_number, street_name, postcode, city, cv_link, lm_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         [
           formattedBirthDate,
           phoneNumber,
@@ -99,13 +99,13 @@ router.get(
   "/",
   async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-      const [rows] = await databaseClient.query("SELECT * FROM candidate");
+      const [rows] = await databaseClient.query("SELECT * FROM user");
       res.json(rows);
     } catch (error) {
-      console.error("Erreur lors de la récupération des candidatures:", error);
+      console.error("Erreur lors de la récupération des utilisateurs:", error);
       res
         .status(500)
-        .json({ message: "Erreur lors de la récupération des candidatures" });
+        .json({ message: "Erreur lors de la récupération des utilisateurs" });
     }
   },
 );

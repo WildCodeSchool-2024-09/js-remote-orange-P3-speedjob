@@ -1,27 +1,41 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const SeeCandidate = () => {
   interface Candidate {
     id: number;
-    name: string;
-    info: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phone_number: string;
+    birthdate: string;
+    cv_link: string;
+    lm_link: string;
   }
 
+  const { user }: { user: string | null } = useAuth();
   const [candidates, setCandidates] = useState<Candidate[]>([]);
 
-  const fetchCandidates = async () => {
-    try {
-      const response = await fetch("http://localhost:3310/api/upload");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-
-      setCandidates(data);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des candidatures:", error);
+  useEffect(() => {
+    if (user) {
+      fetchCandidates(Number.parseInt(user));
     }
+  }, [user]);
+
+  const fetchCandidates = (companyId: number) => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/user?companyId=${companyId}`)
+      .then((response) => {
+        setCandidates(response.data as Candidate[]);
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de la récupération des utilisateurs:",
+          error,
+        );
+      });
   };
 
   return (
@@ -32,7 +46,10 @@ const SeeCandidate = () => {
       justifyContent="center"
       minHeight="100vh"
     >
-      <Button variant="contained" onClick={fetchCandidates}>
+      <Button
+        variant="contained"
+        onClick={() => user && fetchCandidates(Number.parseInt(user))}
+      >
         Voir les candidatures
       </Button>
       {candidates.length === 0 ? (
@@ -40,8 +57,18 @@ const SeeCandidate = () => {
       ) : (
         candidates.map((candidate) => (
           <Box key={candidate.id} mt={2} p={2} border={1} width="50%">
-            <Typography variant="h6">{candidate.name}</Typography>
-            <Typography>{candidate.info}</Typography>
+            <Typography variant="h6">
+              {candidate.firstname} {candidate.lastname}
+            </Typography>
+            <Typography>Email: {candidate.email}</Typography>
+            <Typography>Téléphone: {candidate.phone_number}</Typography>
+            <Typography>Date de naissance: {candidate.birthdate}</Typography>
+            <Typography>
+              CV: <a href={candidate.cv_link}>Télécharger</a>
+            </Typography>
+            <Typography>
+              Lettre de motivation: <a href={candidate.lm_link}>Télécharger</a>
+            </Typography>
           </Box>
         ))
       )}
