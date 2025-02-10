@@ -16,8 +16,12 @@ import FavoritePage from "./pages/favoritesPage";
 import Home from "./pages/home";
 import Jobboard from "./pages/jobboard";
 import LegalPage from "./pages/legalPage";
+import MyOffer from "./pages/myOffer";
+import MyProfilEn from "./pages/myProfilEn";
+import NewAnnonce from "./pages/newAnnonce";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
+import SeeCandidate from "./pages/seeCandidate";
 import SignIn from "./pages/signIn";
 import SignInCandidat from "./pages/signInCandidat";
 import SignUp from "./pages/signUp";
@@ -42,6 +46,10 @@ function App() {
               <Route path="/favorite" element={<FavoritePage />} />
               <Route path="/jobboard" element={<Jobboard />} />
               <Route path="/legal" element={<LegalPage />} />
+              <Route path="/myOffer" element={<MyOffer />} />
+              <Route path="/myProfilEn" element={<MyProfilEn />} />
+              <Route path="/newAnnonce" element={<NewAnnonce />} />
+              <Route path="/seeCandidate" element={<SeeCandidate />} />
               <Route path="/signIn" element={<SignIn />} />
               <Route path="/signInCandidat" element={<SignInCandidat />} />
               <Route path="/signUp" element={<SignUp />} />

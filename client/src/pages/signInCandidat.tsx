@@ -1,4 +1,4 @@
-import SignInCa from "../components/register/signInCa";
+import SignInCa from "../components/register/candidate/signInCa";
 
 const SignInCandidat = () => {
   return (

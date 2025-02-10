@@ -61,7 +61,7 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newAnnonces = {
-      creation_date: req.body.title,
+      creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       light_description: req.body.light_description,
       complete_description: req.body.complete_description,
