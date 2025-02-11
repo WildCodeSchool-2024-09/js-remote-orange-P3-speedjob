@@ -43,7 +43,13 @@ export default function AccountMenu() {
     >
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <span>
-          <img src="./src/assets/images/iconLogo.png" alt="logo speedJob" />
+          <Link to="/">
+            <img
+              src="./src/assets/images/logoblackwhite.png"
+              alt="logo speedJob"
+              style={{ width: "10rem", height: "8rem", padding: "1rem" }}
+            />
+          </Link>
         </span>
         <React.Fragment>
           <Box

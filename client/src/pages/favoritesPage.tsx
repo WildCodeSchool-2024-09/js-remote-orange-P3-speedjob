@@ -1,43 +1,146 @@
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SignInModule from "../components/register/signInModule";
 import { useAuth } from "../hooks/useAuth";
 
-type FavorisProps = {
+type FavoriteProps = {
   id: number;
   user_id: number;
   annonce_id: number;
+  is_apply: boolean;
 };
 
-function FavoritePage() {
-  const { isAuth } = useAuth();
-  const [favoris, setFavoris] = useState([] as FavorisProps[]);
+type UserProps = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  login: string;
+  password: string;
+  email: string;
+  creation_date: string;
+  modification_date: string;
+  isAdmin: boolean;
+  role: string;
+  street_number: number;
+  street_name: string;
+  postcode: number;
+  city: string;
+  phone_number: number;
+  birthdate: string;
+  cv_link: string;
+  lm_link: string;
+  light_description: string;
+  complete_description: string;
+  siret_number: number;
+  cedex_number: string;
+  raison_social: string;
+};
 
+function FavoritesPage() {
+  const { isAuth } = useAuth();
+  const { user } = useAuth();
+  const user_Id = user?.id;
+  const [favorites, setFavorites] = useState([] as FavoriteProps[]);
+  const navigate = useNavigate();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/favorite`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/favorite/${user_Id}`)
       .then((response) => response.json())
-      .then((data: FavorisProps[]) => {
-        setFavoris(data);
+      .then((data: FavoriteProps[]) => {
+        setFavorites(data);
       });
-  }, []);
+  }, [user]);
+
+  const annonce_id = favorites.map((favorites) => favorites.annonce_id);
+
+  const handleDelete = (id: number) => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/favorite/${id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/favorite");
+      }
+    });
+  };
+
+  const [isApply, setIsApply] = useState(false);
+
+  const handleApply = (id: number) => {
+    setIsApply(true);
+    fetch(`${import.meta.env.VITE_API_URL}/api/favorite/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ is_apply: isApply }),
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/favorite");
+      }
+    });
+    windows.location.reload();
+  };
 
   return isAuth ? (
-    <section className="flex flex-col gap-8 align-center">
-      <div>Here are your favorites:</div>
-      {favoris.map((favori) => (
-        <div id="Favorite" key={favori.id} className="flex flex-col gap-4">
-          ID de l'annonce:
-          <div>{favori?.user_id}</div>
-          <div>{favori?.annonce_id}</div>
-        </div>
-      ))}
-    </section>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      mt={4}
+    >
+      <Typography variant="h4" component="h1" gutterBottom align="center">
+        Mes Favoris
+      </Typography>
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={4}
+        width="100%"
+        maxWidth="lg"
+        alignItems="center"
+      >
+        {favorites.map((favorite) => (
+          <Card id="Favorite" key={favorite.id} className="flex flex-row gap-4">
+            Numéro de l'annonce:
+            <Typography variant="h5" component="div" align="center">
+              {favorite?.annonce_id}
+            </Typography>
+            Avez-vous postulé à cette annonce ?
+            <Typography variant="h5" component="div" align="center">
+              {favorite?.is_apply ? "Oui" : "Non"}
+            </Typography>
+            <Box display="flex" gap={2} mt={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleApply(favorite.id, isApply)}
+              >
+                Postuler à l'annonce
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => handleDelete(favorite.id)}
+              >
+                Supprimer des favoris
+              </Button>
+            </Box>
+          </Card>
+        ))}
+      </Box>
+    </Box>
   ) : (
     <div>
-      <h1>Vous devez être connecté pour accéder à cette page</h1>
-      <h1>Vous allez être redirigé vers la page de connexion</h1>
-      <SignInModule />
+      <div>
+        <h1>Vous devez être connecté pour accéder à cette page</h1>
+        <h1>Vous allez être redirigé vers la page de connexion</h1>
+        <SignInModule />
+      </div>
     </div>
   );
 }
 
-export default FavoritePage;
+export default FavoritesPage;

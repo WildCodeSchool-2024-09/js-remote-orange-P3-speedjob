@@ -192,7 +192,7 @@ const CheckArticles = () => {
               <TableCell>
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="error"
                   onClick={() => handleDelete(article.id)}
                 >
                   Supprimer

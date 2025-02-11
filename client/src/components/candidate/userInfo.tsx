@@ -1,34 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-// import axios from "axios";
-
-type UserProps = {
-  id: number;
-  firstname: string;
-  lastname: string;
-  login: string;
-  password: string;
-  email: string;
-  creation_date: string;
-  modification_date: string;
-  isAdmin: boolean;
-  role: string;
-  street_number: number;
-  street_name: string;
-  postcode: number;
-  city: string;
-  phone_number: number;
-  birthdate: string;
-  cv_link: string;
-  lm_link: string;
-  light_description: string;
-  complete_description: string;
-  siret_number: number;
-  cedex_number: string;
-  raison_social: string;
-};
 
 function UserInfoModule() {
   const { user } = useAuth();
@@ -38,12 +10,12 @@ function UserInfoModule() {
   function handleDelete() {
     alert("Voulez-vous vraiment supprimer votre compte ?");
     fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
-        method: "DELETE",
-      }).then((response) => {
-        if (response.status === 204) {
-          navigate("/");
-        }
-      });    
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/");
+      }
+    });
   }
 
   return isAuth === false ? (
@@ -67,7 +39,7 @@ function UserInfoModule() {
             <TextField
               label="Prénom"
               type="text"
-              value={user?.firstname}
+              value={user.firstname}
               variant="outlined"
             />
             <TextField
@@ -178,19 +150,10 @@ function UserInfoModule() {
           >
             Modifier
           </Button>
+
           <Button
             fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            type="button"
-            onClick={handleDelete}
-          >
-            Supprimer
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
+            variant="outlined"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
             type="button"
@@ -198,6 +161,16 @@ function UserInfoModule() {
             to="/signIn"
           >
             Retour en arrière
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="error"
+            sx={{ mt: 3, mb: 2 }}
+            type="button"
+            onClick={handleDelete}
+          >
+            Supprimer
           </Button>
         </form>
       </Box>

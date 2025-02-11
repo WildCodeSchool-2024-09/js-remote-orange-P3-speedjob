@@ -43,7 +43,7 @@ router.delete("/api/user/:id([0-9]+)", userActions.destroy);
 
 router.get("/api/favorite", favoriteActions.browse);
 router.get("/api/favorite/:id([0-9]+)", favoriteActions.read);
-router.post("/api/favorite", favoriteActions.add);
+router.post("/api/favorite/", favoriteActions.add);
 router.put("/api/favorite/:id([0-9]+)", favoriteActions.edit);
 router.delete("/api/favorite/:id([0-9]+)", favoriteActions.destroy);
 
