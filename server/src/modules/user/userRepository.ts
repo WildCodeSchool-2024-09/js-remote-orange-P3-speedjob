@@ -29,7 +29,6 @@ type UserProps = {
   siret_number: number;
   cedex_number: number;
   raison_social: string;
-  token: string;
 };
 
 class UserRepository {

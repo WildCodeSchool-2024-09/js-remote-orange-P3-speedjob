@@ -61,6 +61,8 @@ function Jobboard() {
       });
   }, []);
 
+  console.log("Annonces in jobboard=", annonces);
+
   const [open, setOpen] = useState(false);
   const [selectedAnnonce, setSelectedAnnonce] = useState<AnnoncesProps | null>(
     null,

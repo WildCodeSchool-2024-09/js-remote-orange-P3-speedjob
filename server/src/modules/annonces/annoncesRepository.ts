@@ -26,7 +26,7 @@ class AnnoncesRepository {
     // Execute the SQL INSERT query to add a new item to the "item" table
 
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO annonces (title, creation_date, modification_date, light_description, complete_description, remuneration, experience, work, field, company_id, is_apply) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO annonces (title, creation_date, modification_date, light_description, complete_description, remuneration, experience, work, field, is_apply) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         annonces.title,
         annonces.creation_date,
