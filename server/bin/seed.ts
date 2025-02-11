@@ -9,7 +9,9 @@ import database from "../database/client";
 
 import type { AbstractSeeder } from "../database/fixtures/AbstractSeeder";
 
-const fixturesPath = path.join(__dirname, "../database/fixtures");
+const fixturesPath = path.join("../server/database/fixtures");
+//const fixturesPath = path.join(__dirname, "../server/database/fixtures");
+//const fixturesPath =  "../server/database/fixtures";
 
 const seed = async () => {
   try {

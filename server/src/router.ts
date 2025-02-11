@@ -40,6 +40,7 @@ router.get("/api/user/:id([0-9]+)", userActions.read);
 router.post("/api/user", userActions.add);
 router.put("/api/user/:id([0-9]+)", userActions.edit);
 router.delete("/api/user/:id([0-9]+)", userActions.destroy);
+router.get("/api/user/:id/isAdmin", userActions.browse);
 
 router.get("/api/favorite", favoriteActions.browse);
 router.get("/api/favorite/:id([0-9]+)", favoriteActions.read);

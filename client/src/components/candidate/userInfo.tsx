@@ -20,7 +20,6 @@ type UserProps = {
   postcode: number;
   city: string;
   phone_number: number;
-  birthdate: string;
   cv_link: string;
   lm_link: string;
   light_description: string;
@@ -28,22 +27,25 @@ type UserProps = {
   siret_number: number;
   cedex_number: string;
   raison_social: string;
+  picture: string;
 };
 
 function UserInfoModule() {
-  const { user } = useAuth();
-  const { isAuth } = useAuth();
+  const { user, isAuth } = useAuth() as {
+    user: UserProps | null;
+    isAuth: boolean;
+  };
   const navigate = useNavigate();
 
   function handleDelete() {
     alert("Voulez-vous vraiment supprimer votre compte ?");
-    fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
-        method: "DELETE",
-      }).then((response) => {
-        if (response.status === 204) {
-          navigate("/");
-        }
-      });    
+    fetch(`${import.meta.env.VITE_API_URL}/api/user/${user?.id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/");
+      }
+    });
   }
 
   return isAuth === false ? (
@@ -95,7 +97,7 @@ function UserInfoModule() {
             <TextField
               label="Numéro de rue"
               type="text"
-              value={user?.number_street || ""}
+              value={user?.street_number || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -131,7 +133,7 @@ function UserInfoModule() {
             <TextField
               label="Téléphone"
               type="text"
-              value={user?.phone || ""}
+              value={user?.phone_number || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -143,7 +145,7 @@ function UserInfoModule() {
             <TextField
               label="CV"
               type="text"
-              value={user?.cvlink || ""}
+              value={user?.cv_link || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -152,7 +154,7 @@ function UserInfoModule() {
             <TextField
               label="Lettre de motivation"
               type="text"
-              value={user?.lmlink || ""}
+              value={user?.lm_link || ""}
               InputProps={{
                 readOnly: true,
               }}

@@ -14,23 +14,24 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import bg_header from "../../assets/images/bg_header.png";
 import { useAuth } from "../../hooks/useAuth";
 import SearchBar from "./searchbar";
 
-export default function AccountMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+export default function Header() {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { user } = useAuth();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const { isAdmin } = useAuth();
 
   return (
     <Box
@@ -147,14 +148,14 @@ export default function AccountMenu() {
               </ListItemIcon>
               <Link to="/legal">Mentions légales</Link>
             </MenuItem>
-            {/* {isAdmin && ( */}
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <AdminPanelSettingsIcon fontSize="small" />
-              </ListItemIcon>
-              <Link to="/Admin">Admin</Link>
-            </MenuItem>
-            {/* )} */}
+            {user?.isAdmin === 1 && (
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon fontSize="small" />
+                </ListItemIcon>
+                <Link to="/Admin">Admin</Link>
+              </MenuItem>
+            )}
           </Menu>
         </React.Fragment>
       </Box>

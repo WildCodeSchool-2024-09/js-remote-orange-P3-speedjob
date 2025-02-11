@@ -15,7 +15,6 @@ const SignUpModule = () => {
   const [lastname, setLastname] = useState("");
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
   const [role, setRole] = useState({ societe: false, candidat: false });
@@ -53,7 +52,7 @@ const SignUpModule = () => {
       body: JSON.stringify(userData),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         navigate("/signIn");
       });
   };
@@ -70,7 +69,6 @@ const SignUpModule = () => {
     formData.append("lastname", lastname);
     formData.append("login", login);
     formData.append("email", email);
-    formData.append("birthdate", birthdate);
     formData.append("password", password);
     formData.append("checkedPassword", checkedPassword);
     formData.append("role", selectedRole);
@@ -124,12 +122,6 @@ const SignUpModule = () => {
             label="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Birthdate"
-            value={birthdate}
-            onChange={(e) => setBirthdate(e.target.value)}
             margin="normal"
           />
           <TextField

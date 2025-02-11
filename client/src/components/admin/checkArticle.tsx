@@ -1,17 +1,19 @@
 import {
   Box,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
+  Grid,
   Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -27,6 +29,10 @@ const CheckArticles = () => {
   const [articles, setArticles] = useState<Articles[]>([]);
   const [open, setOpen] = useState(false);
   const [currentArticle, setCurrentArticle] = useState<Articles | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
+    null,
+  );
 
   useEffect(() => {
     const fetchArticles = () => {
@@ -50,7 +56,7 @@ const CheckArticles = () => {
         setArticles(articles.filter((article) => article.id !== id));
       })
       .catch((error) => {
-        console.error("Erreur lors de la suppression de l'articles:", error);
+        console.error("Erreur lors de la suppression de l'article:", error);
       });
   };
 
@@ -105,6 +111,23 @@ const CheckArticles = () => {
           });
       }
     }
+  };
+
+  const handleClickOpenConfirm = (id: number) => {
+    setSelectedArticleId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setConfirmOpen(false);
+    setSelectedArticleId(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedArticleId !== null) {
+      handleDelete(selectedArticleId);
+    }
+    handleCloseConfirm();
   };
 
   return (
@@ -174,41 +197,60 @@ const CheckArticles = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Titre</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {articles.map((article) => (
-            <TableRow key={article.id}>
-              <TableCell>{article.id}</TableCell>
-              <TableCell>{article.title}</TableCell>
-              <TableCell>{article.light_description}</TableCell>
-              <TableCell>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => handleDelete(article.id)}
-                >
-                  Supprimer
-                </Button>
+      <Dialog open={confirmOpen} onClose={handleCloseConfirm}>
+        <DialogTitle>Confirmer la suppression</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Êtes-vous sûr de vouloir supprimer cet article ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirm} color="primary">
+            Annuler
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            color="secondary"
+            sx={{ color: "red" }}
+          >
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Grid container spacing={2} mt={2}>
+        {articles.map((article) => (
+          <Grid item xs={12} sm={6} md={4} key={article.id}>
+            <Card
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+            >
+              <CardHeader title={article.title} />
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="body2" color="textSecondary">
+                  {article.light_description}
+                </Typography>
+              </CardContent>
+              <CardActions>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={() => handleEdit(article)}
+                  sx={{ marginRight: 1 }}
                 >
                   Modifier
                 </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ backgroundColor: "red" }}
+                  onClick={() => handleClickOpenConfirm(article.id)}
+                >
+                  Supprimer
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Paper>
   );
 };

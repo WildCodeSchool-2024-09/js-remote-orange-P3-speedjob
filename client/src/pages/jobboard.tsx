@@ -16,7 +16,7 @@ type AnnoncesProps = {
   complete_description: string;
   remuneration: string;
   experience: string;
-  company_id: number;
+  company: number;
   work: string;
   is_apply: boolean;
   field: string;
@@ -59,8 +59,6 @@ function Jobboard() {
         setAnnonces(data);
       });
   }, []);
-
-  console.log("Annonces in jobboard=", annonces);
 
   const [open, setOpen] = useState(false);
   const [selectedAnnonce, setSelectedAnnonce] = useState<AnnoncesProps | null>(
@@ -137,7 +135,7 @@ function Jobboard() {
                 </div>
                 <img
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                  alt={annonce.company_id}
+                  alt={annonce.company.toString()}
                   className="w-8 h-8 rounded-lg object-fit"
                 />
               </div>
@@ -182,7 +180,7 @@ function Jobboard() {
                     <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
                       <span className="flex items-center justify-center">
                         <ApartmentIcon className="mr-1" fontSize="small" />
-                        {selectedAnnonce.company_id}
+                        {selectedAnnonce.company}
                       </span>
                       <span className="flex items-center">
                         <MapIcon className="mr-1" fontSize="small" />
@@ -216,7 +214,7 @@ function Jobboard() {
                   </div>
                   <img
                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                    alt={selectedAnnonce.company_id}
+                    alt={selectedAnnonce.company.toString()}
                     className="w-8 h-8 rounded-lg object-fit"
                   />
                 </div>
