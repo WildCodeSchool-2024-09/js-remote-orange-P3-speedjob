@@ -3,9 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
-type UserDataProps = {
+type UserProps = {
   id: number;
-  title: string;
   firstname: string;
   lastname: string;
   login: string;
@@ -14,17 +13,29 @@ type UserDataProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role_id: number;
-  admin_id: number;
-  token: string;
+  role: string;
+  street_number: number;
+  street_name: string;
+  postcode: number;
+  city: string;
+  phone_number: number;
+  birthdate: string;
+  cv_link: string;
+  lm_link: string;
+  light_description: string;
+  complete_description: string;
+  siret_number: number;
+  cedex_number: string;
+  raison_social: string;
 };
 
 function SignInModule() {
+  const { user } = useAuth();
   const { handleLogin, handleLogout, isAuth, message } = useAuth();
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [type, setType] = useState("password");
-  const [userData, setUserData] = useState([] as UserDataProps[]);
+  const [firstname, setFirstname] = useState([] as UserProps[]);
 
   return (
     <>
@@ -42,7 +53,7 @@ function SignInModule() {
             mt={4}
           >
             <Typography variant="h4" component="h1" gutterBottom>
-              Bonjour, voici les actions possibles:
+              Bonjour{user?.firstname}, voici les actions possibles:
             </Typography>
 
             <Box

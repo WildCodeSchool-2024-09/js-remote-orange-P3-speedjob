@@ -63,7 +63,7 @@ const CheckUser = () => {
               <TableCell>
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="error"
                   onClick={() => handleDelete(user.id)}
                 >
                   Supprimer

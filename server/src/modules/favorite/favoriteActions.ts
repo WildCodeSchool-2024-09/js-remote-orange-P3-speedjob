@@ -42,10 +42,10 @@ const add: RequestHandler = async (req, res, next) => {
   try {
     // Extract the item data from the request body
     const newFavorite = {
-      user_id: Number.parseInt(req.body.user_id),
-      annonce_id: req.body.annonce_id,
+      user_id: req.body.favoriteData.user_id,
+      annonce_id: req.body.favoriteData.annonceId,
+      is_apply: req.body.favoriteData.is_apply,
     };
-
     // Create the item
     const insertId = await favoriteRepository.create(newFavorite);
 
@@ -63,8 +63,8 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     // Update a specific category based on the provided ID
     const favorite = {
-      user_id: Number(req.params.user_id),
-      annonce_id: Number(req.body.annonce_id),
+      is_apply: Boolean(req.body.is_apply),
+      id: Number(req.params.id),
     };
 
     const affectedRows = await favoriteRepository.update(favorite);

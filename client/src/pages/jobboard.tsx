@@ -4,6 +4,7 @@ import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MapIcon from "@mui/icons-material/Map";
 import { Box, Button, Chip, Modal, Typography } from "@mui/material";
+import { set } from "date-fns";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -11,12 +12,12 @@ import { useAuth } from "../hooks/useAuth";
 type AnnoncesProps = {
   id: number;
   name: string;
-  titre: string;
+  title: string;
   light_description: string;
   complete_description: string;
   remuneration: string;
   experience: string;
-  company_id: number;
+  company: number;
   work: string;
   is_apply: boolean;
   field: string;
@@ -77,7 +78,29 @@ function Jobboard() {
     setSelectedAnnonce(null);
   };
 
-  const handleAddFavorite = () => {};
+  const [favorites, setFavorites] = useState([] as FavoritesProps[]);
+  const [isApply, setIsApply] = useState(false);
+  const annonceId = selectedAnnonce?.id;
+
+  const favoriteData = {
+    user_id: user?.id,
+    annonceId: annonceId,
+    is_apply: isApply,
+  };
+
+  const handleAddFavorite = (favorites: FavoritesProps) => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/favorite/`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ favoriteData }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFavorites(data);
+      });
+  };
 
   return (
     <section id="projects" className="py-20 bg-gray-50">
@@ -95,60 +118,68 @@ function Jobboard() {
               key={annonce.id}
               className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
             >
-              <p className="bold">{annonce.titre}</p>
-              <p>Date de parution: {annonce.date}</p>
-              <p>{annonce.light_description}</p>
               <div className="flex wrap items-start justify-between">
                 <div className="flex-1 justify-center">
                   <h3 className="text-xl font-semibold mb-2">
-                    {annonce.titre}
-                  </h3>
+                    {annonce.title}
+                  </h3>{" "}
+                  <p>{annonce.light_description}</p>
+                  <p>Date de parution: {annonce.creation_date}</p>
                   <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
-                    <span className="flex items-center justify-center">
-                      <ApartmentIcon className="mr-1" fontSize="small" />
-                      {annonce.company}
-                    </span>
-                    <span className="flex items-center">
-                      <MapIcon className="mr-1" fontSize="small" />
+                    <Typography className="flex items-center justify-center">
+                      <ApartmentIcon variant="body2" color="text.secondary" />
+                      {annonce.compagny}
+                    </Typography>
+                    <Typography className="flex items-center">
+                      <MapIcon variant="body2" color="text.secondary" />
                       Paris, France
-                    </span>
-                    <span className="flex items-center">
-                      <AccessTimeIcon className="mr-1" fontSize="small" />
+                    </Typography>
+                    <Typography className="flex items-center">
+                      <AccessTimeIcon variant="body2" color="text.secondary" />
                       {annonce.date}
-                    </span>
-                    <span className="flex items-center">
-                      <EuroSymbolIcon className="mr-1" fontSize="small" />
+                    </Typography>
+                    <Typography className="flex items-center">
+                      <EuroSymbolIcon variant="body2" color="text.secondary" />
                       {annonce.remuneration}
-                    </span>
+                    </Typography>
                   </div>
                   <p className="text-gray-600 mb-4">
                     {annonce.complete_description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <Box
+                    display="flex"
+                    flexWrap="wrap"
+                    gap={1}
+                    mt={2}
+                    justifyContent="left"
+                  >
                     {[`${annonce.work}`, `${annonce.field}`].map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
-                      >
-                        {tech}
-                      </span>
+                      <Chip key={tech} label={tech} variant="outlined" />
                     ))}
-                  </div>
+                  </Box>
                 </div>
                 <img
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                  alt={annonce.company_id}
-                  className="w-8 h-8 rounded-lg object-fit"
+                  alt={annonce.compagny}
+                  style={{
+                    width: "10rem",
+                    height: "10rem",
+                    // position: "absolute",
+                    top: "1rem",
+                    right: "1rem",
+                    borderRadius: "10%",
+                  }}
                 />
               </div>
-              <Button
-                type="button"
-                id="Postuler"
-                className="font-bold border solid-black border-4 p-8 bg-black"
-                onClick={() => handleOpen(annonce)}
-              >
-                Postuler immédiatement
-              </Button>
+              <Box display="flex" justifyContent="center" mt={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleOpen(annonce)}
+                >
+                  CONSULTER L'ANNONCE
+                </Button>
+              </Box>
             </div>
           ))}
         </div>
@@ -161,81 +192,92 @@ function Jobboard() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
+            width: "70%",
             p: 4,
           }}
         >
           {selectedAnnonce && (
             <div className="flex felx-col gap-8 align-center">
               <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8">
-                <p className="bold">{selectedAnnonce.titre}</p>
-                <p>Date de parution: {selectedAnnonce.date}</p>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleClose}
+                >
+                  x
+                </Button>
+                <h3 className="text-xl font-semibold mb-2">
+                  {selectedAnnonce.title}
+                </h3>
                 <p>{selectedAnnonce.light_description}</p>
+                <p>{selectedAnnonce.creation_date}</p>
                 <div className="flex wrap items-start justify-between">
                   <div className="flex-1 justify-center">
-                    <h3 className="text-xl font-semibold mb-2">
-                      {selectedAnnonce.titre}
-                    </h3>
-                    <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
-                      <span className="flex items-center justify-center">
+                    <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-between">
+                      <Typography className="flex items-center justify-center">
                         <ApartmentIcon className="mr-1" fontSize="small" />
-                        {selectedAnnonce.company_id}
-                      </span>
-                      <span className="flex items-center">
+                        {selectedAnnonce.compagny}
+                      </Typography>
+                      <Typography className="flex items-center">
                         <MapIcon className="mr-1" fontSize="small" />
                         Paris, France
-                      </span>
-                      <span className="flex items-center">
+                      </Typography>
+                      <Typography className="flex items-center">
                         <AccessTimeIcon className="mr-1" fontSize="small" />
                         {selectedAnnonce.date}
-                      </span>
-                      <span className="flex items-center">
+                      </Typography>
+                      <Typography className="flex items-center">
                         <EuroSymbolIcon className="mr-1" fontSize="small" />
                         {selectedAnnonce.remuneration}
-                      </span>
+                      </Typography>
                     </div>
                     <p className="text-gray-600 mb-4">
                       {selectedAnnonce.complete_description}
                     </p>
-                    <div className="flex flex-wrap gap-2">
+
+                    <Box
+                      display="flex"
+                      flexWrap="wrap"
+                      gap={1}
+                      mt={2}
+                      justifyContent="left"
+                    >
                       {[
                         `${selectedAnnonce.work}`,
                         `${selectedAnnonce.field}`,
                       ].map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
-                        >
-                          {tech}
-                        </span>
+                        <Chip key={tech} label={tech} variant="outlined" />
                       ))}
-                    </div>
+                    </Box>
                   </div>
                   <img
                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                    alt={selectedAnnonce.company_id}
-                    className="w-8 h-8 rounded-lg object-fit"
+                    alt={selectedAnnonce.compagny}
+                    style={{
+                      width: "6rem",
+                      height: "6rem",
+                      position: "absolute",
+                      top: "3rem",
+                      right: "3rem",
+                      borderRadius: "50%",
+                    }}
                   />
                 </div>
                 <div className="flex justify-end mt-4">
                   <Button
-                    type="button"
-                    id="Close"
-                    className="font-bold border solid-black border-4 p-8 bg-black"
+                    variant="contained"
+                    color="primary"
                     onClick={handleClose}
                   >
-                    Fermer la fenêtre
+                    POSTULER
                   </Button>
+
                   <Button
-                    type="button"
-                    id="Postuler"
-                    className="font-bold border solid-black border-4 p-8 bg-black"
+                    variant="outlined"
+                    color="error"
                     onClick={handleAddFavorite}
                   >
-                    Ajouter à mes favoris
+                    <FavoriteBorderIcon />
                   </Button>
                 </div>
               </div>

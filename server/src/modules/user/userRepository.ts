@@ -6,7 +6,6 @@ type Result = ResultSetHeader;
 type Rows = RowDataPacket[];
 
 type UserProps = {
-  token: string;
   id: number;
   firstname: string;
   lastname: string;
@@ -38,12 +37,11 @@ class UserRepository {
   async create(user: Omit<UserProps, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (firstname, lastname, login, birthdate, password, email) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (firstname, lastname, login, password, email) VALUES (?, ?, ?, ?, ?)",
       [
         user.firstname,
         user.lastname,
         user.login,
-        user.birthdate,
         user.password,
         user.email,
       ],

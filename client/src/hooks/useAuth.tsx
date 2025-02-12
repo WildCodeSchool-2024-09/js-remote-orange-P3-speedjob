@@ -8,7 +8,6 @@ interface AuthContextType {
   isAuth: boolean;
   message: string | null;
   user: string | null;
-  admin: { is_admin: boolean } | null;
 }
 
 type UserProps = {
@@ -45,7 +44,6 @@ import type { ReactNode } from "react";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState<string | null>(null);
-  const [admin, setAdmin] = useState<{ is_admin: boolean } | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
   const handleRegister = async (login: string, password: string) => {
@@ -79,8 +77,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   interface LoginResponse {
     token: string;
     user: string;
-    admin: { is_admin: boolean };
-
     message: string;
   }
 
@@ -105,7 +101,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (data.token) {
       setIsAuth(true);
       setUser(data.user);
-      setAdmin({ is_admin: data.admin.is_admin });
       localStorage.setItem("token", data.token);
     } else {
       setIsAuth(false);
@@ -131,7 +126,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setIsAuth((data as { check: boolean })?.check);
       setUser((data as { user: array })?.user);
-      setAdmin((data as { user: { is_admin: boolean } })?.user);
 
       if (!(data as { check: boolean })?.check) {
         await handleClean();
@@ -163,7 +157,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isAuth,
         message,
         user,
-        admin
       }}
     >
       {children}
@@ -176,8 +169,5 @@ export const useAuth = () => {
 
   if (!context) throw new Error("Pour utiliser useAuth context est necessaire");
 
-  const { admin } = context;
-  const isAdmin = admin?.is_admin;
-
-  return { ...context, isAdmin };
+  return { ...context };
 };

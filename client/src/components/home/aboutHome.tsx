@@ -4,7 +4,7 @@ import logoblackwhite from "../../assets/images/logoblackwhite.png";
 const AboutHome = () => {
   return (
     <section className="py-12 bg-gray-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 ">
         <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <div className="flex flex-col items-center justify-center border-4 p-8">
             <div className="flex flex-col items-center justify-center border-4 p-8">

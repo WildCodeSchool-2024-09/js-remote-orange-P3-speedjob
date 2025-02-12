@@ -134,7 +134,7 @@ function RandomArticle() {
               <div className="flex justify-end mt-4">
                 <Chip
                   className="font-bold border solid-black border-4 p-8 bg-black"
-                  label="Voir toutes les offres"
+                  label="Voir toutes les astuces"
                   component="a"
                   href="./blog"
                   variant="outlined"
