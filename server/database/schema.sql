@@ -84,7 +84,19 @@ CREATE TABLE IF NOT EXISTS mydb.favorites (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   annonce_id INT NOT NULL,
+  is_apply BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (id));
+
+-- -----------------------------------------------------
+-- Table mydb.candidatures
+-- -----------------------------------------------------
+CREATE TABLE candidatures (
+    user_id INT NOT NULL,
+    annonce_id INT NOT NULL,
+    PRIMARY KEY (user_id, annonce_id),
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (annonce_id) REFERENCES annonces(id) ON DELETE CASCADE
+);
 
 
 -- -----------------------------------------------------

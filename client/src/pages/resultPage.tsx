@@ -1,8 +1,7 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
 import { TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -77,7 +76,12 @@ function Result() {
                 required
                 variant="outlined"
                 fullWidth
-                sx={{ mt: 1, backgroundColor: "white" }}
+                sx={{
+                  mt: 1,
+                  mb: 2,
+                  backgroundColor: "white",
+                  fontSize: "1.25rem",
+                }}
               />
             </label>
           </div>
@@ -87,7 +91,8 @@ function Result() {
               variant="contained"
               color="primary"
               onClick={handleClick}
-              sx={{ ml: 1, p: 1.8 }}
+              sx={{ ml: { md: 1 }, mt: { xs: 2, md: 0 }, p: 1.8 }}
+              className="w-full md:w-auto"
             >
               Rechercher
             </Button>
@@ -106,19 +111,75 @@ function Result() {
               className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
             >
               <li>
-                <p className="font-bold">{annonce.title}</p>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                  className="font-bold"
+                >
+                  {annonce.title}
+                </Typography>
                 <AccessTimeIcon className="font-italic">
                   {annonce.date}
                 </AccessTimeIcon>
-                <p>{annonce.light_description}</p>
-                <p>{annonce.complete_description}</p>
-                <span className="flex items-center">
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                >
+                  {annonce.light_description}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                >
+                  {annonce.complete_description}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                  className="flex items-center"
+                >
                   <EuroSymbolIcon className="mr-1" fontSize="small" />
-                </span>
-                <p>{annonce.remuneration}</p>
-                <p>{annonce.experience}</p>
-                <p>{annonce.work}</p>
-                <p>{annonce.field}</p>
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                >
+                  {annonce.remuneration}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                >
+                  {annonce.experience}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                >
+                  {annonce.work}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 2 }}
+                >
+                  {annonce.field}
+                </Typography>
               </li>
             </Box>
           ))}

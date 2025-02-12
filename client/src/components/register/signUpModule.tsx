@@ -15,10 +15,12 @@ const SignUpModule = () => {
   const [lastname, setLastname] = useState("");
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
+  // const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
   const [role, setRole] = useState({ societe: false, candidat: false });
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
@@ -32,6 +34,8 @@ const SignUpModule = () => {
     });
   };
 
+
+
   const userData = {
     firstname: firstname,
     lastname: lastname,
@@ -41,6 +45,17 @@ const SignUpModule = () => {
     checkedPassword: checkedPassword,
     role: role,
     checked: checked,
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "firstname") {
+      setFirstname(value);
+      if (value.length < 3) {
+        setError("Le prénom doit contenir au moins 3 caractères");
+      } else {
+        setError("");
+      }}
   };
 
   const handleCreateAccount = () => {
@@ -109,9 +124,10 @@ const SignUpModule = () => {
           <TextField
             label="Nom"
             value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
+            onChange={(e) => setLastname(e.target.value) && handleChange(e)}
             margin="normal"
           />
+          {error && <Typography color="error">{error}</Typography>}
           <TextField
             label="Login"
             value={login}

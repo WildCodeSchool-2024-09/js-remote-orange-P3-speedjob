@@ -156,10 +156,8 @@ function RandomJob() {
               <h2 className="text-3xl font-bold mb-8">
                 Les dernières offres pour vous:
               </h2>
-              <p className="font-bold">{job.titre}</p>
               <AccessTimeIcon className="font-italic" />
               {job.date}
-              <p>{job.light_description}</p>
               <div className="flex wrap items-start justify-between">
                 <div className="flex-1 justify-center">
                   <h3 className="text-xl font-semibold mb-2">{job.titre}</h3>
@@ -182,17 +180,13 @@ function RandomJob() {
                     </span>
                   </div>
                   <p className="text-gray-600 mb-4">
-                    Nous recherchons un développeur Full Stack passionné pour
-                    rejoindre notre équipe dynamique...
+                    {job.complete_description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {[`${job.work}`, `${job.field}`].map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
-                      >
+                      <Chip key={tech} label={tech} variant="outlined">
                         {tech}
-                      </span>
+                      </Chip>
                     ))}
                   </div>
                 </div>
