@@ -21,7 +21,6 @@ type UserProps = {
   postcode: string;
   city: string;
   phone_number: number;
-  birthdate: Date;
   cv_link: string;
   lm_link: string;
   light_description: string;
@@ -84,7 +83,7 @@ class UserRepository {
   async update(user: UserProps) {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
-      "UPDATE user SET firstname = ?, lastname = ?, email = ?, street_name = ?, postcode = ?, city = ?, phone_number = ?, birthdate = ? WHERE id = ?",
+      "UPDATE user SET firstname = ?, lastname = ?, email = ?, street_name = ?, postcode = ?, city = ?, phone_number = ? WHERE id = ?",
       [
         user.firstname,
         user.lastname,
@@ -93,9 +92,6 @@ class UserRepository {
         user.postcode || "0000",
         user.city || "",
         user.phone_number || 0,
-        user.birthdate === "undefined"
-          ? new Date(1995, 11, 17, 3, 24, 0)
-          : user.birthdate,
         user.id,
       ],
     );

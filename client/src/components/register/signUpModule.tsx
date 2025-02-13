@@ -67,7 +67,7 @@ const SignUpModule = () => {
       body: JSON.stringify(userData),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         navigate("/signIn");
       });
   };
@@ -140,7 +140,6 @@ const SignUpModule = () => {
             onChange={(e) => setEmail(e.target.value)}
             margin="normal"
           />
-
           <TextField
             label="Password"
             type="password"

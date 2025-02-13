@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 function UserInfoModule() {
-  const { user } = useAuth();
-  const { isAuth } = useAuth();
+  const { user, isAuth } = useAuth() as {
+    user: UserProps | null;
+    isAuth: boolean;
+  };
   const navigate = useNavigate();
 
   function handleDelete() {
@@ -67,7 +69,7 @@ function UserInfoModule() {
             <TextField
               label="Numéro de rue"
               type="text"
-              value={user?.number_street || ""}
+              value={user?.street_number || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -103,7 +105,7 @@ function UserInfoModule() {
             <TextField
               label="Téléphone"
               type="text"
-              value={user?.phone || ""}
+              value={user?.phone_number || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -115,7 +117,7 @@ function UserInfoModule() {
             <TextField
               label="CV"
               type="text"
-              value={user?.cvlink || ""}
+              value={user?.cv_link || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -124,7 +126,7 @@ function UserInfoModule() {
             <TextField
               label="Lettre de motivation"
               type="text"
-              value={user?.lmlink || ""}
+              value={user?.lm_link || ""}
               InputProps={{
                 readOnly: true,
               }}

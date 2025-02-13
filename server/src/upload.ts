@@ -21,14 +21,8 @@ router.post(
   async (req: CustomRequest, res: express.Response): Promise<void> => {
     res.setHeader("X-Powered-By", "Express"); // Ajouter l'en-tête X-Powered-By
     try {
-      const {
-        birthdate,
-        phoneNumber,
-        streetNumber,
-        streetName,
-        postCode,
-        city,
-      } = req.body;
+      const { phoneNumber, streetNumber, streetName, postCode, city } =
+        req.body;
 
       if (
         !req.files ||
@@ -67,22 +61,10 @@ router.post(
       fs.renameSync(cvFile.path, cvPath);
       fs.renameSync(lmFile.path, lmPath);
 
-      // Format the birthdate to YYYY-MM-DD
-      const formattedBirthDate = format(new Date(birthdate), "yyyy-MM-dd");
-
       // Insert data into the database
       await databaseClient.query(
-        "INSERT INTO user (birthdate, phone_number, street_number, street_name, postcode, city, cv_link, lm_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-          formattedBirthDate,
-          phoneNumber,
-          streetNumber,
-          streetName,
-          postCode,
-          city,
-          cvPath,
-          lmPath,
-        ],
+        "INSERT INTO user (phone_number, street_number, street_name, postcode, city, cv_link, lm_link) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [phoneNumber, streetNumber, streetName, postCode, city, cvPath, lmPath],
       );
 
       res.status(201).json({ message: "Fichiers téléchargés avec succès" });
