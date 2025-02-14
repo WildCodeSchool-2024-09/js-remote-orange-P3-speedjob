@@ -25,8 +25,10 @@ type UserProps = {
 };
 
 function UserInfoModule() {
-  const { user } = useAuth();
-  const { isAuth } = useAuth();
+  const { user, isAuth } = useAuth() as {
+    user: UserProps | null;
+    isAuth: boolean;
+  };
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -98,7 +100,7 @@ function UserInfoModule() {
             <TextField
               label="Numéro de rue"
               type="text"
-              value={user?.number_street || ""}
+              value={user?.street_number || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -134,7 +136,7 @@ function UserInfoModule() {
             <TextField
               label="Téléphone"
               type="text"
-              value={user?.phone || ""}
+              value={user?.phone_number || ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -174,7 +176,7 @@ function UserInfoModule() {
                 {user?.picture
                   ? "Voir la photo de profil"
                   : "Aucune photo de profil disponible"}
-              </a>
+              </a> 
           </Box>
           <Button
             fullWidth

@@ -26,7 +26,6 @@ type UserProps = {
   postcode: string;
   city: string;
   phone_number: number;
-  birthdate: string;
   cv_link: string;
   lm_link: string;
   light_description: string;

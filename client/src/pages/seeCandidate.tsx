@@ -10,7 +10,6 @@ const SeeCandidate = () => {
     lastname: string;
     email: string;
     phone_number: string;
-    birthdate: string;
     cv_link: string;
     lm_link: string;
   }
@@ -62,7 +61,6 @@ const SeeCandidate = () => {
             </Typography>
             <Typography>Email: {candidate.email}</Typography>
             <Typography>Téléphone: {candidate.phone_number}</Typography>
-            <Typography>Date de naissance: {candidate.birthdate}</Typography>
             <Typography>
               CV: <a href={candidate.cv_link}>Télécharger</a>
             </Typography>
