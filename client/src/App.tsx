@@ -18,15 +18,14 @@ import Jobboard from "./pages/jobboard";
 import LegalPage from "./pages/legalPage";
 import MyOffer from "./pages/myOffer";
 import MyProfilEn from "./pages/myProfilEn";
+import MyProfilEnUpdate from "./pages/myProfilEnUpdate";
 import NewAnnonce from "./pages/newAnnonce";
 import NotFound from "./pages/notFound";
 import Result from "./pages/resultPage";
 import SeeCandidate from "./pages/seeCandidate";
 import SignIn from "./pages/signIn";
-import SignInCandidat from "./pages/signInCandidat";
+import SignInEntreprise from "./pages/signInEntreprise";
 import SignUp from "./pages/signUp";
-import SignUpCandidat from "./pages/signUpCandidat";
-import SignUpEntreprise from "./pages/signUpEntreprise";
 import UserInfoPage from "./pages/userInfo";
 
 function App() {
@@ -48,13 +47,12 @@ function App() {
               <Route path="/legal" element={<LegalPage />} />
               <Route path="/myOffer" element={<MyOffer />} />
               <Route path="/myProfilEn" element={<MyProfilEn />} />
+              <Route path="/myProfilEnUpdate" element={<MyProfilEnUpdate />} />
               <Route path="/newAnnonce" element={<NewAnnonce />} />
               <Route path="/seeCandidate" element={<SeeCandidate />} />
               <Route path="/signIn" element={<SignIn />} />
-              <Route path="/signInCandidat" element={<SignInCandidat />} />
+              <Route path="/signInEntreprise" element={<SignInEntreprise />} />
               <Route path="/signUp" element={<SignUp />} />
-              <Route path="/signUpEntreprise" element={<SignUpEntreprise />} />
-              <Route path="/signUpCandidat" element={<SignUpCandidat />} />
               <Route path="/userInfo" element={<UserInfoPage />} />
               <Route
                 path="/userInfoUpdate"

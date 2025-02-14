@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignInModule from "../components/register/signInModule";
 import { useAuth } from "../hooks/useAuth";
+// import { useParams } from "react-router-dom";
 
 type FavoriteProps = {
   id: number;
@@ -21,7 +22,7 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: string;
+  role: boolean;
   street_number: number;
   street_name: string;
   postcode: number;
@@ -35,6 +36,18 @@ type UserProps = {
   siret_number: number;
   cedex_number: string;
   raison_social: string;
+};
+
+type AnnonceProps = {
+  id: number;
+  title: string;
+  description: string;
+  creation_date: string;
+  modification_date: string;
+  entreprise_id: number;
+  user_id: number;
+  is_active: boolean;
+  is_apply: boolean;
 };
 
 function FavoritesPage() {
@@ -56,6 +69,7 @@ function FavoritesPage() {
   const annonce_id = favorites.map((favorites) => favorites.annonce_id);
 
   const handleDelete = (id: number) => {
+
     fetch(`${import.meta.env.VITE_API_URL}/api/favorite/${id}`, {
       method: "DELETE",
     }).then((response) => {
@@ -94,42 +108,54 @@ function FavoritesPage() {
       <Typography variant="h4" component="h1" gutterBottom align="center">
         Mes Favoris
       </Typography>
+      <div display="flex" flexDirection="column" alignItems="center" mt={4}>
+        <Typography variant="body1" gutterBottom align="center">
+          Retrouvez ici toutes les annonces que vous avez ajoutées à vos favoris
+        </Typography>
+      </div>
       <Box
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
         gap={4}
         width="100%"
         maxWidth="lg"
         alignItems="center"
       >
-        {favorites.map((favorite) => (
-          <Card id="Favorite" key={favorite.id} className="flex flex-row gap-4">
-            Numéro de l'annonce:
-            <Typography variant="h5" component="div" align="center">
-              {favorite?.annonce_id}
-            </Typography>
-            Avez-vous postulé à cette annonce ?
-            <Typography variant="h5" component="div" align="center">
-              {favorite?.is_apply ? "Oui" : "Non"}
-            </Typography>
-            <Box display="flex" gap={2} mt={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleApply(favorite.id, isApply)}
-              >
-                Postuler à l'annonce
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => handleDelete(favorite.id)}
-              >
-                Supprimer des favoris
-              </Button>
-            </Box>
-          </Card>
-        ))}
+        <Box display="flex" flexDirection="row" gap={4} width="100%" maxWidth="lg">
+          {favorites.map((annonce) => (
+            <Card id="Favorite" key={annonce.id} className="flex flex-row gap-4">
+              <CardContent>
+                <Typography variant="h5" component="div" align="center">
+                  {annonce.title}
+                </Typography>
+                <Typography variant="body1" component="div" align="center">
+                  {annonce.creation_date}
+                </Typography>
+                <Typography variant="body1" component="div" align="center">
+                  {annonce.description}
+                </Typography>
+                Avez-vous postulé à cette annonce ?
+                <Typography variant="h5" component="div" align="center">
+                  {annonce?.is_apply ? "Oui" : "Non"}
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleApply(annonce.idFavorites, isApply)}
+                >
+                  Postuler à l'annonce
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => handleDelete(annonce.idFavorites)}
+                >
+                  Supprimer des favoris
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
       </Box>
     </Box>
   ) : (

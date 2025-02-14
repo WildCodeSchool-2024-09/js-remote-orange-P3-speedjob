@@ -28,37 +28,36 @@ const SignUpModule = () => {
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRole({
-      societe: false,
-      candidat: false,
+      ...role,
       [event.target.name]: event.target.checked,
     });
   };
 
-
-
-  const userData = {
-    firstname: firstname,
-    lastname: lastname,
-    login: login,
-    email: email,
-    password: password,
-    checkedPassword: checkedPassword,
-    role: role,
-    checked: checked,
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name === "firstname") {
-      setFirstname(value);
-      if (value.length < 3) {
-        setError("Le prénom doit contenir au moins 3 caractères");
-      } else {
-        setError("");
-      }}
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      if (name === "firstname") {
+        setFirstname(value);
+        if (value.length < 3) {
+          setError("Le prénom doit contenir au moins 3 caractères");
+        } else {
+          setError("");
+        }
+      }
+    };
 
   const handleCreateAccount = () => {
+    const selectedRole = role.societe ? "societe" : "candidat";
+    const userData = {
+      firstname: firstname,
+      lastname: lastname,
+      login: login,
+      email: email,
+      password: password,
+      checkedPassword: checkedPassword,
+      role: selectedRole,
+      checked: checked,
+    };
+
     fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
       method: "post",
       headers: {
@@ -67,33 +66,13 @@ const SignUpModule = () => {
       body: JSON.stringify(userData),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         navigate("/signIn");
       });
   };
 
   const handleSubmit = () => {
-    const selectedRole = role.societe
-      ? "societe"
-      : role.candidat
-        ? "candidat"
-        : "";
-
-    const formData = new FormData();
-    formData.append("firstname", firstname);
-    formData.append("lastname", lastname);
-    formData.append("login", login);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("checkedPassword", checkedPassword);
-    formData.append("role", selectedRole);
-    formData.append("checked", checked.toString());
-
-    if (selectedRole === "societe") {
-      navigate("/signUpEntreprise");
-    } else if (selectedRole === "candidat") {
-      navigate("/signUpCandidat");
-    }
+    handleCreateAccount();
   };
 
   return (
@@ -124,7 +103,10 @@ const SignUpModule = () => {
           <TextField
             label="Nom"
             value={lastname}
-            onChange={(e) => setLastname(e.target.value) && handleChange(e)}
+            onChange={(e) => {
+              setLastname(e.target.value);
+              handleChange(e);
+            }}
             margin="normal"
           />
           {error && <Typography color="error">{error}</Typography>}
@@ -140,7 +122,6 @@ const SignUpModule = () => {
             onChange={(e) => setEmail(e.target.value)}
             margin="normal"
           />
-
           <TextField
             label="Password"
             type="password"
@@ -188,10 +169,7 @@ const SignUpModule = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => {
-              handleSubmit();
-              handleCreateAccount();
-            }}
+            onClick={handleSubmit}
           >
             Submit
           </Button>

@@ -13,13 +13,12 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: string;
+  role: 'candidat' | 'societe';
   street_number: number;
   street_name: string;
   postcode: string;
   city: string;
   phone_number: number;
-  birthdate: string;
   cv_link: string;
   lm_link: string;
   light_description: string;
@@ -39,6 +38,24 @@ const browse: RequestHandler = async (req, res, next) => {
     // Respond with the items in JSON format
     res.json(user);
     return;
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+const isAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch a specific item based on the provided ID
+    const userId = Number(req.params.id);
+    const user = await userRepository.read(userId);
+
+    // If the item is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the item in JSON format
+    if (user == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(user.isAdmin);
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -82,11 +99,10 @@ const add: RequestHandler = async (req, res, next) => {
       creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       isAdmin: req.body.isAdmin,
-      role: req.body.role,
+      role: req.body.role === 'societe' || req.body.role === 'candidat' ? req.body.role : 'candidat',
       street_number: req.body.street_number,
       street_name: req.body.street_name,
       phone_number: req.body.phone_number,
-      birthdate: req.body.birthdate,
       cv_link: req.body.cv_link,
       lm_link: req.body.lm_link,
       light_description: req.body.light_description,
@@ -94,6 +110,7 @@ const add: RequestHandler = async (req, res, next) => {
       siret_number: req.body.siret_number,
       cedex_number: req.body.cedex_number,
       raison_social: req.body.raison_social,
+      token: req.body.token,
     };
 
     // Create the item
@@ -125,12 +142,11 @@ const edit: RequestHandler = async (req, res, next) => {
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
       isAdmin: Boolean(req.body.isAdmin),
-      role: Number(req.body.role),
+      role: req.body.role === 'societe' || req.body.role === 'candidat' ? req.body.role : 'candidat',
       token: String(req.body.token),
       street_number: Number(req.body.street_number),
       street_name: String(req.body.street_name),
       phone_number: Number(req.body.phone_number),
-      birthdate: String(req.body.birthdate),
       cv_link: String(req.body.cv_link),
       lm_link: String(req.body.lm_link),
       light_description: String(req.body.light_description),
@@ -170,4 +186,4 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, edit, destroy };
+export default { browse, read, add, edit, destroy, isAdmin };
