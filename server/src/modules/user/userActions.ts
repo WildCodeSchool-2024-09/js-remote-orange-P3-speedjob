@@ -13,7 +13,7 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: boolean;
+  role: 'candidat' | 'societe';
   street_number: number;
   street_name: string;
   postcode: string;
@@ -99,7 +99,7 @@ const add: RequestHandler = async (req, res, next) => {
       creation_date: req.body.creation_date,
       modification_date: req.body.modification_date,
       isAdmin: req.body.isAdmin,
-      role: req.body.role,
+      role: req.body.role === 'societe' || req.body.role === 'candidat' ? req.body.role : 'candidat',
       street_number: req.body.street_number,
       street_name: req.body.street_name,
       phone_number: req.body.phone_number,
@@ -142,7 +142,7 @@ const edit: RequestHandler = async (req, res, next) => {
       creation_date: String(req.body.creation_date),
       modification_date: String(req.body.modification_date),
       isAdmin: Boolean(req.body.isAdmin),
-      role: Boolean(req.body.role),
+      role: req.body.role === 'societe' || req.body.role === 'candidat' ? req.body.role : 'candidat',
       token: String(req.body.token),
       street_number: Number(req.body.street_number),
       street_name: String(req.body.street_name),

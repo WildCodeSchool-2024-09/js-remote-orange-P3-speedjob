@@ -29,7 +29,7 @@ type UserProps = {
   raison_social: string;
 };
 
-function SignInModule() {
+const SignInEn = () => {
   const { user } = useAuth();
   const { handleLogin, handleLogout, isAuth, message } = useAuth();
   const [login, setLogin] = useState<string>("");
@@ -38,108 +38,84 @@ function SignInModule() {
   const [firstname, setFirstname] = useState([] as UserProps[]);
 
   return (
-    <>
+    <Container
+      maxWidth="sm"
+      style={{ display: "flex", flexDirection: "column" }}
+    >
       {isAuth ? (
-        <Container
-          id="signInModule"
-          maxWidth="sm"
-          style={{ display: "flex", flexDirection: "column" }}
-        >
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            mt={4}
-          >
-            <Typography variant="h4" component="h1" gutterBottom>
-              Bonjour {user?.firstname}, voici les actions possibles:
-            </Typography>
-
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              mt={4}
+        <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Bienvenue sur votre compte
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            Vous êtes connecté en tant qu'entreprise.
+          </Typography>
+          <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+            <Link
+              to="/newAnnonce"
+              style={{ textDecoration: "none", width: "100%" }}
             >
               <Button
-                fullWidth
                 variant="contained"
                 color="primary"
-                type="submit"
+                fullWidth
                 sx={{ mt: 2 }}
-                component={Link}
-                to="/jobboard"
               >
-                Consulter les offres d'emplois
+                Crée une nouvelle annonce
               </Button>
+            </Link>
+            <Link
+              to="/myOffer"
+              style={{ textDecoration: "none", width: "100%" }}
+            >
               <Button
-                fullWidth
                 variant="contained"
                 color="primary"
-                type="submit"
+                fullWidth
                 sx={{ mt: 2 }}
-                component={Link}
-                to="/blog"
               >
-                Consulter les articles
+                Gérer mes offres
               </Button>
+            </Link>
+            <Link
+              to="/seeCandidate"
+              style={{ textDecoration: "none", width: "100%" }}
+            >
               <Button
-                fullWidth
                 variant="contained"
                 color="primary"
-                type="submit"
+                fullWidth
                 sx={{ mt: 2 }}
-                component={Link}
-                to="/favorite"
               >
-                Consulter mes annonces favorites
+                Voir les candidatures
               </Button>
+            </Link>
+            <Link
+              to="/myProfilEn"
+              style={{ textDecoration: "none", width: "100%" }}
+            >
               <Button
-                fullWidth
                 variant="contained"
                 color="primary"
-                type="submit"
-                sx={{ mt: 2 }}
-                component={Link}
-                to="/blog"
-              >
-                Consulter mes articles favorites
-              </Button>
-              <Button
                 fullWidth
-                variant="contained"
-                color="primary"
-                type="submit"
                 sx={{ mt: 2 }}
-                component={Link}
-                to="/userInfo"
               >
-                Consulter / Modifier mes informations personnelles
+                Modifier mes informations
               </Button>
-            </Box>
-
-            <div>
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                type="submit"
-                sx={{ mt: 2 }}
-                onClick={handleLogout}
-              >
-                Je me déconnecte
-              </Button>
-            </div>
+            </Link>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleLogout}
+              fullWidth
+              sx={{ mt: 2 }}
+            >
+              Deconnexion
+            </Button>
           </Box>
-        </Container>
+        </Box>
       ) : (
-        <Container
-          id="signInModule"
-          maxWidth="sm"
-          style={{ display: "flex", flexDirection: "column" }}
-        >
+        <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
           <Typography variant="h4" component="h1" gutterBottom>
             Login
           </Typography>
@@ -148,7 +124,9 @@ function SignInModule() {
             id="form"
             onSubmit={(e) => {
               e.preventDefault();
+              handleLogin(login, password);
             }}
+            style={{ width: "100%" }}
           >
             <TextField
               fullWidth
@@ -161,8 +139,6 @@ function SignInModule() {
               name="login"
               onChange={(e) => setLogin(e.target.value)}
             />
-          </form>
-          <div>
             <TextField
               fullWidth
               margin="normal"
@@ -174,46 +150,40 @@ function SignInModule() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </div>
-          <div>
             <Button
               fullWidth
               variant="contained"
               color="primary"
-              type="submit"
+              type="button"
               sx={{ mt: 2 }}
               onClick={() => setType(type === "password" ? "text" : "password")}
             >
               {type === "password" ? "Afficher" : "Cacher"} mon mot de passe
             </Button>
-          </div>
-          <div>
             <Button
               fullWidth
               variant="contained"
               color="primary"
               type="submit"
               sx={{ mt: 2 }}
-              onClick={() => handleLogin(login, password)}
             >
-              Je me connecte
+              Se connecter
             </Button>
+          </form>
+          <Link to="/signUp" style={{ textDecoration: "none", width: "100%" }}>
             <Button
               fullWidth
               variant="contained"
               color="primary"
-              type="submit"
               sx={{ mt: 2 }}
-              component={Link}
-              to="/signUp"
             >
               Je crée mon compte
             </Button>
-          </div>
-        </Container>
+          </Link>
+        </Box>
       )}
-    </>
+    </Container>
   );
-}
+};
 
-export default SignInModule;
+export default SignInEn;

@@ -16,7 +16,7 @@ type NewAnnonces = {
   experience: string;
   work: string;
   field: string;
-  compagny_id?: number;
+  company_id?: number;
   is_apply?: boolean;
 };
 

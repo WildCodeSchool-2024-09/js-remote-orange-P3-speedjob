@@ -1,30 +1,46 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
-type UserProps = {
+type CompanyProps = {
   id: number;
   firstname: string;
   lastname: string;
+  login: string;
+  password: string;
   email: string;
+  creation_date: string;
+  modification_date: string;
+  isAdmin: boolean;
+  role: boolean;
+  street_number: number;
   street_name: string;
-  postcode: string;
+  postcode: number;
   city: string;
-  cv_link: string;
-  lm_link: string;
+  phone_number: number;
+  light_description: string;
+  complete_description: string;
+  siret_number: number;
+  cedex_number: string;
+  raison_social: string;
 };
 
-function UserInfoUpdateModule() {
-  const { user }: { user: UserProps | null } = useAuth();
+function CompanyInfoUpdateModule() {
+  const { user } = useAuth();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [street_name, setStreet_name] = useState("");
   const [postcode, setPostcode] = useState("");
   const [city, setCity] = useState("");
-  const [cvLink, setCvLink] = useState<File | null>(null);
-  const [lmLink, setLmLink] = useState<File | null>(null);
+  const [phone_number, setPhone_number] = useState("");
+  const [light_description, setLight_description] = useState("");
+  const [complete_description, setComplete_description] = useState("");
+  const [siret_number, setSiret_number] = useState("");
+  const [cedex_number, setCedex_number] = useState("");
+  const [raison_social, setRaison_social] = useState("");
   const navigate = useNavigate();
 
   function handleUpdate() {
@@ -33,34 +49,30 @@ function UserInfoUpdateModule() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("firstname", firstname);
-    formData.append("lastname", lastname);
-    formData.append("email", email);
-    formData.append("street_name", street_name);
-    formData.append("postcode", postcode);
-    formData.append("city", city);
-    if (cvLink) {
-      formData.append("cv_link", cvLink);
-    }
-    if (lmLink) {
-      formData.append("lm_link", lmLink);
-    }
-
     fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
       method: "PUT",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.status === 204) {
-          navigate("/userInfo");
-        } else {
-          console.error("Erreur lors de la mise à jour de l'utilisateur");
-        }
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la mise à jour de l'utilisateur:", error);
-      });
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        email,
+        street_name,
+        postcode,
+        city,
+        phone_number,
+        light_description,
+        complete_description,
+        siret_number,
+        cedex_number,
+        raison_social,
+      }),
+    }).then((response) => {
+      if (response.status === 204) {
+        navigate("/companyInfo");
+      }
+    });
   }
 
   return (
@@ -73,7 +85,7 @@ function UserInfoUpdateModule() {
         mt={4}
       >
         <Typography component="h1" variant="h5" gutterBottom>
-          Vos informations personnelles
+          Vos informations d'entreprise
         </Typography>
         <h2>Modifier vos informations:</h2>
         <Box
@@ -146,38 +158,66 @@ function UserInfoUpdateModule() {
             variant="outlined"
             fullWidth
           />
-          <Box mt={2}>
-            <Typography
-              variant="body1"
-              component="label"
-              display="block"
-              gutterBottom
-            >
-              CV
-            </Typography>
-            <input
-              type="file"
-              onChange={(e) =>
-                setCvLink((e.target as HTMLInputElement).files?.[0] || null)
-              }
-            />
-          </Box>
-          <Box mt={2}>
-            <Typography
-              variant="body1"
-              component="label"
-              display="block"
-              gutterBottom
-            >
-              Lettre de motivation
-            </Typography>
-            <input
-              type="file"
-              onChange={(e) =>
-                setLmLink((e.target as HTMLInputElement).files?.[0] || null)
-              }
-            />
-          </Box>
+          <TextField
+            label="Numéro de téléphone"
+            type="text"
+            name="phone_number"
+            value={phone_number}
+            placeholder={user?.phone_number}
+            onChange={(e) => setPhone_number(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Description courte"
+            type="text"
+            name="light_description"
+            value={light_description}
+            placeholder={user?.light_description}
+            onChange={(e) => setLight_description(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Description complète"
+            type="text"
+            name="complete_description"
+            value={complete_description}
+            placeholder={user?.complete_description}
+            onChange={(e) => setComplete_description(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Numéro SIRET"
+            type="text"
+            name="siret_number"
+            value={siret_number}
+            placeholder={user?.siret_number}
+            onChange={(e) => setSiret_number(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Numéro CEDEX"
+            type="text"
+            name="cedex_number"
+            value={cedex_number}
+            placeholder={user?.cedex_number}
+            onChange={(e) => setCedex_number(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Raison sociale"
+            type="text"
+            name="raison_social"
+            value={raison_social}
+            placeholder={user?.raison_social}
+            onChange={(e) => setRaison_social(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
           <Button
             fullWidth
             variant="contained"
@@ -195,7 +235,7 @@ function UserInfoUpdateModule() {
             sx={{ mt: 1, mb: 2 }}
             type="button"
             component={Link}
-            to="/userInfo"
+            to="/companyInfo"
           >
             Retour en arrière
           </Button>
@@ -205,4 +245,4 @@ function UserInfoUpdateModule() {
   );
 }
 
-export default UserInfoUpdateModule;
+export default CompanyInfoUpdateModule;

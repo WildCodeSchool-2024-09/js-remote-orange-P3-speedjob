@@ -15,7 +15,7 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: string;
+  role: 'candidat' | 'societe';
   street_number: number;
   street_name: string;
   postcode: string;
@@ -36,13 +36,14 @@ class UserRepository {
   async create(user: Omit<UserProps, "id">) {
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO user (firstname, lastname, login, password, email) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO user (firstname, lastname, login, password, email, role) VALUES (?, ?, ?, ?, ?, ?)",
       [
         user.firstname,
         user.lastname,
         user.login,
         user.password,
         user.email,
+        user.role
       ],
     );
     // Return the ID of the newly inserted item

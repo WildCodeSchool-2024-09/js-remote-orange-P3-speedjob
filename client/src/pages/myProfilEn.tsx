@@ -1,5 +1,11 @@
+import CompanyInfoModule from "../components/company/companyInfo";
+
 const MyProfilEn = () => {
-  return <div>a</div>;
+  return ( 
+  <div>
+     <CompanyInfoModule />   
+  </div>
+);
 };
 
 export default MyProfilEn;

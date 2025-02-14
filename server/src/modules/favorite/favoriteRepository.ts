@@ -28,7 +28,7 @@ class FavoriteRepository {
   async read(user_id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM favorites WHERE user_id = ?",
+      "SELECT *, F.id as idFavorites FROM favorites F join annonces A on F.annonce_id = A.id WHERE F.user_id = ?",
       [user_id],
     );
 
