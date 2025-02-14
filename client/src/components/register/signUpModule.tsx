@@ -34,16 +34,10 @@ const SignUpModule = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value } = e.target;
-      if (name === "firstname") {
-        setFirstname(value);
-        if (value.length < 3) {
-          setError("Le prénom doit contenir au moins 3 caractères");
-        } else {
-          setError("");
-        }
-      }
-    };
+    const { name, value } = e.target;
+    setFirstname(value);
+  };
+    
 
   const handleCreateAccount = () => {
     const selectedRole = role.societe ? "societe" : "candidat";
