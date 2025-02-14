@@ -1,11 +1,18 @@
 import {
+  Box,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
   Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,6 +25,8 @@ interface Job {
 
 const CheckJob = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
 
   useEffect(() => {
     axios
@@ -41,36 +50,71 @@ const CheckJob = () => {
       });
   };
 
+  const handleClickOpenConfirm = (id: number) => {
+    setSelectedJobId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setConfirmOpen(false);
+    setSelectedJobId(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedJobId !== null) {
+      handleDelete(selectedJobId);
+    }
+    handleCloseConfirm();
+  };
+
   return (
     <Paper>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Titre</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {jobs.map((job) => (
-            <TableRow key={job.id}>
-              <TableCell>{job.id}</TableCell>
-              <TableCell>{job.title}</TableCell>
-              <TableCell>{job.light_description}</TableCell>
-              <TableCell>
+      <Grid container spacing={2} mt={2}>
+        {jobs.map((job) => (
+          <Grid item xs={12} sm={6} md={4} key={job.id}>
+            <Card
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+            >
+              <CardHeader title={job.title} />
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="body2" color="textSecondary">
+                  {job.light_description}
+                </Typography>
+              </CardContent>
+              <CardActions>
                 <Button
                   variant="contained"
-                  color="error"
-                  onClick={() => handleDelete(job.id)}
+                  color="secondary"
+                  sx={{ backgroundColor: "red" }}
+                  onClick={() => handleClickOpenConfirm(job.id)}
                 >
                   Supprimer
                 </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+      <Dialog open={confirmOpen} onClose={handleCloseConfirm}>
+        <DialogTitle>Confirmer la suppression</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Êtes-vous sûr de vouloir supprimer cette annonce ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirm} color="primary">
+            Annuler
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            color="secondary"
+            sx={{ color: "red" }}
+          >
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 };
