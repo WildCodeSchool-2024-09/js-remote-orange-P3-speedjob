@@ -33,11 +33,12 @@ const SignUpModule = () => {
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFirstname(value);
   };
-    
 
   const handleCreateAccount = () => {
     const selectedRole = role.societe ? "societe" : "candidat";
@@ -160,11 +161,7 @@ const SignUpModule = () => {
             }
             label="I agree to the terms and conditions"
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit}
-          >
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
             Submit
           </Button>
           <Typography variant="body2" align="center" mt={4}>
