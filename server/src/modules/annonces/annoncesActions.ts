@@ -72,6 +72,7 @@ const add: RequestHandler = async (req, res, next) => {
       company_id: req.body.company_id,
       is_apply: req.body.is_apply,
       title: req.body.title,
+      user_id: req.params.user_id,
     };
 
     // Create the item
@@ -91,7 +92,7 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     // Update a specific category based on the provided ID
     const annonces = {
-      id: Number(req.body.id),
+      id: Number(req.params.id),
       creation_date: String(req.body.creation_date),
       modification_date: Number(req.body.modification_date),
       light_description: String(req.body.light_description),
@@ -103,6 +104,7 @@ const edit: RequestHandler = async (req, res, next) => {
       company_id: Number(req.body.company_id),
       is_apply: Boolean(req.body.is_apply),
       title: String(req.body.title),
+      user_id: Number(req.params.user_id),
     };
 
     const affectedRows = await annoncesRepository.update(annonces);

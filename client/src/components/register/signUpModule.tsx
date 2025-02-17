@@ -13,9 +13,8 @@ const SignUpModule = () => {
   const navigate = useNavigate();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const [login, setLogin] = useState("");
+  const login = `${firstname}.${lastname}`.toLowerCase();
   const [email, setEmail] = useState("");
-  // const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
   const [role, setRole] = useState({ societe: false, candidat: false });
@@ -34,10 +33,16 @@ const SignUpModule = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFirstname(value);
-  };
-    
+      const { name, value } = e.target;
+      if (name === "firstname") {
+        setFirstname(value);
+        if (value.length < 3) {
+          setError("Le prénom doit contenir au moins 3 caractères");
+        } else {
+          setError("");
+        }
+      }
+    };
 
   const handleCreateAccount = () => {
     const selectedRole = role.societe ? "societe" : "candidat";
@@ -90,18 +95,22 @@ const SignUpModule = () => {
           </Typography>
           <TextField
             label="Prénom"
+            type="text" minlenght="2" maxlenght="16"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
             margin="normal"
+            required
           />
           <TextField
             label="Nom"
+            type= "text" minlenght="2" maxlenght="16"
             value={lastname}
             onChange={(e) => {
               setLastname(e.target.value);
               handleChange(e);
             }}
             margin="normal"
+            required
           />
           {error && <Typography color="error">{error}</Typography>}
           <TextField
@@ -109,6 +118,7 @@ const SignUpModule = () => {
             value={login}
             onChange={(e) => setLogin(e.target.value)}
             margin="normal"
+            disabled
           />
           <TextField
             label="Email"
@@ -118,10 +128,11 @@ const SignUpModule = () => {
           />
           <TextField
             label="Password"
-            type="password"
+            type="password" minlenght="8" maxlenght="16"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
+            required
           />
           <TextField
             label="Confirm Password"

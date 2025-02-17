@@ -2,7 +2,18 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
 import MapIcon from "@mui/icons-material/Map";
-import { Chip } from "@mui/material";
+import {
+  Chip,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Grid,
+  Avatar,
+  Box,
+} from "@mui/material";
 
 function RandomJob() {
   const jobs = [
@@ -148,69 +159,66 @@ function RandomJob() {
   const job = getRandomJob();
 
   return (
-    <section className="py-12 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-          <div className="flex flex-col items-center justify-center border-4 p-8">
-            <div className="flex flex-col items-center justify-center border-4 p-8">
-              <h2 className="text-3xl font-bold mb-8">
-                Les dernières offres pour vous:
-              </h2>
-              <AccessTimeIcon className="font-italic" />
-              {job.date}
-              <div className="flex wrap items-start justify-between">
-                <div className="flex-1 justify-center">
-                  <h3 className="text-xl font-semibold mb-2">{job.titre}</h3>
-                  <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
-                    <span className="flex items-center justify-center">
-                      <ApartmentIcon className="mr-1" fontSize="small" />
-                      {job.company_id}
-                    </span>
-                    <span className="flex items-center">
-                      <MapIcon className="mr-1" fontSize="small" />
-                      Paris, France
-                    </span>
-                    <span className="flex items-center">
-                      <AccessTimeIcon className="mr-1" fontSize="small" />
-                      {job.date}
-                    </span>
-                    <span className="flex items-center">
-                      <EuroSymbolIcon className="mr-1" fontSize="small" />
-                      {job.remuneration}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 mb-4">
-                    {job.complete_description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {[`${job.work}`, `${job.field}`].map((tech) => (
-                      <Chip key={tech} label={tech} variant="outlined">
-                        {tech}
-                      </Chip>
-                    ))}
-                  </div>
-                </div>
-                <img
+    <Box sx={{ py: 4, backgroundColor: "grey.100" }}>
+      <Box sx={{ maxWidth: 600, mx: "auto" }}>
+        <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+          <CardContent>
+            <Typography variant="h5" component="div" gutterBottom>
+              Les dernières offres pour vous:
+            </Typography>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item>
+                <Avatar
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
                   alt={job.company_id}
-                  className="w-8 h-8 rounded-lg object-fit"
+                  sx={{ width: 140, height: 100, borderRadius: 1 }}
                 />
-              </div>
-              <div className="flex justify-end mt-4">
+              </Grid>
+              <Grid item xs>
+                <Typography variant="h6" component="h3">
+                  {job.titre}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  <ApartmentIcon fontSize="small" /> {job.company_id}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  <MapIcon fontSize="small" /> Paris, France
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  <AccessTimeIcon fontSize="small" /> {job.date}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  <EuroSymbolIcon fontSize="small" /> {job.remuneration}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              paragraph
+              sx={{ mt: 2 }}
+            >
+              {job.complete_description}
+            </Typography>
+            <Box sx={{ mt: 2 }}>
+              {[`${job.work}`, `${job.field}`].map((tech) => (
                 <Chip
-                  className="font-bold border solid-black border-4 p-8 bg-black"
-                  label="Voir toutes les offres"
-                  component="a"
-                  href="./jobboard"
+                  key={tech}
+                  label={tech}
                   variant="outlined"
-                  clickable
+                  sx={{ mr: 1, mb: 1 }}
                 />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+              ))}
+            </Box>
+          </CardContent>
+          <CardActions sx={{ justifyContent: "flex-end" }}>
+            <Button variant="contained" color="primary" href="./jobboard">
+              Voir toutes les offres
+            </Button>
+          </CardActions>
+        </Card>
+      </Box>
+    </Box>
   );
 }
 

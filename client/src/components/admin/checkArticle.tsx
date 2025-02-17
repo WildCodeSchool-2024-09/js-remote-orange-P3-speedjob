@@ -130,8 +130,65 @@ const CheckArticles = () => {
     handleCloseConfirm();
   };
 
+  const [query, setQuery] = useState("");
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    // Handle search
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    // Handle change
+  };
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    // Handle click
+  };
+
   return (
     <Paper>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="searchQuery">
+              <TextField
+                type="text"
+                placeholder="Saisir l'ID, le titre ou la description de l'article"
+                id="query"
+                value={handleChange}
+                onChange={handleChange}
+                required
+                variant="outlined"
+                fullWidth
+                sx={{
+                  mt: 1,
+                  mb: 2,
+                  backgroundColor: "white",
+                  fontSize: "1.25rem",
+                }}
+              />
+            </label>
+          </div>
+          <div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+              sx={{ ml: { md: 1 }, mt: { xs: 2, md: 0 }, p: 1.8 }}
+              className="w-full md:w-auto"
+            >
+              Rechercher
+            </Button>
+          </div>
+        </form>
+      </Box>
       <Box display="flex" justifyContent="center" mt={2}>
         <Button variant="contained" color="primary" onClick={handleCreate}>
           Créer un article

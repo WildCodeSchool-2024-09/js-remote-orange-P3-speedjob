@@ -15,7 +15,7 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: 'candidat' | 'societe';
+  role: string;
   street_number: number;
   street_name: string;
   postcode: string;

@@ -1,3 +1,13 @@
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Grid,
+  Container,
+  Box,
+} from "@mui/material";
+
 function Blog() {
   const articles = [
     {
@@ -104,29 +114,69 @@ function Blog() {
 
   return (
     <section id="projects" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container maxWidth="lg">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900">Nos articles</h2>
-          <p className="mt-4 text-xl text-gray-600">
-            Découvrez nos dernièrs articles pour vous accompagner:
-          </p>
+          <Typography
+            variant="h2"
+            component="h2"
+            className="text-3xl font-bold text-gray-900"
+          >
+            Nos articles
+          </Typography>
+          <Typography variant="body1" className="mt-4 text-xl text-gray-600">
+            Découvrez nos derniers articles pour vous accompagner:
+          </Typography>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
+        <Grid container spacing={4}>
           {articles.map((article) => (
-            <div
-              key={article.id}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <img
-                src={article.sourceImage}
-                alt={article.titre}
-                className="w-full h-48 object-cover"
-              />
-              <p>{article.descriptionComplete}</p>
-            </div>
+            <Grid item key={article.id} xs={12} md={6} lg={4}>
+              <Card
+                className="hover:shadow-xl transition-shadow"
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={article.sourceImage}
+                  alt={article.titre}
+                />
+                <CardContent
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="h6" component="h3">
+                      {article.titre}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {article.petiteDescription}
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {article.descriptionComplete}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
           ))}
-        </div>
-      </div>
+        </Grid>
+      </Container>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 type UserProps = {
@@ -13,7 +13,7 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: boolean;
+  role: 'candidat' | 'societe';
   street_number: number;
   street_name: string;
   postcode: number;
@@ -36,6 +36,10 @@ function SignInModule() {
   const [password, setPassword] = useState<string>("");
   const [type, setType] = useState("password");
   const [firstname, setFirstname] = useState([] as UserProps[]);
+
+  if (isAuth && user && user.role !== 'candidat') {
+    return <Navigate to="/signInEntreprise" />;
+  }
 
   return (
     <>

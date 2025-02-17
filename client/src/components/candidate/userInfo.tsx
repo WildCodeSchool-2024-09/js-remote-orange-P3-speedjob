@@ -29,6 +29,9 @@ function UserInfoModule() {
     user: UserProps | null;
     isAuth: boolean;
   };
+
+  const [cvLink, setCvLink] = useState<File | null>(null);
+  const [lmLink, setLmLink] = useState<File | null>(null);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -142,41 +145,39 @@ function UserInfoModule() {
               }}
               variant="outlined"
             />
-            <Typography variant="h6" component="h2">
-              Documents de candidature
-            </Typography>
-            <Typography variant="body1">CV:</Typography>
-              <a
-                href={user?.cv_link || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
+
+            <Box mt={2}>
+              <Typography variant="h6" component="h2">
+                Documents de candidature
+              </Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                display="block"
+                gutterBottom
               >
-                {user?.cv_link ? "Voir le CV" : "Aucun CV disponible"}
-              </a>
+                CV
+              </Typography>
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setCvLink(e.target.files?.[0] || null)}
+              />
+              <Typography
+                variant="body1"
+                component="p"
+                display="block"
+                gutterBottom
+              >
+                Lettre de motivation
+              </Typography>
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setLmLink(e.target.files?.[0] || null)}
+              />
+
             </Box>
-            <Box>
-              <Typography variant="body1">Lettre de motivation:</Typography>
-              <a
-                href={user?.lm_link || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {user?.lm_link
-                  ? "Voir la lettre de motivation"
-                  : "Aucune lettre de motivation disponible"}
-              </a>
-            </Box>
-            <Box>
-              <Typography variant="body1">Photo de profil:</Typography>
-              <a
-                href={user?.picture || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {user?.picture
-                  ? "Voir la photo de profil"
-                  : "Aucune photo de profil disponible"}
-              </a> 
           </Box>
           <Button
             fullWidth
