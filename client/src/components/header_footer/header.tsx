@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import bg_header from "../../assets/images/bg_header.png";
+import Designer from "../../assets/images/designer.png";
 import { useAuth } from "../../hooks/useAuth";
 import SearchBar from "./searchbar";
 
@@ -36,7 +36,7 @@ export default function Header() {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${bg_header})`,
+        backgroundImage: `url(${Designer})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

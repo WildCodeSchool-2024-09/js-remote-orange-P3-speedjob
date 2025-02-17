@@ -40,12 +40,7 @@ function UserInfoUpdateModule() {
     formData.append("street_name", street_name);
     formData.append("postcode", postcode);
     formData.append("city", city);
-    if (cvLink) {
-      formData.append("cv_link", cvLink);
-    }
-    if (lmLink) {
-      formData.append("lm_link", lmLink);
-    }
+
 
     fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id}`, {
       method: "PUT",

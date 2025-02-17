@@ -1,5 +1,12 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { Chip } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  Box,
+} from "@mui/material";
 
 function RandomArticle() {
   const articles = [
@@ -112,40 +119,40 @@ function RandomArticle() {
   const article = getRandomArticle();
 
   return (
-    <section className="py-12 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-          <div className="flex flex-col items-center justify-center border-4 p-8">
-            <div className="flex flex-col items-center justify-center border-4 p-8">
-              <h2 className="text-3xl font-bold mb-8">
-                Les tips pour vous démarquer:
-              </h2>
-              <p className="font-bold">{article.titre}</p>
-              <AccessTimeIcon className="font-italic" />
-              {article.date}
-              <img
-                src={article.sourceImage}
-                alt={article.titre}
-                w-50
-                h-48
-                object-cover
-              />
-              <p>{article.petiteDescription}</p>
-              <div className="flex justify-end mt-4">
-                <Chip
-                  className="font-bold border solid-black border-4 p-8 bg-black"
-                  label="Voir toutes les astuces"
-                  component="a"
-                  href="./blog"
-                  variant="outlined"
-                  clickable
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <Box sx={{ py: 4, backgroundColor: "grey.100" }}>
+      <Box sx={{ maxWidth: 600, mx: "auto" }}>
+        <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+          <CardMedia
+            component="img"
+            height="200"
+            image={article.sourceImage}
+            alt={article.titre}
+          />
+          <CardContent>
+            <Typography variant="h5" component="div" gutterBottom>
+              Les tips pour vous démarquer:
+            </Typography>
+            <Typography variant="h6" component="div" gutterBottom>
+              {article.titre}
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <AccessTimeIcon sx={{ mr: 1, color: "text.secondary" }} />
+              <Typography variant="body2" color="text.secondary">
+                {article.date}
+              </Typography>
+            </Box>
+            <Typography variant="body2" color="text.secondary" paragraph>
+              {article.petiteDescription}
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="contained" color="primary" href="./blog">
+                Voir toutes les astuces
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
   );
 }
 
