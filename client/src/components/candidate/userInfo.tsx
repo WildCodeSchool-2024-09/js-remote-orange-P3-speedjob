@@ -54,9 +54,6 @@ function UserInfoModule() {
     setOpen(false);
   };
 
-  console.log("User",user);
-  console.log("Usert.street",user.street_number);
-
   return isAuth === false ? (
     <Typography component="h1" variant="h5" gutterBottom>
       Vous devez être connecté pour accéder à cette page

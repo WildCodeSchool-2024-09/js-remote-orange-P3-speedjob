@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 type NewAnnonces = {
   title: string;
@@ -16,11 +17,12 @@ type NewAnnonces = {
   experience: string;
   work: string;
   field: string;
-  company_id?: number;
+  user_id: number[];
   is_apply?: boolean;
 };
 
 function NewAnnonce() {
+  const { user } = useAuth();
   const [newAnnonces, setNewAnnonces] = useState<NewAnnonces>({
     title: "",
     light_description: "",
@@ -29,6 +31,7 @@ function NewAnnonce() {
     experience: "",
     work: "",
     field: "",
+    user_id: [user?.id],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

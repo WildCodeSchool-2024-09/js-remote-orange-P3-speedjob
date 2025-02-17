@@ -69,6 +69,8 @@ const read: RequestHandler = async (req, res, next) => {
     const userId = Number(req.params.id);
     const user = await userRepository.read(userId);
 
+    console.log("user", user);
+
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
     if (user == null) {
