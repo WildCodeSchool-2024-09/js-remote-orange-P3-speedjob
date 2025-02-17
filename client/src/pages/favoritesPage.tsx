@@ -123,7 +123,7 @@ function FavoritesPage() {
         justifyContente="center"
         alignItems="center"
       >
-        <Box display="flex" flexDirection="column" gap={4}  width="100%" maxWidth="lg">
+        <Box display="flex" flexDirection="row" gap={4}  width="100%" maxWidth="lg">
           {favorites.map((annonce) => (
             <Card id="Favorite" key={annonce.id} sx={{ flex: "1 1 calc(33.333% - 16px)", mb: 4 }}>
               <CardContent>
@@ -135,6 +135,9 @@ function FavoritesPage() {
                 </Typography>
                 <Typography variant="body1" component="div" align="center">
                   {annonce.description}
+                </Typography>
+                <Typography variant="body1" component="div" align="center">
+                  {annonce.company}
                 </Typography>
                 Avez-vous postulé à cette annonce ?
                 <Typography variant="h5" component="div" align="center">

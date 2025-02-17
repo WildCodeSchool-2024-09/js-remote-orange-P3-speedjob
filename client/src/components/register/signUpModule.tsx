@@ -13,9 +13,8 @@ const SignUpModule = () => {
   const navigate = useNavigate();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const [login, setLogin] = useState("");
+  const login = `${firstname}.${lastname}`.toLowerCase();
   const [email, setEmail] = useState("");
-  // const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
   const [role, setRole] = useState({ societe: false, candidat: false });
@@ -26,18 +25,20 @@ const SignUpModule = () => {
     setChecked(!checked);
   };
 
+  const checkingPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (password !== checkedPassword) {
+      alert("Passwords do not match");
+    } else {
+      setError("");
+    }
+  };
+
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRole({
       ...role,
       [event.target.name]: event.target.checked,
     });
   };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFirstname(value);
-  };
-    
 
   const handleCreateAccount = () => {
     const selectedRole = role.societe ? "societe" : "candidat";
@@ -90,38 +91,47 @@ const SignUpModule = () => {
           </Typography>
           <TextField
             label="Prénom"
+            type="text" minlenght="2" maxlenght="16"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
             margin="normal"
+            color={error && <Typography color="error">{error}</Typography>}
+            required
           />
           <TextField
             label="Nom"
+            type= "text" minlenght="2" maxlenght="16"
             value={lastname}
             onChange={(e) => {
               setLastname(e.target.value);
               handleChange(e);
             }}
+            required
             margin="normal"
           />
-          {error && <Typography color="error">{error}</Typography>}
+          
           <TextField
             label="Login"
             value={login}
-            onChange={(e) => setLogin(e.target.value)}
             margin="normal"
+            disabled
+            required
           />
           <TextField
             label="Email"
             value={email}
+            type="email"
             onChange={(e) => setEmail(e.target.value)}
             margin="normal"
+            required
           />
           <TextField
             label="Password"
-            type="password"
+            type="password" minlenght="8" maxlenght="16" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
+            required
           />
           <TextField
             label="Confirm Password"
@@ -129,6 +139,7 @@ const SignUpModule = () => {
             value={checkedPassword}
             onChange={(e) => setCheckedPassword(e.target.value)}
             margin="normal"
+            required
           />
           <Box display="flex" flexDirection="row">
             <FormControlLabel

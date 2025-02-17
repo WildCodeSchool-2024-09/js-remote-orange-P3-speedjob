@@ -1,5 +1,7 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
+import MapIcon from "@mui/icons-material/Map";
 import { TextField } from "@mui/material";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -106,82 +108,63 @@ function Result() {
         </div>
         <ul>
           {annonces?.map((annonce) => (
-            <Box
-              key={annonce.id}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
-            >
-              <li>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                  className="font-bold"
-                >
-                  {annonce.title}
-                </Typography>
-                <AccessTimeIcon className="font-italic">
-                  {annonce.date}
-                </AccessTimeIcon>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                >
-                  {annonce.light_description}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                >
-                  {annonce.complete_description}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                  className="flex items-center"
-                >
-                  <EuroSymbolIcon className="mr-1" fontSize="small" />
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                >
-                  {annonce.remuneration}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                >
-                  {annonce.experience}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                >
-                  {annonce.work}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                  sx={{ mt: 2 }}
-                >
-                  {annonce.field}
-                </Typography>
-              </li>
-            </Box>
+                       <Card key={annonce.id} sx={{ mb: 4, width: '100%', maxWidth: 'lg' }}>
+                       <CardContent>
+                         <Typography variant="h5" component="div" align="center">
+                           {annonce.title}
+                         </Typography>
+                         <Typography variant="h6" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                            {annonce.company}
+                          </Typography>
+                         <Box display="flex" alignItems="center" justifyContent="center" mt={2}>
+                    
+                           <Typography variant="body2" color="text.secondary">
+                             {annonce.date}
+                           </Typography>
+                         </Box>
+                         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                           {annonce.light_description}
+                         </Typography>
+                         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                           {annonce.complete_description}
+                         </Typography>
+                         <Box display="flex" alignItems="center" justifyContent="center" mt={2}>
+                           <MapIcon sx={{ mr: 1 }} />
+                           <Typography variant="body2" color="text.secondary">
+                             Paris, France
+                           </Typography>
+                           <EuroSymbolIcon sx={{ mr: 1 }} /> 
+                          <Typography variant="body2" color="text.secondary">
+                             {annonce.remuneration}
+                           </Typography>
+                           <AccessTimeIcon sx={{ mr: 1 }} />
+                          <Typography variant="body2" color="text.secondary">
+                              {annonce.creation_date}
+                            </Typography>
+                         </Box>
+                         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                           {annonce.experience}
+                         </Typography>
+                         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                           {annonce.work}
+                         </Typography>
+                         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                           {annonce.field}
+                         </Typography>
+
+                         <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="button"
+            sx={{ mt: 2 }}
+            component={Link}
+            to="/signIn"
+          >
+            Je me connecte
+          </Button>
+                       </CardContent>
+                     </Card>
           ))}
         </ul>
         <div className="flex">

@@ -1,5 +1,7 @@
 import {
   Button,
+  Box,
+  TextField,
   Card,
   CardActions,
   CardContent,
@@ -67,8 +69,65 @@ const CheckUser = () => {
     handleClose();
   };
 
+  const [query, setQuery] = useState("");
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    // Handle search
+  };
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    // Handle change
+  };
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    // Handle click
+  };
+
   return (
     <Paper>
+            <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="searchQuery">
+              <TextField
+                type="text"
+                placeholder="Saisir l'ID, le nom ou le prénom de l'utilisateur"
+                id="query"
+                value={handleChange}
+                onChange={handleChange}
+                required
+                variant="outlined"
+                fullWidth
+                sx={{
+                  mt: 1,
+                  mb: 2,
+                  backgroundColor: "white",
+                  fontSize: "1.25rem",
+                }}
+              />
+            </label>
+          </div>
+          <div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+              sx={{ ml: { md: 1 }, mt: { xs: 2, md: 0 }, p: 1.8 }}
+              className="w-full md:w-auto"
+            >
+              Rechercher
+            </Button>
+          </div>
+        </form>
+      </Box>
       <Grid container spacing={2} mt={2}>
         {users.map((user) => (
           <Grid item xs={12} sm={6} md={4} key={user.id}>

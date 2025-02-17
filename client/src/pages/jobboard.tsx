@@ -126,7 +126,7 @@ function Jobboard() {
                   <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
                     <Typography className="flex items-center justify-center">
                       <ApartmentIcon variant="body2" color="text.secondary" />
-                      {annonce.compagny}
+                      {annonce.company}
                     </Typography>
                     <Typography className="flex items-center">
                       <MapIcon variant="body2" color="text.secondary" />
@@ -162,7 +162,6 @@ function Jobboard() {
                   style={{
                     width: "10rem",
                     height: "10rem",
-                    // position: "absolute",
                     top: "1rem",
                     right: "1rem",
                     borderRadius: "10%",
@@ -214,7 +213,7 @@ function Jobboard() {
                     <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-between">
                       <Typography className="flex items-center justify-center">
                         <ApartmentIcon className="mr-1" fontSize="small" />
-                        {selectedAnnonce.compagny}
+                        {selectedAnnonce.company}
                       </Typography>
                       <Typography className="flex items-center">
                         <MapIcon className="mr-1" fontSize="small" />
