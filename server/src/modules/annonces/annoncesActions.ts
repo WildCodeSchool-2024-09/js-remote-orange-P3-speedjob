@@ -36,6 +36,52 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
+const readByUserId: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch annonces based on the provided user_id
+    const userId = Number(req.query.user_id);
+    if (!userId) {
+      return res.status(400).json({ error: "user_id is required" });
+    }
+
+    const annonces = await annoncesRepository.readByUserId(userId);
+
+    // If no annonces are found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the annonces in JSON format
+    if (annonces.length === 0) {
+      res.sendStatus(404);
+    } else {
+      res.json(annonces);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const readByAnnonce: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch annonces based on the provided user_id
+    const userId = Number(req.params.id);
+    if (!userId) {
+      return res.status(400).json({ error: "user_id is required" });
+    }
+
+    const annonces = await annoncesRepository.readByAnnonce(userId);
+
+    // If no annonces are found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the annonces in JSON format
+    if (annonces.length === 0) {
+      res.sendStatus(404);
+    } else {
+      res.json(annonces);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 // The S of SEARCH - Search operation
 const search: RequestHandler = async (req, res, next) => {
   try {
@@ -72,7 +118,7 @@ const add: RequestHandler = async (req, res, next) => {
       company_id: req.body.company_id,
       is_apply: req.body.is_apply,
       title: req.body.title,
-      user_id: req.params.user_id,
+      user_id: req.body.user_id,
     };
 
     // Create the item
@@ -104,7 +150,7 @@ const edit: RequestHandler = async (req, res, next) => {
       company_id: Number(req.body.company_id),
       is_apply: Boolean(req.body.is_apply),
       title: String(req.body.title),
-      user_id: Number(req.params.user_id),
+      user_id: Number(req.body.user_id),
     };
 
     const affectedRows = await annoncesRepository.update(annonces);
@@ -137,4 +183,13 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, edit, destroy, search };
+export default {
+  browse,
+  read,
+  add,
+  edit,
+  destroy,
+  search,
+  readByUserId,
+  readByAnnonce,
+};

@@ -20,6 +20,25 @@ type AnnoncesProps = {
   user_id: number;
 };
 
+type favoritesProps = {
+  id: number;
+  user_id: number;
+  annonce_id: number;
+  is_apply: boolean;
+};
+
+type UserProps = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  street_number: number;
+  street_name: string;
+  postcode: number;
+  city: string;
+  phone_number: number;
+};
+
 class AnnoncesRepository {
   // The C of CRUD - Create operation
 
@@ -65,6 +84,23 @@ class AnnoncesRepository {
       [id],
     );
     // Return the first row of the result, which represents the item
+    return rows as AnnoncesProps[];
+  }
+
+  async readByUserId(user_id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM annonces WHERE user_id = ?",
+      [user_id],
+    );
+    return rows as AnnoncesProps[];
+  }
+
+  async readByAnnonce(user_id: number) {
+    // Execute the SQL SELECT query to retrieve a specific item by its ID
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT A.*, U.firstname, U.lastname,U. email, U.phone_number, F.id as idFavorites FROM user U JOIN favorites F  ON u.id = f.user_id JOIN annonces A on F.annonce_id = A.id WHERE A.user_id = ? AND F.is_apply = 1",
+      [user_id],
+    );
     return rows as AnnoncesProps[];
   }
 

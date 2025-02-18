@@ -25,10 +25,11 @@ function SearchBar() {
     >
       <Button
         type="submit"
-        variant="contained"
-        color="primary"
+        variant="outlined"
+        
         onClick={handleClick}
-        sx={{ ml: 1, p: 1.8 }}
+        sx={{ bottom: 48, ml: 1, p: 1.8, borderRadius: 10, borderColor: "black", borderWidth: 2, bgcolor:"white", color:"black" }}
+    
       >
         CLIQUER ICI POUR TROUVER VOTRE FUTUR EMPLOI
       </Button>

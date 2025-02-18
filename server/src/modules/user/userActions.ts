@@ -19,8 +19,6 @@ type UserProps = {
   postcode: string;
   city: string;
   phone_number: number;
-  cv_link: string;
-  lm_link: string;
   light_description: string;
   complete_description: string;
   siret_number: number;
@@ -43,6 +41,7 @@ const browse: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
+
 const isAdmin: RequestHandler = async (req, res, next) => {
   try {
     // Fetch a specific item based on the provided ID
@@ -68,8 +67,6 @@ const read: RequestHandler = async (req, res, next) => {
     // Fetch a specific item based on the provided ID
     const userId = Number(req.params.id);
     const user = await userRepository.read(userId);
-
-    console.log("user", user);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
@@ -105,8 +102,6 @@ const add: RequestHandler = async (req, res, next) => {
       street_number: req.body.street_number,
       street_name: req.body.street_name,
       phone_number: req.body.phone_number,
-      cv_link: req.body.cv_link,
-      lm_link: req.body.lm_link,
       light_description: req.body.light_description,
       complete_description: req.body.complete_description,
       siret_number: req.body.siret_number,
@@ -149,8 +144,6 @@ const edit: RequestHandler = async (req, res, next) => {
       street_number: Number(req.body.street_number),
       street_name: String(req.body.street_name),
       phone_number: Number(req.body.phone_number),
-      cv_link: String(req.body.cv_link),
-      lm_link: String(req.body.lm_link),
       light_description: String(req.body.light_description),
       complete_description: String(req.body.complete_description),
       siret_number: Number(req.body.siret_number),

@@ -120,7 +120,7 @@ function RandomArticle() {
 
   return (
     <Box sx={{ py: 4, backgroundColor: "grey.100" }}>
-      <Box sx={{ maxWidth: 600, mx: "auto" }}>
+      <Box sx={{ maxWidth: 600, maxHeight: 110 }}>
         <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
           <CardMedia
             component="img"
@@ -139,12 +139,13 @@ function RandomArticle() {
               <AccessTimeIcon sx={{ mr: 1, color: "text.secondary" }} />
               <Typography variant="body2" color="text.secondary">
                 {article.date}
-              </Typography>
+              </Typography> 
             </Box>
             <Typography variant="body2" color="text.secondary" paragraph>
               {article.petiteDescription}
             </Typography>
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <p>Pour en lire plus...</p>
+            <Box sx={{ justifyContent: "center", mb:2, display: "flex" }}>
               <Button variant="contained" color="primary" href="./blog">
                 Voir toutes les astuces
               </Button>

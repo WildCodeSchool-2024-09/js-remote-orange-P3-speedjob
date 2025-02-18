@@ -9,6 +9,7 @@ import {
   Card,
   CardContent,
   CardActions,
+  CardMedia,
   Button,
   Grid,
   Avatar,
@@ -160,38 +161,27 @@ function RandomJob() {
 
   return (
     <Box sx={{ py: 4, backgroundColor: "grey.100" }}>
-      <Box sx={{ maxWidth: 600, mx: "auto" }}>
+      <Box sx={{ maxWidth: 600, mx: "auto",  maxHeight: 1   }}>
         <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
-          <CardContent>
+            <CardMedia
+              component="img"
+              height="200"
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+              alt={job.company_id}
+            />
+            <CardContent>
             <Typography variant="h5" component="div" gutterBottom>
               Les dernières offres pour vous:
             </Typography>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item>
-                <Avatar
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                  alt={job.company_id}
-                  sx={{ width: 140, height: 100, borderRadius: 1 }}
-                />
-              </Grid>
-              <Grid item xs>
                 <Typography variant="h6" component="h3">
                   {job.titre}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   <ApartmentIcon fontSize="small" /> {job.company_id}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
                   <MapIcon fontSize="small" /> Paris, France
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
                   <AccessTimeIcon fontSize="small" /> {job.date}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
                   <EuroSymbolIcon fontSize="small" /> {job.remuneration}
                 </Typography>
-              </Grid>
-            </Grid>
             <Typography
               variant="body2"
               color="text.secondary"
@@ -211,9 +201,9 @@ function RandomJob() {
               ))}
             </Box>
           </CardContent>
-          <CardActions sx={{ justifyContent: "flex-end" }}>
+          <CardActions sx={{ justifyContent: "center", mb: 2 , display: "flex" }}>
             <Button variant="contained" color="primary" href="./jobboard">
-              Voir toutes les offres
+              <p>Voir toutes les offres</p>
             </Button>
           </CardActions>
         </Card>

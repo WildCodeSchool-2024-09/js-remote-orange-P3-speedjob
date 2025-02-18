@@ -156,19 +156,18 @@ const CheckArticles = () => {
       >
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="searchQuery">
+            <label htmlFor="searchQuery" className="flex flex-col items-center justify-center">
               <TextField
                 type="text"
                 placeholder="Saisir l'ID, le titre ou la description de l'article"
                 id="query"
-                value={handleChange}
                 onChange={handleChange}
                 required
                 variant="outlined"
-                fullWidth
                 sx={{
                   mt: 1,
                   mb: 2,
+                  width: "200%",
                   backgroundColor: "white",
                   fontSize: "1.25rem",
                 }}

@@ -68,7 +68,7 @@ function Result() {
       >
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="searchQuery">
+            <label htmlFor="searchQuery" className="flex flex-col items-center justify-center">
               <TextField
                 type="text"
                 placeholder="Rechercher par métier, entreprise, secteur d'activité,..."
@@ -77,10 +77,10 @@ function Result() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                fullWidth
                 sx={{
                   mt: 1,
                   mb: 2,
+                  width: "200%",
                   backgroundColor: "white",
                   fontSize: "1.25rem",
                 }}

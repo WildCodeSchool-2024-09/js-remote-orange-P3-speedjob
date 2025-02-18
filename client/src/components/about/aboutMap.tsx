@@ -1,14 +1,15 @@
 import L from "leaflet";
 import { useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
+import { Box, Typography, Paper } from "@mui/material";
 
-const aboutMap: React.FC = () => {
+const AboutMap: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     if (!mapRef.current && mapContainerRef.current) {
-      const map = L.map(mapContainerRef.current).setView([48.8566, 2.3522], 13);
+      const map = L.map(mapContainerRef.current).setView([48.8566, 2.3522], 15);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
@@ -29,15 +30,26 @@ const aboutMap: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Map</h2>
-      <div
-        className="flex"
+    <Paper elevation={4} sx={{ p: 4, mb: 4, width: "100%" }}>
+      <Typography variant="h5" component="h2" gutterBottom>
+        Localisation
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Nous sommes situés au cœur de Paris, à proximité de nombreux points
+        d'intérêt.
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Adresse : 123 Rue Exemple, 75000 Paris, France
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Téléphone : +33 1 23 45 67 89
+      </Typography>
+      <Box
         ref={mapContainerRef}
-        style={{ height: "500px", width: "500px" }}
+        sx={{ height: "680px", width: "785px", borderRadius: 1 }}
       />
-    </div>
+    </Paper>
   );
 };
 
-export default aboutMap;
+export default AboutMap;
