@@ -1,4 +1,18 @@
-import { Box, Button, TextField, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
@@ -35,6 +49,9 @@ function UserInfoModule() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -59,23 +76,49 @@ function UserInfoModule() {
       Vous devez être connecté pour accéder à cette page
     </Typography>
   ) : (
-    <>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        mt={4}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      padding={2}
+      sx={{ backgroundColor: "#f5f5f5" }}
+    >
+      <Card
+        sx={{
+          maxWidth: isMobile ? 400 : 550,
+          width: "100%",
+          padding: isMobile ? 4 : 5,
+          borderRadius: 2,
+          boxShadow: 3,
+          backgroundColor: "#ffffff",
+        }}
       >
-        <Typography component="h1" variant="h5" gutterBottom>
-          Vos informations personnelles
-        </Typography>
-        <form>
-          <Box display="flex" flexDirection="column" gap={2}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="h5"
+            fontWeight="bold"
+            gutterBottom
+            align="center"
+            sx={{ color: "#1976d2" }}
+          >
+            Vos informations personnelles
+          </Typography>
+          <Box
+            component="form"
+            display="flex"
+            flexDirection="column"
+            gap={2}
+            mt={2}
+          >
             <TextField
               label="Prénom"
               type="text"
-              value={user?.firstname}
+              value={user?.firstname || ""}
+              InputProps={{
+                readOnly: true,
+              }}
               variant="outlined"
             />
             <TextField
@@ -99,7 +142,6 @@ function UserInfoModule() {
             <Typography variant="h6" component="h2">
               Adresse
             </Typography>
-
             <TextField
               label="Numéro de rue"
               type="text"
@@ -145,79 +187,70 @@ function UserInfoModule() {
               }}
               variant="outlined"
             />
-
-            <Box mt={2}>
-              <Typography variant="h6" component="h2">
-                Documents de candidature
-              </Typography>
-              <Typography
-                variant="body1"
-                component="p"
-                display="block"
-                gutterBottom
-              >
-                CV
-              </Typography>
-              <input
-                type="file"
-                accept=".pdf"
-                onChange={(e) => setCvLink(e.target.files?.[0] || null)}
-              />
-              <Typography
-                variant="body1"
-                component="p"
-                display="block"
-                gutterBottom
-              >
-                Lettre de motivation
-              </Typography>
-              <input
-                type="file"
-                accept=".pdf"
-                onChange={(e) => setLmLink(e.target.files?.[0] || null)}
-              />
-
-            </Box>
+            <Typography variant="h6" component="h2">
+              Documents de candidature
+            </Typography>
+            <Typography
+              variant="body1"
+              component="p"
+              display="block"
+              gutterBottom
+            >
+              CV
+            </Typography>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => setCvLink(e.target.files?.[0] || null)}
+            />
+            <Typography
+              variant="body1"
+              component="p"
+              display="block"
+              gutterBottom
+            >
+              Lettre de motivation
+            </Typography>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => setLmLink(e.target.files?.[0] || null)}
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 3, mb: 2 }}
+              component={Link}
+              to="/userInfoUpdate"
+            >
+              Modifier
+            </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="primary"
+              sx={{ mt: 3, mb: 2 }}
+              type="button"
+              component={Link}
+              to="/signIn"
+            >
+              Retour en arrière
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="error"
+              sx={{ mt: 3, mb: 2 }}
+              type="button"
+              onClick={handleClickOpen}
+            >
+              Supprimer
+            </Button>
           </Box>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            component={Link}
-            to="/userInfoUpdate"
-          >
-            Modifier
-          </Button>
-
-          <Button
-            fullWidth
-            variant="outlined"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            type="button"
-            component={Link}
-            to="/signIn"
-          >
-            Retour en arrière
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="error"
-            sx={{ mt: 3, mb: 2 }}
-            type="button"
-            onClick={handleClickOpen}
-          >
-            Supprimer
-          </Button>
-        </form>
-      </Box>
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-      >
+        </CardContent>
+      </Card>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Confirmer la suppression</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -233,7 +266,7 @@ function UserInfoModule() {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }
 

@@ -9,8 +9,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth"; // Assurez-vous d'importer votre hook useAuth
 
 type NewAnnonces = {
   title: string;
@@ -20,11 +21,12 @@ type NewAnnonces = {
   experience: string;
   work: string;
   field: string;
-  company_id?: number;
+  user_id: number;
   is_apply?: boolean;
 };
 
 function NewAnnonce() {
+  const { user } = useAuth(); // Utilisez le hook useAuth pour obtenir les informations de l'utilisateur
   const [newAnnonces, setNewAnnonces] = useState<NewAnnonces>({
     title: "",
     light_description: "",
@@ -33,6 +35,7 @@ function NewAnnonce() {
     experience: "",
     work: "",
     field: "",
+    user_id: user?.id ?? 0, // Utilisez l'ID de l'utilisateur récupéré par le hook useAuth, ou 0 si user est null
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -41,7 +44,14 @@ function NewAnnonce() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  useEffect(() => {}, [user]);
+
   const handleSubmit = async () => {
+    if (!user) {
+      setError("Utilisateur non authentifié.");
+      return;
+    }
+
     if (
       !newAnnonces.title ||
       !newAnnonces.light_description ||
@@ -55,6 +65,11 @@ function NewAnnonce() {
     setError("");
 
     try {
+      const annonceToSubmit = {
+        ...newAnnonces,
+        user_id: user.id, // Utilisez explicitement user.id ici
+      };
+
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/annonces`,
         {
@@ -62,7 +77,7 @@ function NewAnnonce() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newAnnonces),
+          body: JSON.stringify(annonceToSubmit),
         },
       );
 
@@ -99,9 +114,9 @@ function NewAnnonce() {
       >
         <Card
           sx={{
-            maxWidth: isMobile ? 300 : 400,
+            maxWidth: isMobile ? 400 : 550,
             width: "100%",
-            padding: isMobile ? 2 : 3,
+            padding: isMobile ? 4 : 5,
             borderRadius: 2,
             boxShadow: 3,
             backgroundColor: "#ffffff",

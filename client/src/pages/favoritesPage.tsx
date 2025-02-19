@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignInModule from "../components/register/signInModule";
@@ -123,15 +123,20 @@ function FavoritesPage() {
         justifyContente="center"
         alignItems="center"
       >
-        <Box display="flex" flexDirection="row" gap={4}  width="100%" maxWidth="lg">
-          {favorites.map((annonce) => (
-            <Card id="Favorite" key={annonce.id} sx={{ flex: "1 1 calc(33.333% - 16px)", mb: 4 }}>
+      <Grid container spacing={4} justifyContent="center">
+        {favorites.map((annonce) => (
+          <Grid item xs={12} sm={6} md={4} key={annonce.id}>
+            <Card id="Favorite" sx={{ height: "100%" }}>
               <CardContent>
-                <Typography variant="h5" component="div" align="center">
+                <Typography variant="h5" component="div" align="center"                   sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}>
                   {annonce.title}
                 </Typography>
                 <Typography variant="body1" component="div" align="center">
-                  {annonce.creation_date}
+                  Date de parution: {annonce.creation_date}
                 </Typography>
                 <Typography variant="body1" component="div" align="center">
                   {annonce.description}
@@ -139,29 +144,37 @@ function FavoritesPage() {
                 <Typography variant="body1" component="div" align="center">
                   {annonce.company}
                 </Typography>
-                Avez-vous postulé à cette annonce ?
                 <Typography variant="h5" component="div" align="center">
-                  {annonce?.is_apply ? "Oui" : "Non"}
+                  {annonce?.is_apply ? "Vous n'avez pas encore postulé" : "Vous avez postulé!"}
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleApply(annonce.idFavorites, isApply)}
-                >
-                  Postuler à l'annonce
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => handleDelete(annonce.idFavorites)}
-                >
-                  Supprimer des favoris
-                </Button>
+                <Box display="flex" justifyContent="center" gap ={1} mt={2}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                  >
+                    Consulter l'annonce
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleApply(annonce.idFavorites, isApply)}
+                  >
+                    Postuler à l'annonce
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleDelete(annonce.idFavorites)}
+                  >
+                    Supprimer des favoris
+                  </Button>
+                </Box>
               </CardContent>
             </Card>
+            </Grid>
           ))}
+          </Grid>
         </Box>
-      </Box>
     </Box>
   ) : (
     <div>

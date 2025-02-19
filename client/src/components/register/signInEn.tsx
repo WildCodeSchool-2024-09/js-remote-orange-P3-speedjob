@@ -1,6 +1,15 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 type UserProps = {
@@ -13,7 +22,7 @@ type UserProps = {
   creation_date: string;
   modification_date: string;
   isAdmin: boolean;
-  role: 'candidat' | 'societe';
+  role: "candidat" | "societe";
   street_number: number;
   street_name: string;
   postcode: number;
@@ -37,152 +46,218 @@ const SignInEn = () => {
   const [type, setType] = useState("password");
   const [firstname, setFirstname] = useState([] as UserProps[]);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  if (isAuth && user && user.role !== "societe") {
+    return <Navigate to="/signInEntreprise" />;
+  }
+
   return (
-    <Container
-      maxWidth="sm"
-      style={{ display: "flex", flexDirection: "column" }}
-    >
+    <>
       {isAuth ? (
-        <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Bienvenue sur votre compte
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Vous êtes connecté en tant qu'entreprise.
-          </Typography>
-          <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-            <Link
-              to="/newAnnonce"
-              style={{ textDecoration: "none", width: "100%" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+          padding={2}
+          sx={{ backgroundColor: "#f5f5f5" }}
+        >
+          <Card
+            sx={{
+              maxWidth: isMobile ? 400 : 550,
+              width: "100%",
+              padding: isMobile ? 4 : 5,
+              borderRadius: 2,
+              boxShadow: 3,
+              backgroundColor: "#ffffff",
+            }}
+          >
+            <CardContent>
+              <Typography
+                variant="h5"
+                component="h5"
+                fontWeight="bold"
+                gutterBottom
+                align="center"
+                sx={{ color: "#1976d2" }}
               >
-                Crée une nouvelle annonce
-              </Button>
-            </Link>
-            <Link
-              to="/myOffer"
-              style={{ textDecoration: "none", width: "100%" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
+                Bonjour {user?.firstname}, voici les actions possibles:
+              </Typography>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                mt={4}
               >
-                Gérer mes offres
-              </Button>
-            </Link>
-            <Link
-              to="/seeCandidate"
-              style={{ textDecoration: "none", width: "100%" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
-              >
-                Voir les candidatures
-              </Button>
-            </Link>
-            <Link
-              to="/myProfilEn"
-              style={{ textDecoration: "none", width: "100%" }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
-              >
-                Modifier mes informations
-              </Button>
-            </Link>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleLogout}
-              fullWidth
-              sx={{ mt: 2 }}
-            >
-              Deconnexion
-            </Button>
-          </Box>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ mt: 2 }}
+                  component={Link}
+                  to="/newAnnonce"
+                >
+                  Crée une nouvelle annonce
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ mt: 2 }}
+                  component={Link}
+                  to="/myOffer"
+                >
+                  Gérer mes offres
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ mt: 2 }}
+                  component={Link}
+                  to="/seeCandidate"
+                >
+                  Voir les candidatures
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ mt: 2 }}
+                  component={Link}
+                  to="/myProfilEn"
+                >
+                  Modifier mes informations
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ mt: 2 }}
+                  onClick={handleLogout}
+                >
+                  Deconnexion
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
         </Box>
       ) : (
-        <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Login
-          </Typography>
-          {message && <div style={{ color: "red" }}>{message}</div>}
-          <form
-            id="form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleLogin(login, password);
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+          padding={2}
+          sx={{ backgroundColor: "#f5f5f5" }}
+        >
+          <Card
+            sx={{
+              maxWidth: isMobile ? 400 : 550,
+              width: "100%",
+              padding: isMobile ? 4 : 5,
+              borderRadius: 2,
+              boxShadow: 3,
+              backgroundColor: "#ffffff",
             }}
-            style={{ width: "100%" }}
           >
-            <TextField
-              fullWidth
-              margin="normal"
-              id="login"
-              label="Login"
-              variant="outlined"
-              value={login}
-              type="text"
-              name="login"
-              onChange={(e) => setLogin(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              id="password"
-              label="Password"
-              variant="outlined"
-              type={type}
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              type="button"
-              sx={{ mt: 2 }}
-              onClick={() => setType(type === "password" ? "text" : "password")}
-            >
-              {type === "password" ? "Afficher" : "Cacher"} mon mot de passe
-            </Button>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              type="submit"
-              sx={{ mt: 2 }}
-            >
-              Se connecter
-            </Button>
-          </form>
-          <Link to="/signUp" style={{ textDecoration: "none", width: "100%" }}>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2 }}
-            >
-              Je crée mon compte
-            </Button>
-          </Link>
+            <CardContent>
+              <Typography
+                variant="h5"
+                component="h5"
+                fontWeight="bold"
+                gutterBottom
+                align="center"
+                sx={{ color: "#1976d2" }}
+              >
+                Connexion
+              </Typography>
+              {message && (
+                <Typography color="error" align="center">
+                  {message}
+                </Typography>
+              )}
+              <Box
+                component="form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleLogin(login, password);
+                }}
+                display="flex"
+                flexDirection="column"
+                gap={2}
+                mt={2}
+              >
+                <TextField
+                  fullWidth
+                  margin="dense"
+                  id="login"
+                  label="Login"
+                  variant="outlined"
+                  value={login}
+                  type="text"
+                  name="login"
+                  onChange={(e) => setLogin(e.target.value)}
+                />
+                <TextField
+                  fullWidth
+                  margin="dense"
+                  id="password"
+                  label="Mot de passe"
+                  variant="outlined"
+                  type={type}
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  sx={{ mt: 2 }}
+                  onClick={() =>
+                    setType(type === "password" ? "text" : "password")
+                  }
+                >
+                  {type === "password" ? "Afficher" : "Cacher"} mon mot de passe
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ mt: 2 }}
+                >
+                  Se connecter
+                </Button>
+              </Box>
+              <Typography variant="body2" align="center" mt={2}>
+                Vous n'avez pas de compte ?{" "}
+                <Link
+                  to="/signUp"
+                  style={{
+                    fontWeight: "bold",
+                    color: "#1976d2",
+                    textDecoration: "none",
+                  }}
+                >
+                  Créer un compte
+                </Link>
+              </Typography>
+            </CardContent>
+          </Card>
         </Box>
       )}
-    </Container>
+    </>
   );
 };
 

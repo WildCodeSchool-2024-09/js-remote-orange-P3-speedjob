@@ -95,7 +95,7 @@ const CheckUser = () => {
       >
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="searchQuery">
+            <label htmlFor="searchQuery" className="flex flex-col items-center justify-center">
               <TextField
                 type="text"
                 placeholder="Saisir l'ID, le nom ou le prénom de l'utilisateur"
@@ -108,6 +108,7 @@ const CheckUser = () => {
                 sx={{
                   mt: 1,
                   mb: 2,
+                  width: "200%",
                   backgroundColor: "white",
                   fontSize: "1.25rem",
                 }}

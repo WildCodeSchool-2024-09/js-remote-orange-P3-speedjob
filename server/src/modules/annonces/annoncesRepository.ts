@@ -20,6 +20,25 @@ type AnnoncesProps = {
   user_id: number;
 };
 
+type favoritesProps = {
+  id: number;
+  user_id: number;
+  annonce_id: number;
+  is_apply: boolean;
+};
+
+type UserProps = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  street_number: number;
+  street_name: string;
+  postcode: number;
+  city: string;
+  phone_number: number;
+};
+
 class AnnoncesRepository {
   // The C of CRUD - Create operation
 
@@ -68,6 +87,23 @@ class AnnoncesRepository {
     return rows as AnnoncesProps[];
   }
 
+  async readByUserId(user_id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM annonces WHERE user_id = ?",
+      [user_id],
+    );
+    return rows as AnnoncesProps[];
+  }
+
+  async readByAnnonce(user_id: number) {
+    // Execute the SQL SELECT query to retrieve a specific item by its ID
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT A.*, U.firstname, U.lastname,U. email, U.phone_number, F.id as idFavorites FROM user U JOIN favorites F  ON u.id = f.user_id JOIN annonces A on F.annonce_id = A.id WHERE A.user_id = ? AND F.is_apply = 1",
+      [user_id],
+    );
+    return rows as AnnoncesProps[];
+  }
+
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await databaseClient.query<Rows>("SELECT * FROM annonces");
@@ -81,19 +117,16 @@ class AnnoncesRepository {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
 
     const [result] = await databaseClient.query<Result>(
-      "UPDATE annonces SET creation_date = ?, modification_date = ?, light_description = ?, complete_description = ?, remuneration = ?, experience = ?, work = ?, field = ?, company_id = ?, is_apply = ?, title = ? WHERE id = ?",
+      "UPDATE annonces SET light_description = ?, complete_description = ?, remuneration = ?, experience = ?, work = ?, field = ?, title = ? WHERE id = ?",
 
       [
         annonces.title,
-        annonces.creation_date,
-        annonces.modification_date,
         annonces.light_description,
         annonces.complete_description,
         annonces.remuneration,
         annonces.experience,
         annonces.work,
         annonces.field,
-        annonces.is_apply,
         annonces.id,
       ],
     );

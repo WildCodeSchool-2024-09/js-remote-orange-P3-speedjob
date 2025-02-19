@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import resume from "../assets/resume.pdf";
 
 const SeeCandidate = () => {
   interface Candidate {
@@ -15,6 +16,7 @@ const SeeCandidate = () => {
   }
 
   const { user }: { user: string | null } = useAuth();
+  const user_Id = user?.id;  
   const [candidates, setCandidates] = useState<Candidate[]>([]);
 
   useEffect(() => {
@@ -23,9 +25,9 @@ const SeeCandidate = () => {
     }
   }, [user]);
 
-  const fetchCandidates = (companyId: number) => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/user?companyId=${companyId}`)
+  const fetchCandidates = async (user_id: number) => {
+    await axios
+      .get(`${import.meta.env.VITE_API_URL}/api/annonces/by-annonce/${user_Id}`)
       .then((response) => {
         setCandidates(response.data as Candidate[]);
       })
@@ -56,16 +58,22 @@ const SeeCandidate = () => {
       ) : (
         candidates.map((candidate) => (
           <Box key={candidate.id} mt={2} p={2} border={1} width="50%">
+            <Typography variant="h5">Candidature</Typography>
+            <Typography>ID: {candidate.title}</Typography>
             <Typography variant="h6">
               {candidate.firstname} {candidate.lastname}
             </Typography>
             <Typography>Email: {candidate.email}</Typography>
             <Typography>Téléphone: {candidate.phone_number}</Typography>
             <Typography>
-              CV: <a href={candidate.cv_link}>Télécharger</a>
+              CV:
+              <Button
+                type="button"
+                onClick={() => window.open(resume, "_blank")}
+              >Télécharger</Button> 
             </Typography>
             <Typography>
-              Lettre de motivation: <a href={candidate.lm_link}>Télécharger</a>
+              Lettre de motivation: <Button>Télécharger</Button>
             </Typography>
           </Box>
         ))

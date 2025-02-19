@@ -1,10 +1,15 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {
+  Chip,
+  Container,
+  Typography,
   Card,
   CardContent,
+  CardActions,
   CardMedia,
-  Typography,
   Button,
+  Grid,
+  Avatar,
   Box,
 } from "@mui/material";
 
@@ -119,39 +124,37 @@ function RandomArticle() {
   const article = getRandomArticle();
 
   return (
-    <Box sx={{ py: 4, backgroundColor: "grey.100" }}>
-      <Box sx={{ maxWidth: 600, mx: "auto" }}>
-        <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
-          <CardMedia
-            component="img"
-            height="200"
-            image={article.sourceImage}
-            alt={article.titre}
-          />
-          <CardContent>
-            <Typography variant="h5" component="div" gutterBottom>
-              Les tips pour vous démarquer:
-            </Typography>
-            <Typography variant="h6" component="div" gutterBottom>
-              {article.titre}
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-              <AccessTimeIcon sx={{ mr: 1, color: "text.secondary" }} />
-              <Typography variant="body2" color="text.secondary">
-                {article.date}
-              </Typography>
-            </Box>
-            <Typography variant="body2" color="text.secondary" paragraph>
-              {article.petiteDescription}
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button variant="contained" color="primary" href="./blog">
-                Voir toutes les astuces
-              </Button>
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
+    <Box sx={{ py: 4, backgroundColor: "grey.100", display: "flex", justifyContent: "center" }}>
+      <Card sx={{ maxWidth: { xs: 300, sm: 400, md: 600 }, width: "100%", borderRadius: 2, boxShadow: 3 }}>
+        <CardMedia
+          component="img"
+          height="200"
+          image={article.sourceImage}
+          alt={article.titre}
+        />
+<CardContent sx={{ height: { xs: 310, sm: 250, md: 235 } }}>
+  <Typography variant="h5" component="div" gutterBottom>
+    Les tips pour vous démarquer:
+  </Typography>
+  <Typography variant="h6" component="div" gutterBottom>
+    {article.titre}
+  </Typography>
+  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+    <AccessTimeIcon sx={{ mr: 1, color: "text.secondary" }} />
+    <Typography variant="body2" color="text.secondary">
+      {article.date}
+    </Typography> 
+  </Box>
+  <Typography variant="body2" color="text.secondary" paragraph>
+    {article.petiteDescription}
+  </Typography>
+</CardContent>
+<CardActions sx={{ justifyContent: "center", mb: 2, display: "flex" }}>
+  <Button variant="contained" color="primary" href="./blog">
+    Voir toutes les astuces
+  </Button>
+</CardActions>
+      </Card>
     </Box>
   );
 }

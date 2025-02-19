@@ -3,8 +3,16 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MapIcon from "@mui/icons-material/Map";
-import { Box, Button, Chip, Modal, Typography } from "@mui/material";
-import { set } from "date-fns";
+import {
+  Box,
+  Button,
+  Chip,
+  Modal,
+  Typography,
+  Container,
+  Grid,
+  Paper,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -22,6 +30,8 @@ type AnnoncesProps = {
   is_apply: boolean;
   field: string;
   date: string;
+  creation_date: string;
+  modification_date: string;
 };
 
 type UserProps = {
@@ -101,86 +111,153 @@ function Jobboard() {
   };
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900">Notre Jobboard</h2>
-          <p className="mt-4 text-xl text-gray-600">
-            Découvrez nos dernières offres d'emploi
-          </p>
-        </div>
-        <div className="flex flex-col gap-8 align-center">
-          {annonces.map((annonce) => (
-            <div
-              id="Annonce"
-              key={annonce.id}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8"
-            >
-              <div className="flex wrap items-start justify-between">
-                <div className="flex-1 justify-center">
-                  <h3 className="text-xl font-semibold mb-2">
+    <Container id="projects" sx={{ py: 5, bgcolor: "grey.100" }}>
+      <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Typography
+          variant="h2"
+          component="h2"
+          gutterBottom
+          sx={{
+            fontSize: { xs: "2rem", sm: "3rem", md: "4rem" }, // Ajustez la taille du texte en fonction de la taille de l'écran
+          }}
+        >
+          Notre Jobboard
+        </Typography>
+        <Typography
+          variant="h5"
+          component="p"
+          color="textSecondary"
+          sx={{
+            fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" }, // Ajustez la taille du texte en fonction de la taille de l'écran
+          }}
+        >
+          Découvrez nos dernières offres d'emploi
+        </Typography>
+      </Box>
+      <Grid container spacing={4}>
+        {annonces.map((annonce) => (
+          <Grid item xs={12} key={annonce.id}>
+            <Paper elevation={3} sx={{ p: 4, position: "relative" }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box sx={{ flex: 1 }}>
+                  <Typography variant="h4" component="h3" gutterBottom>
                     {annonce.title}
-                  </h3>{" "}
-                  <p>{annonce.light_description}</p>
-                  <p>Date de parution: {annonce.creation_date}</p>
-                  <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-around">
-                    <Typography className="flex items-center justify-center">
-                      <ApartmentIcon variant="body2" color="text.secondary" />
+                  </Typography>
+                  <Typography variant="body1" component="p">
+                    {annonce.light_description}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    color="textSecondary"
+                  >
+                    Date de parution: {annonce.creation_date}
+                  </Typography>
+                  <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center", mr: 2 }}
+                    >
+                      <ApartmentIcon fontSize="small" sx={{ mr: 1 }} />
                       {annonce.company}
                     </Typography>
-                    <Typography className="flex items-center">
-                      <MapIcon variant="body2" color="text.secondary" />
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center", mr: 2 }}
+                    >
+                      <MapIcon fontSize="small" sx={{ mr: 1 }} />
                       Paris, France
                     </Typography>
-                    <Typography className="flex items-center">
-                      <AccessTimeIcon variant="body2" color="text.secondary" />
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center", mr: 2 }}
+                    >
+                      <AccessTimeIcon fontSize="small" sx={{ mr: 1 }} />
                       {annonce.date}
                     </Typography>
-                    <Typography className="flex items-center">
-                      <EuroSymbolIcon variant="body2" color="text.secondary" />
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      <EuroSymbolIcon fontSize="small" sx={{ mr: 1 }} />
                       {annonce.remuneration}
                     </Typography>
-                  </div>
-                  <p className="text-gray-600 mb-4">
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    color="textSecondary"
+                    sx={{ mt: 2 }}
+                  >
                     {annonce.complete_description}
-                  </p>
+                  </Typography>
                   <Box
-                    display="flex"
-                    flexWrap="wrap"
-                    gap={1}
-                    mt={2}
-                    justifyContent="left"
+                    sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 2 }}
                   >
                     {[`${annonce.work}`, `${annonce.field}`].map((tech) => (
                       <Chip key={tech} label={tech} variant="outlined" />
                     ))}
                   </Box>
-                </div>
-                <img
+                </Box>
+                <Box
+                  component="img"
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
                   alt={annonce.compagny}
-                  style={{
-                    width: "10rem",
-                    height: "10rem",
-                    top: "1rem",
-                    right: "1rem",
-                    borderRadius: "10%",
+                  sx={{
+                    position: "absolute",
+                    width: { xs: "4rem", sm: "6rem", md: "8rem" }, // Ajustez la largeur en fonction de la taille de l'écran
+                    height: { xs: "4rem", sm: "6rem", md: "8rem" }, // Ajustez la hauteur en fonction de la taille de l'écran
+                    maxWidth: "100%", // Empêche l'image de dépasser la largeur du conteneur
+                    maxHeight: "100%", // Empêche l'image de dépasser la hauteur du conteneur
+                    borderRadius: "50%", // Ajoutez un borderRadius
+                    ml: 2,
+                    right: "20px",
                   }}
                 />
-              </div>
-              <Box display="flex" justifyContent="center" mt={2}>
+              </Box>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              >
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={() => handleOpen(annonce)}
+                  sx={{
+                    fontSize: { xs: "0.75rem", sm: "1rem", md: "1.25rem" }, // Ajustez la taille du texte en fonction de la taille de l'écran
+                    padding: {
+                      xs: "0.5rem 1rem",
+                      sm: "0.75rem 1.5rem",
+                      md: "1rem 2rem",
+                    }, // Ajustez le padding en fonction de la taille de l'écran
+                  }}
                 >
                   CONSULTER L'ANNONCE
                 </Button>
+                <Button
+                  variant="contained"
+                  color="outlined"
+                  component={Link}
+                  to="/contact"
+                  sx={{
+                    fontSize: { xs: "0.60rem", sm: "1rem", md: "1.25rem" }, // Ajustez la taille du texte en fonction de la taille de l'écran
+                    padding: {
+                      xs: "0.5rem 1rem",
+                      sm: "0.75rem 1.5rem",
+                      md: "1rem 2rem",
+                    }, // Ajustez le padding en fonction de la taille de l'écran
+                  }}
+                >
+                  Signaler l'annonce
+                </Button>
               </Box>
-            </div>
-          ))}
-        </div>
-      </div>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
 
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -189,100 +266,133 @@ function Jobboard() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "70%",
+            width: { xs: "90%", sm: "50%", md: "50%" }, // Ajustez la largeur en fonction de la taille de l'écran
             p: 4,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            borderRadius: 1,
           }}
         >
           {selectedAnnonce && (
-            <div className="flex felx-col gap-8 align-center">
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow p-8">
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleClose}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 32,
+                  minWidth: "auto",
+                  padding: "8px",
+                  fontSize: "1rem",
+                  width: "40px",
+                  height: "40px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                x
+              </Button>
+              <Typography variant="h4" component="h3" gutterBottom>
+                {selectedAnnonce.title}
+              </Typography>
+              <Typography variant="body1" component="p">
+                {selectedAnnonce.light_description}
+              </Typography>
+              <Typography variant="body2" component="p" color="textSecondary">
+                {selectedAnnonce.creation_date}
+              </Typography>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              >
+                <Box sx={{ flex: 1 }}>
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center", mr: 2 }}
+                    >
+                      <ApartmentIcon fontSize="small" sx={{ mr: 1 }} />
+                      {selectedAnnonce.company}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center", mr: 2 }}
+                    >
+                      <MapIcon fontSize="small" sx={{ mr: 1 }} />
+                      Paris, France
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center", mr: 2 }}
+                    >
+                      <AccessTimeIcon fontSize="small" sx={{ mr: 1 }} />
+                      {selectedAnnonce.date}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ display: "flex", alignItems: "center" }}
+                    >
+                      <EuroSymbolIcon fontSize="small" sx={{ mr: 1 }} />
+                      {selectedAnnonce.remuneration}
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    color="textSecondary"
+                    sx={{ mb: 2 }}
+                  >
+                    {selectedAnnonce.complete_description}
+                  </Typography>
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                    {[
+                      `${selectedAnnonce.work}`,
+                      `${selectedAnnonce.field}`,
+                    ].map((tech) => (
+                      <Chip key={tech} label={tech} variant="outlined" />
+                    ))}
+                  </Box>
+                </Box>
+                <Box
+                  component="img"
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                  alt={selectedAnnonce.compagny}
+                  sx={{
+                    width: "6rem",
+                    height: "6rem",
+                    borderRadius: "50%",
+                    ml: 2,
+                  }}
+                />
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   onClick={handleClose}
+                  sx={{ mr: 2 }}
                 >
-                  x
+                  POSTULER
                 </Button>
-                <h3 className="text-xl font-semibold mb-2">
-                  {selectedAnnonce.title}
-                </h3>
-                <p>{selectedAnnonce.light_description}</p>
-                <p>{selectedAnnonce.creation_date}</p>
-                <div className="flex wrap items-start justify-between">
-                  <div className="flex-1 justify-center">
-                    <div className="flex items-center space-x-4 text-gray-600 mb-2 justify-between">
-                      <Typography className="flex items-center justify-center">
-                        <ApartmentIcon className="mr-1" fontSize="small" />
-                        {selectedAnnonce.company}
-                      </Typography>
-                      <Typography className="flex items-center">
-                        <MapIcon className="mr-1" fontSize="small" />
-                        Paris, France
-                      </Typography>
-                      <Typography className="flex items-center">
-                        <AccessTimeIcon className="mr-1" fontSize="small" />
-                        {selectedAnnonce.date}
-                      </Typography>
-                      <Typography className="flex items-center">
-                        <EuroSymbolIcon className="mr-1" fontSize="small" />
-                        {selectedAnnonce.remuneration}
-                      </Typography>
-                    </div>
-                    <p className="text-gray-600 mb-4">
-                      {selectedAnnonce.complete_description}
-                    </p>
-
-                    <Box
-                      display="flex"
-                      flexWrap="wrap"
-                      gap={1}
-                      mt={2}
-                      justifyContent="left"
-                    >
-                      {[
-                        `${selectedAnnonce.work}`,
-                        `${selectedAnnonce.field}`,
-                      ].map((tech) => (
-                        <Chip key={tech} label={tech} variant="outlined" />
-                      ))}
-                    </Box>
-                  </div>
-                  <img
-                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                    alt={selectedAnnonce.compagny}
-                    style={{
-                      width: "6rem",
-                      height: "6rem",
-                      position: "absolute",
-                      top: "3rem",
-                      right: "3rem",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-                <div className="flex justify-end mt-4">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClose}
-                  >
-                    POSTULER
-                  </Button>
-
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={handleAddFavorite}
-                  >
-                    <FavoriteBorderIcon />
-                  </Button>
-                </div>
-              </div>
-            </div>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={handleAddFavorite}
+                >
+                  <FavoriteBorderIcon />
+                </Button>
+              </Box>
+            </Box>
           )}
         </Box>
       </Modal>
-    </section>
+    </Container>
   );
 }
 

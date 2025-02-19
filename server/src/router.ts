@@ -50,6 +50,8 @@ router.delete("/api/favorite/:id([0-9]+)", favoriteActions.destroy);
 
 router.get("/api/annonces", annoncesActions.browse);
 router.get("/api/annonces/:id([0-9]+)", annoncesActions.read);
+router.get('/api/annonces/by-user',annoncesActions.readByUserId);
+router.get('/api/annonces/by-annonce/:id([0-9]+)',annoncesActions.readByAnnonce);
 router.get("/api/annonces/search", annoncesActions.search);
 router.post("/api/annonces", annoncesActions.add);
 router.put("/api/annonces/:id([0-9]+)", annoncesActions.edit);

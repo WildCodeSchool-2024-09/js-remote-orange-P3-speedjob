@@ -1,5 +1,13 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -31,6 +39,9 @@ function CompanyInfoModule() {
   const { isAuth } = useAuth();
   const navigate = useNavigate();
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   function handleDelete() {
     alert("Voulez-vous vraiment supprimer votre compte ?");
     fetch(`${import.meta.env.VITE_API_URL}/api/company/${user.id}`, {
@@ -47,19 +58,42 @@ function CompanyInfoModule() {
       Vous devez être connecté pour accéder à cette page
     </Typography>
   ) : (
-    <>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        mt={4}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      padding={2}
+      sx={{ backgroundColor: "#f5f5f5" }}
+    >
+      <Card
+        sx={{
+          maxWidth: isMobile ? 400 : 550,
+          width: "100%",
+          padding: isMobile ? 4 : 5,
+          borderRadius: 2,
+          boxShadow: 3,
+          backgroundColor: "#ffffff",
+        }}
       >
-        <Typography component="h1" variant="h5" gutterBottom>
-          Informations de l'entreprise
-        </Typography>
-        <form>
-          <Box display="flex" flexDirection="column" gap={2}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="h5"
+            fontWeight="bold"
+            gutterBottom
+            align="center"
+            sx={{ color: "#1976d2" }}
+          >
+            Informations de l'entreprise
+          </Typography>
+          <Box
+            component="form"
+            display="flex"
+            flexDirection="column"
+            gap={2}
+            mt={2}
+          >
             <TextField
               label="Prénom"
               type="text"
@@ -135,7 +169,7 @@ function CompanyInfoModule() {
             <TextField
               label="Rôle"
               type="text"
-              value={user?.role || ""}
+              value={user?.role ? "Oui" : "Non"}
               InputProps={{
                 readOnly: true,
               }}
@@ -237,41 +271,41 @@ function CompanyInfoModule() {
               }}
               variant="outlined"
             />
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              component={Link}
+              to="/myProfilEnUpdate"
+            >
+              Modifier
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              type="button"
+              onClick={handleDelete}
+            >
+              Supprimer
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              type="button"
+              component={Link}
+              to="/signIn"
+            >
+              Retour en arrière
+            </Button>
           </Box>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            component={Link}
-            to="/myProfilEnUpdate"
-          >
-            Modifier
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            type="button"
-            onClick={handleDelete}
-          >
-            Supprimer
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-            type="button"
-            component={Link}
-            to="/signIn"
-          >
-            Retour en arrière
-          </Button>
-        </form>
-      </Box>
-    </>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 
