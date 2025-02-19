@@ -15,8 +15,8 @@ afterEach(() => {
 });
 
 // Test suite for the GET /api/items route
-describe("GET /api/items", () => {
-  it("should fetch items successfully", async () => {
+describe("GET /api/articles", () => {
+  it("should fetch articles successfully", async () => {
     // Mock empty rows returned from the database
     const rows = [] as Rows;
 
@@ -26,7 +26,7 @@ describe("GET /api/items", () => {
       .mockImplementation(async () => [rows, []]);
 
     // Send a GET request to the /api/items endpoint
-    const response = await supertest(app).get("/api/items");
+    const response = await supertest(app).get("/api/articles");
 
     // Assertions
     expect(response.status).toBe(200);
@@ -35,8 +35,8 @@ describe("GET /api/items", () => {
 });
 
 // Test suite for the GET /api/items/:id route
-describe("GET /api/items/:id", () => {
-  it("should fetch a single item successfully", async () => {
+describe("GET /api/articles/:id", () => {
+  it("should fetch a single article successfully", async () => {
     // Mock rows returned from the database
     const rows = [{}] as Rows;
 
@@ -46,7 +46,7 @@ describe("GET /api/items/:id", () => {
       .mockImplementation(async () => [rows, []]);
 
     // Send a GET request to the /api/items/:id endpoint
-    const response = await supertest(app).get("/api/items/1");
+    const response = await supertest(app).get("/api/articles/1");
 
     // Assertions
     expect(response.status).toBe(200);
@@ -63,7 +63,7 @@ describe("GET /api/items/:id", () => {
       .mockImplementation(async () => [rows, []]);
 
     // Send a GET request to the /api/items/:id endpoint with an invalid ID
-    const response = await supertest(app).get("/api/items/0");
+    const response = await supertest(app).get("/api/articles/0");
 
     // Assertions
     expect(response.status).toBe(404);
@@ -73,8 +73,8 @@ describe("GET /api/items/:id", () => {
 
 // Test suite for the POST /api/items route
 // Doesn't pass: maybe something to change in app config :/
-describe("POST /api/items", () => {
-  it("should add a new item successfully", async () => {
+describe("POST /api/articles", () => {
+  it("should add a new article successfully", async () => {
     // Mock result of the database query
     const result = { insertId: 1 } as Result;
 
@@ -87,7 +87,7 @@ describe("POST /api/items", () => {
     const fakeItem = { title: "foo", user_id: 0 };
 
     // Send a POST request to the /api/items endpoint with a test item
-    const response = await supertest(app).post("/api/items").send(fakeItem);
+    const response = await supertest(app).post("/api/articles").send(fakeItem);
 
     // Assertions
     expect(response.status).toBe(201);
@@ -108,7 +108,7 @@ describe("POST /api/items", () => {
     const fakeItem = { title: "foo" };
 
     // Send a POST request to the /api/items endpoint with a test item
-    const response = await supertest(app).post("/api/items").send(fakeItem);
+    const response = await supertest(app).post("/api/articles").send(fakeItem);
 
     // Assertions
     expect(response.status).toBe(400);
@@ -118,8 +118,8 @@ describe("POST /api/items", () => {
 
 // Test suite for the PUT /api/items/:id route
 // This route is not yet implemented :/
-describe("PUT /api/items/:id", () => {
-  it("should update an existing item successfully", async () => {
+describe("PUT /api/articles/:id", () => {
+  it("should update an existing article successfully", async () => {
     // Mock result of the database query
     const result = { affectedRows: 1 } as Result;
 
@@ -132,7 +132,7 @@ describe("PUT /api/items/:id", () => {
     const fakeItem = { title: "foo", user_id: 0 };
 
     // Send a PUT request to the /api/items/:id endpoint with a test item
-    const response = await supertest(app).put("/api/items/42").send(fakeItem);
+    const response = await supertest(app).put("/api/articles/42").send(fakeItem);
 
     // Assertions
     expect(response.status).toBe(204);
@@ -152,7 +152,7 @@ describe("PUT /api/items/:id", () => {
     const fakeItem = { title: "foo" };
 
     // Send a PUT request to the /api/items/:id endpoint with a test item
-    const response = await supertest(app).put("/api/items/42").send(fakeItem);
+    const response = await supertest(app).put("/api/articles/42").send(fakeItem);
 
     // Assertions
     expect(response.status).toBe(400);
@@ -172,7 +172,7 @@ describe("PUT /api/items/:id", () => {
     const fakeItem = { title: "foo", user_id: 0 };
 
     // Send a PUT request to the /api/items/:id endpoint with a test item
-    const response = await supertest(app).put("/api/items/43").send(fakeItem);
+    const response = await supertest(app).put("/api/articles/43").send(fakeItem);
 
     // Assertions
     expect(response.status).toBe(404);
@@ -182,8 +182,8 @@ describe("PUT /api/items/:id", () => {
 
 // Test suite for the DELETE /api/items/:id route
 // This route is not yet implemented :/
-describe("DELETE /api/items/:id", () => {
-  it("should delete an existing item successfully", async () => {
+describe("DELETE /api/articles/:id", () => {
+  it("should delete an existing article successfully", async () => {
     // Mock result of the database query
     const result = { affectedRows: 1 } as Result;
 
@@ -193,7 +193,7 @@ describe("DELETE /api/items/:id", () => {
       .mockImplementation(async () => [result, []]);
 
     // Send a DELETE request to the /api/items/:id endpoint
-    const response = await supertest(app).delete("/api/items/42");
+    const response = await supertest(app).delete("/api/articles/42");
 
     // Assertions
     expect(response.status).toBe(204);
@@ -210,7 +210,7 @@ describe("DELETE /api/items/:id", () => {
       .mockImplementation(async () => [result, []]);
 
     // Send a DELETE request to the /api/items/:id endpoint
-    const response = await supertest(app).delete("/api/items/43");
+    const response = await supertest(app).delete("/api/articles/43");
 
     // Assertions
     expect(response.status).toBe(404);

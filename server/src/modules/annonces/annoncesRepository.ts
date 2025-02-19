@@ -117,19 +117,16 @@ class AnnoncesRepository {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
 
     const [result] = await databaseClient.query<Result>(
-      "UPDATE annonces SET creation_date = ?, modification_date = ?, light_description = ?, complete_description = ?, remuneration = ?, experience = ?, work = ?, field = ?, company_id = ?, is_apply = ?, title = ? WHERE id = ?",
+      "UPDATE annonces SET light_description = ?, complete_description = ?, remuneration = ?, experience = ?, work = ?, field = ?, title = ? WHERE id = ?",
 
       [
         annonces.title,
-        annonces.creation_date,
-        annonces.modification_date,
         annonces.light_description,
         annonces.complete_description,
         annonces.remuneration,
         annonces.experience,
         annonces.work,
         annonces.field,
-        annonces.is_apply,
         annonces.id,
       ],
     );

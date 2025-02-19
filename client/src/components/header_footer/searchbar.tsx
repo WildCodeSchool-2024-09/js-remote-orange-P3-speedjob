@@ -28,8 +28,19 @@ function SearchBar() {
         variant="outlined"
         
         onClick={handleClick}
-        sx={{ bottom: 48, ml: 1, p: 1.8, borderRadius: 10, borderColor: "black", borderWidth: 2, bgcolor:"white", color:"black" }}
-    
+        sx={{
+          bottom: { xs: 48, md: 48 }, // Position par défaut
+          ml: 1,
+          p: 1.8,
+          borderRadius: 10,
+          borderColor: "black",
+          borderWidth: 5,
+          bgcolor: "white",
+          color: "black",
+          "@media (max-width: 768px)": {
+            bottom: 48 - 3 * 16, // 3rem plus bas pour les écrans inférieurs à 768px
+          },
+        }}
       >
         CLIQUER ICI POUR TROUVER VOTRE FUTUR EMPLOI
       </Button>

@@ -125,6 +125,8 @@ const add: RequestHandler = async (req, res, next) => {
 
 const edit: RequestHandler = async (req, res, next) => {
   try {
+
+    console.log("req.body=", req.user);
     // Update a specific category based on the provided ID
     const user = {
       id: Number(req.params.id),

@@ -47,7 +47,7 @@ function Home() {
           >
             <RandomArticle />
           </Box>
-        </Box>
+        </Box>        
         <AboutHome />
       </Stack>
     </section>

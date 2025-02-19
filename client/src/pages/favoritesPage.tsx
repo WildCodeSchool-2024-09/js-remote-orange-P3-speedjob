@@ -128,11 +128,15 @@ function FavoritesPage() {
           <Grid item xs={12} sm={6} md={4} key={annonce.id}>
             <Card id="Favorite" sx={{ height: "100%" }}>
               <CardContent>
-                <Typography variant="h5" component="div" align="center">
+                <Typography variant="h5" component="div" align="center"                   sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}>
                   {annonce.title}
                 </Typography>
                 <Typography variant="body1" component="div" align="center">
-                  {annonce.creation_date}
+                  Date de parution: {annonce.creation_date}
                 </Typography>
                 <Typography variant="body1" component="div" align="center">
                   {annonce.description}
@@ -140,9 +144,8 @@ function FavoritesPage() {
                 <Typography variant="body1" component="div" align="center">
                   {annonce.company}
                 </Typography>
-                Avez-vous postulé à cette annonce ?
                 <Typography variant="h5" component="div" align="center">
-                  {annonce?.is_apply ? "Oui" : "Non"}
+                  {annonce?.is_apply ? "Vous n'avez pas encore postulé" : "Vous avez postulé!"}
                 </Typography>
                 <Box display="flex" justifyContent="center" gap ={1} mt={2}>
                   <Button

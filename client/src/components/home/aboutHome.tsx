@@ -24,11 +24,22 @@ const AboutHome = () => {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <CardContent>
-              <Typography variant="h4" component="h2" gutterBottom>
+            <CardContent
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h4"
+                component="h2"
+                gutterBottom
+                align="center"
+              >
                 À propos de SpeedJob
               </Typography>
-              <Typography variant="body1" paragraph>
+              <Typography variant="body1" paragraph align="center">
                 SpeedJob est une plateforme en ligne dédiée à la mise en
                 relation entre les entreprises et les candidats à la recherche
                 d'emploi. Notre mission est de simplifier et d'accélérer le
@@ -38,9 +49,9 @@ const AboutHome = () => {
                 proposons une interface conviviale et intuitive qui permet à
                 chaque utilisateur de naviguer de manière fluide et efficace.
               </Typography>
-              <Box display="flex" justifyContent="flex-end" mt={2}>
+              <Box display="flex" justifyContent="center" mt={2}>
                 <Button variant="contained" color="primary" href="./about">
-                  Voir toutes les offres
+                  En savoir plus
                 </Button>
               </Box>
             </CardContent>
@@ -52,3 +63,4 @@ const AboutHome = () => {
 };
 
 export default AboutHome;
+

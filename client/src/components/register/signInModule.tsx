@@ -88,8 +88,6 @@ function SignInModule() {
               <Box
                 display="flex"
                 flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
                 mt={4}
               >
                 <Button
@@ -145,7 +143,7 @@ function SignInModule() {
                   component={Link}
                   to="/userInfo"
                 >
-                  Consulter / Modifier mes informations personnelles
+                  Consulter / Modifier mes informations
                 </Button>
                 <Button
                   fullWidth

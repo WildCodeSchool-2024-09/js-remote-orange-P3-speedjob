@@ -80,6 +80,8 @@ class UserRepository {
 
   // The U of CRUD - Update operation
   async update(user: UserProps) {
+
+    console.log("User in Back Rep=",user);
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
       "UPDATE user SET firstname = ?, lastname = ?, email = ?, street_name = ?, postcode = ?, city = ?, phone_number = ? WHERE id = ?",

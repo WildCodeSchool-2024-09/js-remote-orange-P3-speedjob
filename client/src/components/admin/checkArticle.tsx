@@ -188,8 +188,8 @@ const CheckArticles = () => {
           </div>
         </form>
       </Box>
-      <Box display="flex" justifyContent="center" mt={2}>
-        <Button variant="contained" color="primary" onClick={handleCreate}>
+      <Box display="flex" justifyContent="start-end" mt={2}>
+        <Button variant="contained" color="outlined" onClick={handleCreate}>
           Créer un article
         </Button>
       </Box>
@@ -285,7 +285,12 @@ const CheckArticles = () => {
                   {article.light_description}
                 </Typography>
               </CardContent>
-              <CardActions>
+              <CardActions
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: 2,
+                }}>
                 <Button
                   variant="contained"
                   color="primary"
